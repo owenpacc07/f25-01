@@ -1,0 +1,21 @@
+NOTE: Parentheses + contents within should not be included
+
+INPUT in "in-022.dat":
+//Given a page reference string:
+4,3,2,0,2,5,3,5
+
+OUTPUT: in "out-022.dat":
+// example output for Optimal
+
+3 // number of frames in RAM
+// page, frame 1, frame 2,..., frame n, faulted?, prev frame 1 used in, prev frame 2 used in, prev frame n used in
+// Note: for 'used in' values, '-' means frame is free, + means frame is never in queue again
+4,4,-,-,1
+3,4,3,-,1
+2,4,3,2,1
+0,0,3,2,1
+2,0,3,2,0
+5,5,3,2,1
+3,5,3,2,0
+5,5,3,2,0
+5 //# of faults

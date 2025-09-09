@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <?php include '../../../navbar.php'; ?>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+        ul.lst-kix_8euks7g7tefk-4 {
+            list-style-type: none
+        }
+
+        .lst-kix_n7lhgseiqphq-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_n7lhgseiqphq-7>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_8euks7g7tefk-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8euks7g7tefk-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8euks7g7tefk-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8euks7g7tefk-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_n7lhgseiqphq-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_n7lhgseiqphq-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_n7lhgseiqphq-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_n7lhgseiqphq-8>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_8euks7g7tefk-2>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-4 {
+            list-style-type: none
+        }
+
+        .lst-kix_n7lhgseiqphq-3>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_8euks7g7tefk-1>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_8euks7g7tefk-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_n7lhgseiqphq-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_n7lhgseiqphq-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_8euks7g7tefk-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8euks7g7tefk-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rsmt6uvr5lvc-6 {
+            list-style-type: none
+        }
+
+        .lst-kix_8euks7g7tefk-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_8euks7g7tefk-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kzvrruanf3z9-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kzvrruanf3z9-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kzvrruanf3z9-7 {
+            list-style-type: none
+        }
+
+        .lst-kix_kzvrruanf3z9-1>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_kzvrruanf3z9-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kzvrruanf3z9-5 {
+            list-style-type: none
+        }
+
+        .lst-kix_kzvrruanf3z9-2>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_kzvrruanf3z9-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kzvrruanf3z9-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kzvrruanf3z9-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_kzvrruanf3z9-1 {
+            list-style-type: none
+        }
+
+        .lst-kix_kzvrruanf3z9-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_kzvrruanf3z9-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_kzvrruanf3z9-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_kzvrruanf3z9-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_n7lhgseiqphq-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_n7lhgseiqphq-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_kzvrruanf3z9-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_n7lhgseiqphq-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_n7lhgseiqphq-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_kzvrruanf3z9-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_kzvrruanf3z9-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_rsmt6uvr5lvc-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_rsmt6uvr5lvc-7>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_n7lhgseiqphq-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_n7lhgseiqphq-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_n7lhgseiqphq-5 {
+            list-style-type: none
+        }
+
+        .lst-kix_rsmt6uvr5lvc-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_rsmt6uvr5lvc-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_n7lhgseiqphq-4 {
+            list-style-type: none
+        }
+
+        .lst-kix_8euks7g7tefk-3>li:before {
+            content: "\0025cf   "
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        .lst-kix_rsmt6uvr5lvc-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_n7lhgseiqphq-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_8euks7g7tefk-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_rsmt6uvr5lvc-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_rsmt6uvr5lvc-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_8euks7g7tefk-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_8euks7g7tefk-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_rsmt6uvr5lvc-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_8euks7g7tefk-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_rsmt6uvr5lvc-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_8euks7g7tefk-8>li:before {
+            content: "\0025a0   "
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c1 {
+            border-right-style: solid;
+            padding: 5pt 5pt 5pt 5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: top;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 156pt;
+            border-top-color: #000000;
+            border-bottom-style: solid
+        }
+
+        .c16 {
+            padding-top: 18pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c20 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c15 {
+            padding-top: 20pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c18 {
+            padding-top: 0pt;
+            padding-bottom: 3pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c17 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c0 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c2 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c22 {
+            color: #ff0000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c13 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c14 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 16pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c4 {
+            margin-left: 36pt;
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c5 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c23 {
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c3 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.0;
+            text-align: left
+        }
+
+        .c9 {
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin-right: auto
+        }
+
+        .c10 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c7 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c12 {
+            font-weight: 700
+        }
+
+        .c11 {
+            height: 0pt
+        }
+
+        .c6 {
+            padding-left: 0pt
+        }
+
+        .c19 {
+            color: #ff00ff
+        }
+
+        .c21 {
+            margin-left: 36pt
+        }
+
+        .c8 {
+            height: 11pt
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #666666;
+            font-size: 15pt;
+            padding-bottom: 16pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; width: 100%; padding: 0; box-sizing: border-box; padding-top: 50px;">
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; margin-top: 50px; border: 2px solid #000000; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); padding: 25px;  max-width: 80%;">
+        <a class="btn btn-dark" href="javascript:history.back()" role="button">Go Back</a>
+        <br>
+        <p class="c20 title" id="h.96drq47lg7n6"><span class="c19 c23"
+                style="color: green; text-decoration: underline; font-weight: bold;">A Quick Abstract:</span></p>
+        <h1 class="c15" id="h.jgnsmonz2l8z"><span class="c13" style="font-weight: bold; font-size: 26px;">1.
+                Introduction to SRTF (Preemptive SJF):</span></h1>
+        <h2 class="c16" id="h.14iqanx8roys"><span class="c14" style="text-decoration: underline;">Definition: </span>
+        </h2>
+        <p class="c5"><span class="c2">Shortest Remaining Time First (SRTF) is a preemptive CPU scheduling algorithm
+                where
+                the process with the shortest remaining burst time is selected for execution. If a new process arrives
+                with
+                a shorter burst time than the currently executing process, it preempts the CPU.</span></p>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <h1 class="c15" id="h.ub8bttf3tdr0"><span class="c13" style="font-weight: bold; font-size: 26px;">2. Burst Time
+                and Arrival:</span></h1>
+        <h2 class="c16" id="h.tl7hm1kaezc"><span class="c14" style="text-decoration: underline;">Burst Time:</span></h2>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <p class="c5"><span class="c2">Each process has an associated burst time, representing the total time it
+                requires on
+                the CPU.</span></p>
+        <h2 class="c16" id="h.3ip8bdgyhmnc"><span class="c14" style="text-decoration: underline;">Arrival of
+                Processes:</span></h2>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <p class="c5"><span class="c2">Processes are added to the ready queue upon arrival.</span></p>
+        <h1 class="c15" id="h.5cktet8wnsa1"><span class="c13" style="font-weight: bold; font-size: 26px;">3. Execution
+                and Preemption:</span></h1>
+        <h2 class="c16" id="h.d4oraieumx25"><span class="c14" style="text-decoration: underline;">Execution:</span></h2>
+        <p class="c5"><span class="c2">The process with the shortest remaining burst time is selected for
+                execution.</span>
+        </p>
+        <p class="c5"><span class="c2">If a new process arrives with a shorter burst time than the currently executing
+                process, preemption occurs.</span></p>
+        <h1 class="c15" id="h.hiy1n91sb4zb"><span class="c13" style="font-weight: bold; font-size: 26px;">4. Waiting
+                Time and Turnaround Time:</span></h1>
+        <h2 class="c16" id="h.wpbl73llnb66"><span class="c14" style="text-decoration: underline;">Waiting Time:</span>
+        </h2>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <p class="c5"><span class="c2">Waiting time is the cumulative time a process spends in the ready queue.</span>
+        </p>
+        <h2 class="c16" id="h.3prt52kdx9g7"><span class="c14" style="text-decoration: underline;">Turnaround
+                Time:</span></h2>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <p class="c5"><span class="c2">Turnaround time is the overall time taken by a process from submission to
+                completion.</span></p>
+        <h1 class="c15" id="h.76tv3e72mw9i"><span class="c13" style="font-weight: bold; font-size: 26px;">5. Pros and
+                Cons:</span></h1>
+        <h2 class="c16" id="h.sljqmpll7tdh"><span class="c14" style="text-decoration: underline;">Pros:</span></h2>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <p class="c5"><span class="c2">Optimizes turnaround time by prioritizing processes with the shortest remaining
+                burst
+                time.</span></p>
+        <p class="c5"><span class="c2">Efficient for processes with varying burst times.</span></p>
+        <h2 class="c16" id="h.r84vabrpojzq"><span class="c14" style="text-decoration: underline;">Cons:</span></h2>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <p class="c5"><span class="c2">May result in increased context-switching overhead due to frequent
+                preemption.</span>
+        </p>
+        <h1 class="c15" id="h.v0il3s1fgn95"><span class="c13" style="font-weight: bold; font-size: 26px;">6.
+                Starvation:</span></h1>
+        <p class="c5"><span class="c2">SRTF is designed to minimize starvation, as shorter processes are given priority,
+                but
+                longer processes may still experience delays.</span></p>
+        <h1 class="c15" id="h.lqqn20613nvu"><span class="c13" style="font-weight: bold; font-size: 26px;">7. Example
+                Scenario:</span></h1>
+        <p class="c5"><span class="c2">Consider processes A, B, and C with burst times 6, 4, and 8, respectively.</span>
+        </p>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <p class="c5"><span class="c2">A &rarr; B &rarr; A &rarr; C &rarr; B &rarr; A &rarr; C &rarr; ... (and so
+                on)</span>
+        </p>
+        <p class="c5"><span class="c2">Processes are selected based on their remaining burst time, allowing for dynamic
+                adjustments as new processes arrive.</span></p>
+        <p class="c5 c8"><span class="c2"></span></p>
+        <h1 class="c15" id="h.eh4v53ea9snk"><span class="c13" style="font-weight: bold; font-size: 26px;">8.
+                Conclusion:</span></h1>
+        <p class="c5"><span class="c2">Shortest Remaining Time First (SRTF) is a preemptive scheduling algorithm that
+                dynamically adapts to the burst times of arriving processes. While it optimizes turnaround time, careful
+                consideration is needed to mitigate the potential increase in context-switching overhead.</span></p>
+        <p class="c20 title" id="h.k9yx1qn2abhs"><span class="c19"
+                style="color: maroon; text-decoration: underline; font-weight: bold; text-align: left;">Notes From The
+                Slides:</span></p>
+        <br>
+        <br>
+        <p class="c8 c18 title" id="h.8q9fyzgts19c"><span class="c17"></span></p>
+        <p class="c18 title" id="h.v8ty18rc7jxg"><span class="c17">Shortest-Remaining-Time-First (SRTF)</span></p>
+        <ul class="c7 lst-kix_8euks7g7tefk-0 start">
+            <li class="c4 c6 li-bullet-0"><span class="c12">In SJF</span><span class="c0">: take the process with
+                    shortest
+                    CPU burst time (needed CPU time for the whole process)</span></li>
+            <li class="c4 c6 li-bullet-0"><span>However, if we allow preemption to make it more dynamic, then new coming
+                    processes may always have shorter CPU burst time and therefore will always get executed BEFORE the
+                    long
+                    ones. The long ones can get stuck! That&rsquo;s </span><span class="c12">starvation</span><span>! to
+                    deal with it we can use a technique called </span><span class="c12">Aging</span><span class="c0">,
+                    where
+                    we keep track of how long (age) each process has been in the system. Then, if a process is in the
+                    system
+                    for too long (aged enough) will get executed even when it has longer CPU burst time than the others
+                    do.</span></li>
+            <li class="c4 c6 li-bullet-0"><span class="c12">Shortest-Remaining-Time-First (SRTF</span><span>) =
+                </span><span class="c22">Preemptive SJF</span></li>
+        </ul>
+        <p class="c4"><span class="c0">take the process with shortest remaining (still needed) CPU burst time (to finish
+                the
+                process)</span></p>
+        <p class="c4 c8"><span class="c0"></span></p>
+        <p class="c4 c8"><span class="c0"></span></p>
+        <p class="c18 c21 title" id="h.de7tguvpgyz"><span class="c17">Example of SRTF (Preemptive SJF)</span></p>
+        <p class="c5 c8"><span class="c0"></span></p>
+        <ul class="c7 lst-kix_kzvrruanf3z9-0 start">
+            <li class="c4 c6 li-bullet-0"><span class="c0">Now we add the concepts of varying arrival times and
+                    preemption
+                    to the analysis</span></li>
+        </ul>
+        <p class="c5 c8"><span class="c0"></span></p>
+        <p class="c5 c8"><span class="c0"></span></p><a id="t.fa9738b1a5a72e36806b2e3924faeaf8767b5409"></a><a
+            id="t.0"></a>
+        <table class="c9">
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">Process</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">Arival Time</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">Burst Time</span></p>
+                </td>
+            </tr>
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">P1</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">0</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">8</span></p>
+                </td>
+            </tr>
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">P2</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">1</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">4</span></p>
+                </td>
+            </tr>
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">P3</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">2</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">9</span></p>
+                </td>
+            </tr>
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">P4</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">3</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">5</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="c5"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 201.33px;"><img
+                    alt="" src="images/image2.png"
+                    style="width: 624.00px; height: 201.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c18 title" id="h.cr664hmx5y1n"><span class="c17">Example of SRTF (cont.)</span></p>
+        <p class="c5 c8"><span class="c0"></span></p><a id="t.fa9738b1a5a72e36806b2e3924faeaf8767b5409"></a><a
+            id="t.1"></a>
+        <table class="c9">
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">Process</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">Arival Time</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">Burst Time</span></p>
+                </td>
+            </tr>
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">P1</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">0</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">8</span></p>
+                </td>
+            </tr>
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">P2</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">1</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">4</span></p>
+                </td>
+            </tr>
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">P3</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">2</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">9</span></p>
+                </td>
+            </tr>
+            <tr class="c11">
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">P4</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">3</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c3"><span class="c0">5</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="c5 c8"><span class="c0"></span></p>
+        <ul class="c7 lst-kix_n7lhgseiqphq-0 start">
+            <li class="c4 c6 li-bullet-0"><span class="c0">Preemptive SJF Gantt Chart</span></li>
+        </ul>
+        <p class="c5"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 76.00px;"><img
+                    alt="" src="images/image1.png"
+                    style="width: 624.00px; height: 76.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c5 c8"><span class="c0"></span></p>
+        <ul class="c7 lst-kix_rsmt6uvr5lvc-0 start">
+            <li class="c4 c6 li-bullet-0"><span class="c0">Average waiting time = [(10-1)+(1-1)+(17-2)+5-3)]/4 = 26/4 =
+                    6.5</span></li>
+            <li class="c4 c6 li-bullet-0"><span class="c22">=p1[(0-0)+(10-1)] +p2[1-1] +p3[17-2]+p4[5-3] = 26</span>
+            </li>
+        </ul>
+</body>
+<footer style="background-color: #f2f2f2; padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+    <p style="color: green;">Most of the content on this page is based on the OS Book 10. It can be found at
+        <a href="https://www.os-book.com/" target="_blank" style="color: green;">www.os-book.com</a>.
+    </p>
+</footer>
+
+</html>

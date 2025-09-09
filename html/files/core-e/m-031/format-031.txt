@@ -1,0 +1,15 @@
+NOTE: Parentheses + contents within should not be included
+
+Format for "in-031.dat" (Contiguous): 
+--------------------------------------------------------------------------
+32 (#of storage blacks, always starts from 0,1,2, ... in this case to 31)
+2(# of files)
+1(file id), count (file name), 2 (size/length), 
+2(file id), tr (file name), 3 (size/length)
+--------------------------------------------------------------------------
+
+Format for "out-031.dat" (Contiguous):
+--------------------------------------------------------------------------
+1,1,0,...0,2,2,2,0, ...0 (show block availability, 0=free or X=occupied where X is the ID of a file)
+--------------------------------------------------------------------------
+

@@ -1,0 +1,5 @@
+<p><label for=",e05,">,v_e05,: </label></p>
+<select id=",e05," name=",x_e05,">
+<option value=",xv1_e05,">,v1_e05,</option>
+<option value=",xv2_e05,">,v2_e05,</option>
+</select>

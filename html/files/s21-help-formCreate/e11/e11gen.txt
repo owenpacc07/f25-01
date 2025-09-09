@@ -1,0 +1,9 @@
+<p><label for=",e11,">,v_e11,: </label></p>
+<input type="checkbox" id=",e11c1," name=",x1_e11," value=",vx1_e11,">
+<label for=",e11c1,">,v1_e11,</label><br>
+<input type="checkbox" id=",e11c2," name=",x2_e11," value=",vx2_e11,">
+<label for=",e11c2,">,v2_e11,</label><br>
+<input type="checkbox" id=",e11c3," name=",x3_e11," value=",vx3_e11,">
+<label for=",e11c3,">,v3_e11,</label><br>
+<input type="checkbox" id=",e11c4," name=",x4_e11," value=",vx4_e11,">
+<label for=",e11c4,">,v4_e11,</label><br>

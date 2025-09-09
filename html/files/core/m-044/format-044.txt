@@ -1,0 +1,18 @@
+Mechanism = Disk Scheduling FCFS
+
+INPUT data in "in.dat"
+------------------------------------------------------------------------
+0 699 	//disk size
+50 	//head
+11 183 40 8 4600	//locations
+------------------------------------------------------------------------
+Reference string or queue of disk locations to be accessed 
+
+
+OUTPUT data in "out.dat"
+-----------------------
+0 699 	//disk size
+50 	//head
+89 183 450 40 8	//locations
+------------------------
+schedule = order of disk locations to be visited 

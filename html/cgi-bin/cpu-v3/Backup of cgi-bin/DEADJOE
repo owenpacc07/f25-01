@@ -1,0 +1,22 @@
+
+*** These modified files were found in JOE when it aborted on Tue Mar 22 10:57:59 2022
+*** JOE was aborted because the terminal closed
+
+*** File '(Unnamed)'
+nohup.out
+mysql_database.txt
+mysql_database.txt
+dist/index.html
+index.html
+index.html
+index.html
+out.txt
+Scheduler.java
+Scheduler.java
+out.dat
+
+*** File '* Startup Log *'
+Processing '/etc/joe/jpicorc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/jpicorc

@@ -1,0 +1,24 @@
+NOTE: Parentheses + contents within should not be included
+
+INPUT in "in-023.dat":
+//Given a page reference string:
+5,1,2,1,6,5,1,3
+
+
+OUTPUT: in "out-023.dat":
+// example output for LRU
+
+
+// Note: last used is in time of entry of page, so relacing is based on lowest number.
+3 // number of frames in RAM
+// Note: for 'last used' values, '-' means frame is free
+// input_string, frame 1, frame2, frame 3, page fault, last used frame 1, last used frame2 ,last used frame3
+5,5,-,-,1,1,-,-
+1,5,1,-,1,1,2,-
+2,5,1,2,1,1,2,3
+1,5,1,2,0,1,4,3
+6,6,1,2,1,5,4,3
+5,6,1,5,1,5,4,6
+1,6,1,5,0,5,7,6
+3,3,1,5,1,8,7,6
+6

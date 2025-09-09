@@ -1,0 +1,130 @@
+/* default color values */
+:root {
+  --lighter-gray: #f0fff0;
+  --light-gray: #c7c7c7;
+  --lighter-blue: #d8e8ee;
+  --light-blue: #1aa9cd;
+  --sky-blue: #23adff;
+  --blue: #0000cd;
+}
+
+#title {
+  font-size: 26px;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+
+/* Overlay and loader/spinner styles */
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1;
+}
+
+#text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#animNavBtns {
+  margin-bottom: 10px;
+  margin-inline: auto;
+}
+#animNavBtns button{
+  padding: 2px !important;
+  width: 65px;
+  margin-inline: 2px;
+}
+
+#input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  max-width: 100vw;
+  margin: 20px 0 20px 0;
+}
+
+#input_label {
+  font-size: 20px;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+/* Input table */
+#input_table {
+  border-collapse: collapse;
+}
+/* #input_table_row {
+} */
+#input_table_row td {
+  border: 1px solid var(--light-gray);
+  padding: 10px 0 10px 0;
+  text-align: center;
+  min-width: 15px;
+  width: 25px;
+}
+
+/* Output table */
+#output_table {
+  border-collapse: seperate;  
+  margin: 0 auto; /* center table */
+  font-size: larger;
+  height: 250px;
+}
+
+#output_table td {
+  padding: 10px;
+  text-align: center;
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
+}
+
+#faulted td {
+  font-size: medium;
+  padding: 5px !important;
+  font-weight: bold;
+}
+
+/* extra info */
+#info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#info div {
+  margin-inline: 10px;
+}
+#faultCounter {
+  font-size: 20px;
+  font-weight: bold;
+}
+#info_table {
+  border: 2px solid black;
+}
+#info_table td {
+  font-size: large;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid black;
+}
+#info_table td:nth-child(1) {
+  background-color: var(--lighter-blue);
+}

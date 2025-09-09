@@ -1,0 +1,55 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .option {
+    margin-right: 5px;
+  }
+  .option-label {
+    margin-right: 20px;
+  }
+  #options-label {
+    margin-right: 20px;
+  }
+  #arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  table {
+    table-layout: fixed;
+  }
+  .button-panel {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .content {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  #entry-seg {
+    background-color: rgba(51, 153, 255, .3);
+  }
+  #entry-seg-data {
+    background-color: rgba(192, 192, 192, .3);
+  }
+  #entry-page {
+    background-color: rgba(51, 153, 255, .3);
+  }
+  #entry-page-data {
+    background-color: rgba(192, 192, 192, .3);
+  }

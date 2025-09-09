@@ -1,0 +1,14 @@
+Mechanism = Disk Scheduling FCFS
+
+INPUT data in "in.dat"
+------------------------------------------------------------------------
+0 699 50 11 183 40 8 4600
+------------------------------------------------------------------------
+Reference string or queue of disk locations to be accessed 
+
+
+OUTPUT data in "out.dat"
+-----------------------
+0 699 50 89 183 450 40 8
+------------------------
+schedule = order of disk locations to be visited 

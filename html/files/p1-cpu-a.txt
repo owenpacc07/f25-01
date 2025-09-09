@@ -1,0 +1,1 @@
+1 (1=fcfs, 3=sjf, 4=prem. sjf, ...)

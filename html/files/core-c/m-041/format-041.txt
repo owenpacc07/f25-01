@@ -1,0 +1,8 @@
+NOTE: Parentheses + contents within should not be included
+
+INPUT in "in-041.dat": 
+-----------------------
+
+0,199  // disk size
+53 // head start/pointer
+98, 183, 37, 122, 14, 124, 65, 67 // queue of requests

@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <?php include '../../../navbar.php'; ?>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+
+    <style type="text/css">
+        .lst-kix_nv73rh2lfifp-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_nv73rh2lfifp-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_nv73rh2lfifp-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_qg6k449sz6e1-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_nv73rh2lfifp-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_qg6k449sz6e1-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_qg6k449sz6e1-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_oh4z3k86e9w9-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_oh4z3k86e9w9-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_oh4z3k86e9w9-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_oh4z3k86e9w9-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_fmcg974jmqw1-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_fmcg974jmqw1-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_fmcg974jmqw1-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_fmcg974jmqw1-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_fmcg974jmqw1-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_fmcg974jmqw1-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_lvuno4kuvd3c-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_fmcg974jmqw1-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_fmcg974jmqw1-7>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_fmcg974jmqw1-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fmcg974jmqw1-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fmcg974jmqw1-7 {
+            list-style-type: none
+        }
+
+        .lst-kix_oh4z3k86e9w9-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_fmcg974jmqw1-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fmcg974jmqw1-5 {
+            list-style-type: none
+        }
+
+        .lst-kix_oh4z3k86e9w9-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_oh4z3k86e9w9-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_oh4z3k86e9w9-7>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-7 {
+            list-style-type: none
+        }
+
+        .lst-kix_nv73rh2lfifp-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-3 {
+            list-style-type: none
+        }
+
+        .lst-kix_nv73rh2lfifp-2>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-1 {
+            list-style-type: none
+        }
+
+        .lst-kix_nv73rh2lfifp-1>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_nv73rh2lfifp-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_lvuno4kuvd3c-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_lvuno4kuvd3c-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_lvuno4kuvd3c-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_nv73rh2lfifp-3>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_fmcg974jmqw1-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_lvuno4kuvd3c-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_lvuno4kuvd3c-4>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_fmcg974jmqw1-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fmcg974jmqw1-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fmcg974jmqw1-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_lvuno4kuvd3c-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_lvuno4kuvd3c-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_lvuno4kuvd3c-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_lvuno4kuvd3c-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_oh4z3k86e9w9-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qg6k449sz6e1-6 {
+            list-style-type: none
+        }
+
+        .lst-kix_rkwdpucw85gc-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_rkwdpucw85gc-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_rkwdpucw85gc-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_rkwdpucw85gc-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_rkwdpucw85gc-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_rkwdpucw85gc-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_rkwdpucw85gc-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_fmcg974jmqw1-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_rkwdpucw85gc-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_rkwdpucw85gc-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_oh4z3k86e9w9-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_nv73rh2lfifp-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_nv73rh2lfifp-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_nv73rh2lfifp-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_nv73rh2lfifp-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_nv73rh2lfifp-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_nv73rh2lfifp-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_nv73rh2lfifp-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_nv73rh2lfifp-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_nv73rh2lfifp-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rkwdpucw85gc-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rkwdpucw85gc-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rkwdpucw85gc-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rkwdpucw85gc-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rkwdpucw85gc-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rkwdpucw85gc-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rkwdpucw85gc-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_rkwdpucw85gc-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_qg6k449sz6e1-3>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_rkwdpucw85gc-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_qg6k449sz6e1-4>li:before {
+            content: "\0025cb   "
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        .lst-kix_qg6k449sz6e1-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_qg6k449sz6e1-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_qg6k449sz6e1-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_qg6k449sz6e1-7>li:before {
+            content: "\0025cb   "
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c4 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c7 {
+            padding-top: 18pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c10 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c5 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 16pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c2 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c9 {
+            padding-top: 20pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c8 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c12 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c6 {
+            padding-top: 0pt;
+            padding-bottom: 3pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c0 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+            height: 11pt
+        }
+
+        .c1 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c18 {
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c16 {
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c19 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c11 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c3 {
+            margin-left: 72pt;
+            padding-left: 0pt
+        }
+
+        .c13 {
+            margin-left: 36pt;
+            padding-left: 0pt
+        }
+
+        .c14 {
+            color: #0000ff
+        }
+
+        .c17 {
+            color: #ff00ff
+        }
+
+        .c15 {
+            height: 11pt
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #666666;
+            font-size: 15pt;
+            padding-bottom: 16pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; width: 100%; padding: 0; box-sizing: border-box; padding-top: 50px;">
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; margin-left: auto; margin-right: auto; border: 2px solid #000000; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); padding: 25px; max-width: 80%;">
+        <a class="btn btn-dark" href="javascript:history.back()" role="button">Go Back</a>
+        <!-- margin: 100px; align-self: center; vertical-align: middle; display: absolute; -->
+        <div>
+            <p class="c0"><span class="c2"></span></p>
+        </div>
+
+        <div>
+
+            <p class="c12 title" id="h.96drq47lg7n6"><span class="c17 c18"
+                    style="color: green; text-decoration: underline; font-weight: bold;">A Quick Abstract:</span></p>
+            <h1 class="c9" id="h.bivmuvn66kj8"><span class="c8" style="font-weight: bold; font-size: 26px;">1.
+                    Contiguous File Allocation:</span></h1>
+            <h2 class="c7" id="h.wc95bgrsnl3v"><span class="c5" style="text-decoration: underline;">Working:</span></h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Each file occupies a contiguous block of storage space on the disk.</span>
+            </p>
+            <p class="c1"><span class="c4">Allocation is straightforward, and accessing the file is efficient.</span>
+            </p>
+            <p class="c1"><span class="c4">File size is known in advance.</span></p>
+            <h2 class="c7" id="h.mn6avdki1sai"><span class="c5" style="text-decoration: underline;">Advantages:</span>
+            </h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Simple and efficient for sequential access.</span></p>
+            <p class="c1"><span class="c4">Minimal overhead in terms of storage management.</span></p>
+            <h2 class="c7" id="h.42zbknsu669e"><span class="c5"
+                    style="text-decoration: underline;">Disadvantages:</span></h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Fragmentation issues, both internal and external.</span></p>
+            <p class="c1"><span class="c4">Difficulty in accommodating growing or shrinking file sizes.</span></p>
+        </div>
+
+        <div>
+            <h1 class="c9" id="h.ddugcj2nsdse"><span class="c8" style="font-weight: bold; font-size: 26px;">2. Linked
+                    File Allocation:</span></h1>
+            <h2 class="c7" id="h.4iyf9zceuojs"><span class="c5" style="text-decoration: underline;">Working:</span></h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Files are linked together using pointers.</span></p>
+            <p class="c1"><span class="c4">Each file is a linked list of disk blocks.</span></p>
+            <p class="c1"><span class="c4">Dynamic in nature and can accommodate varying file sizes.</span></p>
+            <h2 class="c7" id="h.fl82c8jbry2a"><span class="c5" style="text-decoration: underline;">Advantages:</span>
+            </h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Flexibility in file size changes.</span></p>
+            <p class="c1"><span class="c4">No external fragmentation.</span></p>
+            <h2 class="c7" id="h.fa3f5qklbelh"><span class="c5">Disadvantages:</span></h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Overhead of storing and managing pointers.</span></p>
+            <p class="c1"><span class="c4">Access time is longer due to traversal of pointers.</span></p>
+        </div>
+
+        <h1 class="c9" id="h.cuquae8kvsxk"><span class="c8" style="font-weight: bold; font-size: 26px;">3. Indexed
+                File Allocation:</span></h1>
+        <h2 class="c7" id="h.xxs4t3rrbxbz"><span class="c5" style="text-decoration: underline;">Working:</span></h2>
+        <p class="c0"><span class="c4"></span></p>
+        <p class="c1"><span class="c4">Each file has an index block containing pointers to the actual data
+                blocks.</span>
+        </p>
+        <p class="c1"><span class="c4">The index block acts as a table of contents for the file.</span></p>
+        <p class="c1"><span class="c4">Efficient for both sequential and direct access.</span></p>
+        <h2 class="c7" id="h.360xo379i60m"><span class="c5" style="text-decoration: underline;">Advantages:</span>
+        </h2>
+        <p class="c0"><span class="c4"></span></p>
+        <p class="c1"><span class="c4">Efficient for random access.</span></p>
+        <p class="c1"><span class="c4">Minimal wasted space and fragmentation.</span></p>
+        <h2 class="c7" id="h.s9g6yqtmg8bh"><span class="c5" style="text-decoration: underline;">Disadvantages:</span>
+        </h2>
+        <p class="c0"><span class="c4"></span></p>
+        <p class="c1"><span class="c4">Overhead of maintaining an index.</span></p>
+        <p class="c1"><span class="c4">Limited by the size of the index block.</span></p>
+
+        <div>
+            <h1 class="c9" id="h.mnh0wizg7rqw"><span class="c8" style="font-weight: bold; font-size: 26px;">4.
+                    Example Scenario:</span></h1>
+            <p class="c1"><span class="c4">Consider a file &quot;myfile.txt&quot; with a size of 600 KB.</span></p>
+            <p class="c0"><span class="c4"></span></p>
+            <h2 class="c7" id="h.t1x73ejyz1w2"><span class="c5" style="text-decoration: underline;">Contiguous
+                    Allocation:</span></h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Allocate a contiguous block of 600 KB on the disk.</span></p>
+            <h2 class="c7" id="h.m440mwa0ozjx"><span class="c5" style="text-decoration: underline;">Linked
+                    Allocation:</span></h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Divide the file into linked blocks, each pointing to the next.</span></p>
+            <p class="c1"><span class="c4">Block 1 &rarr; Block 2 &rarr; ... &rarr; Block n.</span></p>
+            <h2 class="c7" id="h.pgbt6xitbr8e"><span class="c5" style="text-decoration: underline;">Indexed
+                    Allocation:</span></h2>
+            <p class="c0"><span class="c4"></span></p>
+            <p class="c1"><span class="c4">Create an index block pointing to individual data blocks.</span></p>
+            <p class="c1"><span class="c4">Index Block: | Block 1 | Block 2 | ... | Block n |</span></p>
+        </div>
+
+
+        <h1 class="c9" id="h.967iyih3h1xz"><span class="c8" style="font-weight: bold; font-size: 26px;">5.
+                Conclusion:</span></h1>
+        <p class="c1"><span class="c4">Each file allocation method has its strengths and weaknesses. Contiguous
+                allocation
+                is simple but suffers from fragmentation. Linked allocation is flexible but comes with the
+                overhead of
+                managing pointers. Indexed allocation is efficient for random access but requires an index
+                block.</span></p>
+        <br>
+        <br>
+        <p class="c12 title" id="h.k9yx1qn2abhs"><span class="c17"
+                style="color: maroon; text-decoration: underline; font-weight: bold; text-align: left;">Notes
+                From The Slides:</span></p>
+        <p class="c6 c15 title" id="h.mhtmv9ru2sn1"><span class="c10"></span></p>
+        <p class="c6 title" id="h.xmksmrmc0402"><span class="c10">Allocation Methods - Contiguous</span></p>
+        <ul class="c11 lst-kix_fmcg974jmqw1-0 start">
+            <li class="c1 c13 li-bullet-0"><span class="c2">An allocation method refers to how disk blocks are
+                    allocated for
+                    files:</span></li>
+            <li class="c1 c13 li-bullet-0"><span class="c14">Contiguous allocation</span><span class="c2">&nbsp;&ndash;
+                    each
+                    file occupies set of contiguous blocks</span></li>
+        </ul>
+        <ul class="c11 lst-kix_fmcg974jmqw1-1 start">
+            <li class="c1 c3 li-bullet-0"><span class="c2">Best performance in most cases</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c2">Simple &ndash; only starting location (block #) and
+                    length
+                    (number of blocks) are required</span></li>
+            <li class="c1 c3 li-bullet-0"><span>Problems include finding space for file, knowing file size,
+                    external
+                    fragmentation, need for </span><span class="c14">compaction off-line
+                    (downtime)</span><span>&nbsp;or
+                </span><span class="c16 c14">on-line</span></li>
+        </ul>
+        <p class="c0"><span class="c16 c14"></span></p>
+        <p class="c6 title" id="h.wh24jl8gx84g"><span class="c10">Contiguous Allocation</span></p>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c1"><span class="c2">Mapping from logical to physical</span></p>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c1"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 397.33px;"><img
+                    alt="" src="images/image3.png"
+                    style="width: 624.00px; height: 397.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c1"><span class="c2">Block to be accessed = Q + starting address</span></p>
+        <p class="c1"><span class="c2">Displacement into block = R</span></p>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c6 title" id="h.6zli2ce0b7t7"><span class="c10">Allocation Methods - Linked</span></p>
+        <ul class="c11 lst-kix_lvuno4kuvd3c-0 start">
+            <li class="c1 c13 li-bullet-0"><span class="c14">Linked allocation</span><span class="c2">&nbsp;&ndash; each
+                    file a linked list of blocks</span></li>
+        </ul>
+        <ul class="c11 lst-kix_lvuno4kuvd3c-1 start">
+            <li class="c1 c3 li-bullet-0"><span class="c2">File ends at nil pointer</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c2">No external fragmentation</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c2">Each block contains pointer to next block</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c2">No compaction, external fragmentation</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c2">Free space management system called when new block
+                    needed</span>
+            </li>
+            <li class="c1 c3 li-bullet-0"><span class="c2">Improve efficiency by clustering blocks into groups
+                    but increases
+                    internal fragmentation</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c2">Reliability can be a problem</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c2">Locating a block can take many I/Os and disk
+                    seeks</span></li>
+        </ul>
+        <p class="c0"><span class="c2"></span></p>
+        <ul class="c11 lst-kix_nv73rh2lfifp-0 start">
+            <li class="c1 c13 li-bullet-0"><span class="c2">Each file is a linked list of disk blocks: blocks
+                    may be
+                    scattered anywhere on the disk</span></li>
+        </ul>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c1"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 463.00px; height: 248.00px;"><img
+                    alt="" src="images/image6.png"
+                    style="width: 463.00px; height: 248.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c0"><span class="c2"></span></p>
+        <ul class="c11 lst-kix_qg6k449sz6e1-0 start">
+            <li class="c1 c13 li-bullet-0"><span class="c2">Mapping</span></li>
+        </ul>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c1"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 242.00px; height: 183.00px;"><img
+                    alt="" src="images/image7.png"
+                    style="width: 242.00px; height: 183.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c1"><span class="c2">Block to be accessed is the Qth block in the linked chain of blocks
+                representing the
+                file.</span></p>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c1"><span class="c2">Displacement into block = R + 1</span></p>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c6 title" id="h.wom6rbokyyse"><span class="c10">Linked Allocation</span></p>
+        <p class="c1"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 646.67px;"><img
+                    alt="" src="images/image5.png"
+                    style="width: 624.00px; height: 646.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c6 title" id="h.1c5z9ojlz0sx"><span class="c10">File-Allocation Table</span></p>
+        <p class="c1"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 546.67px;"><img
+                    alt="" src="images/image4.png"
+                    style="width: 624.00px; height: 546.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c6 title" id="h.kuf6isyvrjhm"><span class="c10">Allocation Methods - Indexed</span></p>
+        <ul class="c11 lst-kix_oh4z3k86e9w9-0 start">
+            <li class="c1 c13 li-bullet-0"><span class="c14 c16">Indexed allocation</span></li>
+        </ul>
+        <ul class="c11 lst-kix_oh4z3k86e9w9-1 start">
+            <li class="c1 c3 li-bullet-0"><span>Each file has its own </span><span class="c14">index
+                    block</span><span class="c2">(s) of pointers to its data blocks</span></li>
+        </ul>
+        <ul class="c11 lst-kix_oh4z3k86e9w9-0">
+            <li class="c1 c13 li-bullet-0"><span class="c2">Logical view</span></li>
+        </ul>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c1"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 375.00px; height: 409.00px;"><img
+                    alt="" src="images/image1.png"
+                    style="width: 375.00px; height: 409.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c6 title" id="h.gfcsyxgd7o8"><span class="c10">Example of Indexed Allocation</span></p>
+        <p class="c1"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 546.67px;"><img
+                    alt="" src="images/image2.png"
+                    style="width: 624.00px; height: 546.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c0"><span class="c2"></span></p>
+        <p class="c0"><span class="c2"></span></p>
+
+</body>
+<footer style="background-color: #f2f2f2; padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+    <p style="color: green;">Most of the content on this page is based on the OS Book 10. It can be found at
+        <a href="https://www.os-book.com/" target="_blank" style="color: green;">www.os-book.com</a>.
+    </p>
+</footer>
+
+</html>

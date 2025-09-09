@@ -1,0 +1,16 @@
+NOTE: Parentheses + contents within should not be included
+
+Format for "in-033.txt" (Index): 
+--------------------------------------------------------------------------
+32 (#of storage blacks, always starts from 0,1,2, ... in this case to 31)
+2(# of files)
+1(file id), jeep (file name), 5 (size/length)
+2(file id), tr (file name), 3 (size/length)
+--------------------------------------------------------------------------
+
+Format for "out-033.txt" (Index):
+--------------------------------------------------------------------------
+0,1,0,...0,1,2,0,0,2,1...0 (show block availability, 0=free or X=occupied where X is the ID of a file)
+1(file id), 19 (index)
+2(file id), 27 (index)
+--------------------------------------------------------------------------

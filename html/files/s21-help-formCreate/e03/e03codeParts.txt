@@ -1,0 +1,2 @@
+<p><label for=",e03,">,v_e03,:</label></p><input type="radio" id=",e03r1," name=",x_e03," value=",v1x_e03,"><label for=",e03r1,">,radio value 1,</label><br><input type="radio" id=",e03r2," name=",x_e03," value=",v2x_e03,">
+<label for=",e03r2,">,radio value 2,</label><br>
