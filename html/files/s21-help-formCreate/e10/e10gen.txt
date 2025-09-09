@@ -1,0 +1,9 @@
+<p><label for=",e10,">,v_e10,:</label></p>
+<input type="radio" id=",e10r1," name=",x_e10," value=",v1x_e10,">
+<label for=",e10r1,">,v1_e10,</label><br>
+<input type="radio" id=",e10r2," name=",x_e10," value=",v2x_e10,">
+<label for=",e10r2,">,v2_e10,</label><br>
+<input type="radio" id=",e10r3," name=",x_e10," value=",v3x_e10,">
+<label for=",e10r3,">,v3_e10,</label><br>
+<input type="radio" id=",e10r4," name=",x_e10," value=",v4x_e10,">
+<label for=",e10r4,">,v4_e10,</label><br>

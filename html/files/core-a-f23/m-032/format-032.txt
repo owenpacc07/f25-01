@@ -1,0 +1,19 @@
+NOTE: Parentheses + contents within should not be included
+
+Format for "in-032.txt" (Linked): 
+--------------------------------------------------------------------------
+32 (#of storage blacks, always starts from 0,1,2, ... in this case to 31)
+2(# of files)
+1(file id), jeep (file name), 5 (size)
+2(file id), tr (file name), 3 (size)
+--------------------------------------------------------------------------
+
+Format for "out-032.txt" (Linked):
+--------------------------------------------------------------------------
+(fileID),(memory address of 1st block),(memory address of 2nd block), ...
+
+--------------------------------------------------------------------------
+1,5,2,8
+2,10,7
+--------------------------------------------------------------------------
+ 

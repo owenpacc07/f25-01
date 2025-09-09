@@ -1,0 +1,16 @@
+Type of Scheduler: Shortest job First(Preemptive)
+Number of Processes: 4
+
+1,0,1
+2,1,3
+4,3,7
+3,7,12
+1,12,18
+
+1,0,0,0,1,0
+2,1,0,1,2,0
+4,3,0,3,4,0
+3,2,0,7,3,5
+1,0,1,12,1,11
+16.0
+4.0

@@ -1,0 +1,7 @@
+<p><label for=",e08,">,v_e08,: </label></p>
+<input type="checkbox" id=",e08c1," name=",x1_e08," value=",vx1_e08,">
+<label for=",e08c1,">,check box 1,</label><br>
+<input type="checkbox" id=",e08c2," name=",x1_e08," value=",vx2_e08,">
+<label for=",e08c2,">,check box 2,</label><br>
+<input type="checkbox" id=",e08c3," name=",x1_e08," value=",vx3_e08,">
+<label for=",e08c3,">,check box3,</label><br>

@@ -1,0 +1,18 @@
+Mechanism = Disk Scheduling CSCAN
+
+INPUT data in "in.dat"
+------------------------------------------------------------------------
+0 699  //range
+50       //head
+11 183 40 8 4600    //locations
+------------------------------------------------------------------------
+Reference string or queue of disk locations to be accessed 
+
+
+OUTPUT data in "out.dat"
+-----------------------
+0 699     //range
+50            //head
+89 183 450 699 0 8 40     //locations
+------------------------
+schedule = order of disk locations to be visited 

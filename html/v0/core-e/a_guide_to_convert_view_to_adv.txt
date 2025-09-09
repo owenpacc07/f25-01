@@ -1,0 +1,54 @@
+1. Copy View Mode mechanism folder to core-a
+
+2. Add edit.php file (template found in core-a/edit-template.php
+   - Line 4, change mechanism id
+   - Line 38, change title
+   - Line 66, change header
+
+3. In index.php
+   - Change any instance of $httpcore or $httpcore_IO to $httpcore_a or $httpcore_a_IO
+
+4. Create two copies of index.php: index-v.php and index-r.php.
+
+5. In index.php
+   - Comment out 'shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");' (line 18)
+     because we do not want to call the java code now.
+   - Remove blue animation button code:
+     <div id="animNavBtns" class="text-center align-items-center justify-content-center">
+        <button type="button" class="btn btn-primary" id="refresh">Refresh Data</button>
+        <button type="button" class="btn btn-primary" id="skipBack">Reset</button>
+        <button type="button" class="btn btn-primary" id="stepBack">
+            < Step</button>
+                <button type="button" class="btn btn-primary" id="play">Play</button>
+                <button type="button" class="btn btn-primary" id="stepForward">Step ></button>
+                <button type="button" class="btn btn-primary" id="skipForward">End</button>
+     </div>
+     Replace with following code:
+     <div class="d-flex align-items-center justify-content-center secondarycontrols">
+	<input class="btn btn-primary" type="button" value="Exit" id="exit" onclick="location.href='../../index-a.php';">
+        <input class="btn btn-primary" type="button" value="Edit Data" id="editinput" onclick="location.href='edit.php';">
+        <input class="btn btn-primary" type="button" value="Visualize" id="visualize" onclick="location.href='index-v.php';">
+        <input class="btn btn-primary" type="button" value="Run" id="run" onclick="location.href='index-r.php';">
+     </div>
+
+6. In index-v.php
+   - Comment out shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}"); (line 18)
+   - Add "VISUALIZE: " before the mechanism title on the webpage
+   - Swap Refresh Data button code with:
+     <button type="button" class="btn btn-primary" id="exit" onclick="location.href='index.php';">Exit</button>
+
+
+7. In index-r.php
+   - In shell_exec command (line 18), change $cgibin_core to $cgibin_core_a
+   - Add "RUN: " before the mechanism title on the webpage
+   - Swap Refresh Data button code with:
+     <button type="button" class="btn btn-primary" id="exit" onclick="location.href='index.php';">Exit</button>
+
+8. load_data.js and main.js should be fine as is
+
+9. Go to /cgi-bin/core-a/mid and open the java file m011.java
+   - Change core to core-a
+
+10. Open a Teminal window and recompile the m011.java file
+   javac *.java
+

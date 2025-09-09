@@ -1,0 +1,5 @@
+FIFO, 7
+LRU, 7
+OPT, 5
+MFU, 7
+LFU, 5

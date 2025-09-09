@@ -1,0 +1,20 @@
+NOTE: Parentheses + contents within should not be included
+
+Format for "in-011.dat": 
+--------------------------------------------------------------------------
+3 (#of free memory slots)
+100 400 (addresses of start and end of a free memory slot => size 300)
+600 800 (addresses of start and end of a free memory slot => size 200)
+1500 1900 (addresses of start and end of a free memory slot => size 400)
+3(# of processes)
+1 (ID of process) 190 (size of process)
+2 (ID of process) 210 (size of process)
+3 (ID of process) 205 (size of process)
+--------------------------------------------------------------------------
+
+Format for "out-011.dat":
+--------------------------------------------------------------------------
+100(addresses of start) 310(addresses of end) 2(process ID)
+600(addresses of start) 790(addresses of end) 1(process ID)
+1500(addresses of start) 1705(addresses of end) 3(process ID)
+--------------------------------------------------------------------------

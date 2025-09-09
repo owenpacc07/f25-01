@@ -1,0 +1,84 @@
+#arrow img, svg {
+	vertical-align: middle;
+	width: 30px;
+	height: 30px;
+    border-top: 0px;
+}
+
+#disktable {
+    border-spacing: 30px;
+    border-collapse: separate;
+}
+
+#disktable td {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid;
+}
+
+#disktable th {
+    width: 30px;
+    height: 0px;
+    text-align: center;
+}
+
+#animarea {
+    position: relative;
+    width: 800px;
+    height: 680px;
+    border: 1px solid;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#step {
+    display: inline;
+    float: left;
+    margin: 50px 0px 0px 50px;
+}
+
+#directory {
+    display: inline;
+    float: left;
+    margin: 30px 0px 0px 50px;
+}
+
+#step-dir-inside {
+    align-items: center;
+    margin: 0 auto;
+}
+
+#step-dir-inside-span {
+    text-align: center;
+    display: inline;
+    float: right;
+}
+
+#dir {
+    width: 180px;
+    border: 1px solid;
+    text-align: center;
+}
+
+#diskarea #disktable {
+    display: inline;
+    float: right;
+    margin: 0px 0px 0px 100px;
+    width: 350px;
+    height: 350px;
+    position: absolute;
+}
+
+#title {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 40px;
+
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+
+.btn .btn-primary {
+    border-color: #0d6efd; 
+}

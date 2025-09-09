@@ -1,0 +1,7 @@
+
+username:  p_f25_01
+
+password:  ok1tz7
+
+database name:  p_f25_01_db
+

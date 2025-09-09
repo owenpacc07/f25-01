@@ -1,0 +1,5 @@
+<p><label for=",e04,">,v_e04,: </label></p>
+<input type="checkbox" id=",e04c1," name=",x1_e04," value=",vx1_e04,">
+<label for=",e04c1,">,v1_e04,</label><br>
+<input type=",checkbox," id=",x1_e04," name=",x2_e04," value=",checkbox,">
+<label for=",e04c2,">,v2_e04,</label><br>
