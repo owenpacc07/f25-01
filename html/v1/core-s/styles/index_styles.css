@@ -1,0 +1,19 @@
+main {
+    margin: 20px;
+    font-size: 22px;
+}
+
+section {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgba(240, 240, 240, 0.76);
+}
+
+#title-content {
+    margin-bottom: 20px;
+
+
+
+}

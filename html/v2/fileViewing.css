@@ -1,0 +1,19 @@
+#code {
+    margin-left:2rem;
+    
+    
+    border-radius: 15px;
+    padding: 1rem;
+}
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn {
+    margin-left: 1rem;
+}
+
+#password {
+    margin-right:2rem;
+}
