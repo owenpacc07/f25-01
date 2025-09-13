@@ -1,0 +1,163 @@
+/* Memory Layout Visualization Styles */
+
+/* Animation area */
+#animarea {
+    position: relative;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Loading overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none;
+}
+
+/* Memory section styling */
+.memory-section {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    min-height: 400px;
+}
+
+/* Process container styling */
+.process-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Step box styling */
+.step-box {
+    width: 80%;
+    padding: 15px;
+    background-color: #e0f7fa;
+    border: 1px solid #0288d1;
+    border-radius: 5px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.step-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    background-color: #0288d1;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.step-content {
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Arrow down styling */
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #0288d1;
+    margin: 5px 0;
+}
+
+/* Memory layout styling */
+.memory-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.mem-section {
+    flex: 1;
+    border: 1px solid #ccc;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.mem-section:hover {
+    background-color: #f0f7ff;
+    transform: translateX(5px);
+}
+
+.mem-label {
+    font-weight: bold;
+    color: #0d47a1;
+    margin-bottom: 5px;
+}
+
+.mem-content {
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Memory color codes */
+#code-segment {
+    background-color: #e3f2fd;
+}
+
+#data-segment {
+    background-color: #e8f5e9;
+}
+
+#heap {
+    background-color: #fff3e0;
+}
+
+#stack {
+    background-color: #f3e5f5;
+}
+
+/* Memory table styling */
+.memory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.memory-table td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: #f8f9fa;
+}
+
+/* Animation buttons styling */
+.btn {
+    margin: 0 5px;
+}

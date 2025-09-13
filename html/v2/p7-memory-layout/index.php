@@ -20,36 +20,101 @@
          <hr>
          <br>
          <br>
-         <h2 class="text-center">Step 1: Write a program in a PL(Java), store a file saved in a disk 'A.java'</h2>
-         <br>
+         <h2 class="text-center">Program Memory Management Visualization</h2>
          
+         <!-- Animation Controls -->
          <div class="form-check text-center">
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-           <label class="form-check-label" for="flexRadioDefault1">
-          Step-by-Step
-           </label>
-         </div>
-         
-         <div class="form-check text-center">
-           <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-           <label class="form-check-label" for="flexRadioDefault2">
-           Automatic
-           </label>
+            <input class="form-check-input" type="radio" name="animationType" id="stepByStep" value="StepByStep">
+            <label class="form-check-label" for="stepByStep">Step-by-Step</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="form-check-input" type="radio" name="animationType" id="automatic" value="Automatic" checked>
+            <label class="form-check-label" for="automatic">Automatic</label>
          </div>
          <br>
-         <br>
+         
          <div class="text-center">
-            <img src="image.png"  style="width:1000px; height:550px;">
-            <br>
-            <br>
-            <br>
-         <button type="button" class="btn btn-primary">Start</button>
-          <button type="button" class="btn btn-primary">Back</button>
-          <button type="button" class="btn btn-primary">Pause</button>
-         <button type="button" class="btn btn-primary">Next</button>
-         <button type="button" class="btn btn-primary">End</button>
-         </div>         
+            <button type="button" class="btn btn-primary" id="start">Start</button>
+            <button type="button" class="btn btn-primary" id="back">Back</button>
+            <button type="button" class="btn btn-primary" id="play">Play</button>
+            <button type="button" class="btn btn-primary" id="next">Next</button>
+            <button type="button" class="btn btn-primary" id="end">End</button>
+            <button type="button" class="btn btn-primary" id="reset">Reset</button>
+         </div>
+         <br>
+         
+         <!-- Loading Overlay -->
+         <div id="overlay" class="overlay">
+             <div class="spinner-border text-primary" role="status">
+                 <span class="sr-only">Loading...</span>
+             </div>
+             <p>Loading animation...</p>
+         </div>
+         
+         <!-- Memory Layout Visualization Area -->
+         <div id="animarea" class="container">
+             <div class="row">
+                 <div class="col-md-6 memory-section">
+                     <h4 class="text-center">Java Program Compilation</h4>
+                     <div id="processarea" class="process-container">
+                         <div class="step-box">
+                             <div class="step-number">1</div>
+                             <div class="step-content">Source Code (.java)</div>
+                         </div>
+                         <div class="arrow-down"></div>
+                         <div class="step-box">
+                             <div class="step-number">2</div>
+                             <div class="step-content">Compiler (javac)</div>
+                         </div>
+                         <div class="arrow-down"></div>
+                         <div class="step-box">
+                             <div class="step-number">3</div>
+                             <div class="step-content">Bytecode (.class)</div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-md-6 memory-section">
+                     <h4 class="text-center">Memory Structure</h4>
+                     <div class="memory-layout">
+                         <div class="mem-section" id="code-segment">
+                             <div class="mem-label">Code Segment</div>
+                             <div class="mem-content">Program instructions</div>
+                         </div>
+                         <div class="mem-section" id="data-segment">
+                             <div class="mem-label">Data Segment</div>
+                             <div class="mem-content">Static/global variables</div>
+                         </div>
+                         <div class="mem-section" id="heap">
+                             <div class="mem-label">Heap</div>
+                             <div class="mem-content">Dynamic memory allocation</div>
+                         </div>
+                         <div class="mem-section" id="stack">
+                             <div class="mem-label">Stack</div>
+                             <div class="mem-content">Local variables, function calls</div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="row mt-4">
+                 <div class="col-12">
+                     <h4 class="text-center">Memory Allocation Timeline</h4>
+                     <table id="memorytable" class="memory-table">
+                         <tbody>
+                             <!-- Memory blocks will be populated by JavaScript -->
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+             
+             <div id="description" class="text-center mt-3 p-3 bg-light">
+                 <p>Memory layout visualization shows how a program is organized in memory during execution.</p>
+                 <div id="step-info">Step: 0 - Initial state</div>
+             </div>
+         </div>
+         
+         <!-- JavaScript Files -->
+         <script src="js/load_data.js"></script>
+         <script src="js/animations.js"></script>
     </body>
 </html>
 
