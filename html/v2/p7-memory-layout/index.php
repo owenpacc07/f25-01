@@ -22,6 +22,44 @@
          <br>
          <h2 class="text-center">Program Memory Management Visualization</h2>
          
+         <!-- Java Source Code Example Panel -->
+         <div class="container mb-4">
+             <div class="row">
+                 <div class="col-md-8 offset-md-2">
+                     <div class="card code-example-card">
+                         <div class="card-header bg-primary text-white">
+                             <h5 class="mb-0">Example Java Source Code (A.java)</h5>
+                         </div>
+                         <div class="card-body">
+                             <div class="file-path mb-2">
+                                 <i class="fa fa-folder-open"></i> DISK C:/MyFolder/A.java
+                             </div>
+                             <pre class="java-code-block"><code>public class A {
+    static int x = 1000;
+    
+    public static int isum(int i1, int i2) 
+    {
+        int sum = x;
+        for (int i = 0; il; i <= i2; i++)
+            sum += i;
+        return sum;
+    
+    }
+    
+    public static void main(String[] args) 
+    {
+        String sss = "The Sum from ";
+        System.out.println(sss + "1 to 10 is " + (isum(1, 10) - x) );
+        System.out.println(sss + "20 to 30 is " + (isum(20, 30) - x) );
+        System.out.println(sss + "35 to 45 is " + (isum(35, 45) - x) );
+    }   
+}</code></pre>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         
          <!-- Animation Controls -->
          <div class="form-check text-center">
             <input class="form-check-input" type="radio" name="animationType" id="stepByStep" value="StepByStep">

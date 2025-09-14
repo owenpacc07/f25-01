@@ -98,7 +98,9 @@ function setupEventListeners() {
 
 // Initialize the memory table with empty blocks
 function initializeMemoryTable() {
-    const table = $('#memorytable');
+    const table = $('#memorytable tbody');
+    table.empty();
+    
     const row = $('<tr></tr>');
     
     for (let i = 0; i < 10; i++) {
@@ -126,7 +128,10 @@ function updateVisualization(step) {
     // Update description
     $('#description p').text(stepData.description);
     
-    // Update memory sections
+    // Update code highlighting based on step
+    updateCodeHighlighting(step);
+    
+    // Update memory sections with animation
     updateMemorySection('code-segment', stepData.codeHighlight);
     updateMemorySection('data-segment', stepData.dataHighlight);
     updateMemorySection('heap', stepData.heapHighlight);
@@ -139,84 +144,235 @@ function updateVisualization(step) {
     updateMemoryTable(step);
 }
 
+// Function to highlight relevant code sections based on the current step
+function updateCodeHighlighting(step) {
+    // Reset all highlights
+    $('.java-code-block code').html($('.java-code-block code').html().replace(/<span class=".*?-highlight">(.*?)<\/span>/g, "$1"));
+    
+    // Apply highlighting based on the current step
+    if (step >= 1 && step <= 3) {
+        // Highlight class definition and method definitions (Code Segment)
+        highlightCodeSegment();
+    }
+    
+    if (step >= 4) {
+        // Highlight static variables (Data Segment)
+        highlightDataSegment();
+    }
+    
+    if (step >= 5) {
+        // Highlight main method and local variables (Stack)
+        highlightStackSegment();
+    }
+    
+    if (step >= 6) {
+        // Highlight object creation (Heap)
+        highlightHeapSegment();
+    }
+}
+
+function highlightCodeSegment() {
+    let codeContent = $('.java-code-block code').html();
+    
+    // Highlight class definition and method signatures
+    codeContent = codeContent.replace(
+        /(public class A|public static int isum\(int i1, int i2\) {|public static void main\(String\[] args\) {)/g, 
+        '<span class="code-highlight">$1</span>'
+    );
+    
+    $('.java-code-block code').html(codeContent);
+}
+
+function highlightDataSegment() {
+    let codeContent = $('.java-code-block code').html();
+    
+    // Highlight static variable
+    codeContent = codeContent.replace(
+        /(static int x = 1000;)/g, 
+        '<span class="data-highlight">$1</span>'
+    );
+    
+    $('.java-code-block code').html(codeContent);
+}
+
+function highlightStackSegment() {
+    let codeContent = $('.java-code-block code').html();
+    
+    // Highlight method parameters and local variables
+    codeContent = codeContent.replace(
+        /(int i1, int i2|int result = isum\(5, 10\);)/g, 
+        '<span class="stack-highlight">$1</span>'
+    );
+    
+    $('.java-code-block code').html(codeContent);
+}
+
+function highlightHeapSegment() {
+    let codeContent = $('.java-code-block code').html();
+    
+    // Highlight object creation
+    codeContent = codeContent.replace(
+        /(new String\("Result: " \+ result\);)/g, 
+        '<span class="heap-highlight">$1</span>'
+    );
+    
+    $('.java-code-block code').html(codeContent);
+}
+
 // Update a memory section's appearance based on whether it's highlighted
 function updateMemorySection(sectionId, isHighlighted) {
     const section = $('#' + sectionId);
     
-    section.removeClass('active-section');
-    
     if (isHighlighted) {
-        section.addClass('active-section');
+        // Animate the highlight effect
         section.css({
             'border-color': '#0d47a1',
-            'box-shadow': '0 0 8px rgba(13, 71, 161, 0.5)',
+            'box-shadow': '0 0 8px rgba(13, 71, 161, 0.5)'
+        }).animate({
             'transform': 'translateX(10px)'
-        });
+        }, 300);
+        
+        // Update content based on the section
+        updateSectionContent(sectionId, currentStep);
     } else {
-        section.css({
-            'border-color': '#ccc',
-            'box-shadow': 'none',
+        // Animate back to normal
+        section.animate({
             'transform': 'translateX(0)'
+        }, 300).css({
+            'border-color': '#ccc',
+            'box-shadow': 'none'
         });
+    }
+}
+
+// Update the content of a memory section based on the current step
+function updateSectionContent(sectionId, step) {
+    const contentDiv = $(`#${sectionId} .mem-content`);
+    
+    switch(sectionId) {
+        case 'code-segment':
+            if (step >= 1 && step <= 3) {
+                contentDiv.html('Loading program instructions...');
+            } else if (step > 3) {
+                contentDiv.html('Class A<br>Method isum()<br>Method main()');
+            }
+            break;
+            
+        case 'data-segment':
+            if (step === 4) {
+                contentDiv.html('Allocating static variables...');
+            } else if (step > 4) {
+                contentDiv.html('static int x = 1000<br>Constants<br>Class metadata');
+            }
+            break;
+            
+        case 'heap':
+            if (step === 6) {
+                contentDiv.html('Creating String object...');
+            } else if (step === 8) {
+                contentDiv.html('Garbage collection running...');
+            } else if (step > 6) {
+                contentDiv.html('String "Result: 15"<br>Other objects<br>Managed by GC');
+            }
+            break;
+            
+        case 'stack':
+            if (step === 5) {
+                contentDiv.html('Creating main() stack frame...');
+            } else if (step === 7) {
+                contentDiv.html('Stack frame for isum()<br>Parameters i1=5, i2=10');
+            } else if (step > 7) {
+                contentDiv.html('Local variable result=15<br>Return addresses<br>Method parameters');
+            }
+            break;
     }
 }
 
 // Update the process visualization based on the current step
 function updateProcessVisualization(step) {
-    const steps = $('.step-box');
+    // Reset all steps
+    $('.step-box').css({
+        'background-color': '#e0f7fa',
+        'transform': 'scale(1)',
+        'box-shadow': 'none'
+    });
     
-    steps.removeClass('active-step');
-    
+    // Highlight active steps with animation effects
     if (step >= 1) {
-        $(steps[0]).addClass('active-step');
-        $(steps[0]).css('background-color', '#b3e5fc');
-    } else {
-        $(steps[0]).css('background-color', '#e0f7fa');
+        highlightStep(0); // Source Code
     }
     
     if (step >= 2) {
-        $(steps[1]).addClass('active-step');
-        $(steps[1]).css('background-color', '#b3e5fc');
-    } else {
-        $(steps[1]).css('background-color', '#e0f7fa');
+        highlightStep(1); // Compilation
     }
     
     if (step >= 3) {
-        $(steps[2]).addClass('active-step');
-        $(steps[2]).css('background-color', '#b3e5fc');
-    } else {
-        $(steps[2]).css('background-color', '#e0f7fa');
+        highlightStep(2); // Bytecode
     }
+}
+
+// Highlight a specific step in the process visualization
+function highlightStep(stepIndex) {
+    $(`.step-box:eq(${stepIndex})`).css({
+        'background-color': '#b3e5fc',
+        'transform': 'scale(1.05)',
+        'box-shadow': '0 4px 8px rgba(0, 0, 0, 0.1)'
+    });
 }
 
 // Update the memory table based on the current step
 function updateMemoryTable(step) {
     // Reset all blocks
     for (let i = 0; i < 10; i++) {
-        $(`#mem-block-${i}`).css('background-color', '#f8f9fa');
+        $(`#mem-block-${i}`).css({
+            'background-color': '#f8f9fa',
+            'color': '#000',
+            'font-weight': 'normal'
+        }).text(i);
     }
     
-    // Color blocks based on the step
+    // Color blocks based on the step with animations
     if (step >= 3) { // Code section
-        $('#mem-block-0, #mem-block-1').css('background-color', '#e3f2fd');
+        animateMemoryBlocks([0, 1], '#e3f2fd', 'CODE');
     }
     
     if (step >= 4) { // Data section
-        $('#mem-block-2, #mem-block-3').css('background-color', '#e8f5e9');
+        animateMemoryBlocks([2, 3], '#e8f5e9', 'DATA');
     }
     
     if (step >= 6) { // Heap section
-        $('#mem-block-4, #mem-block-5, #mem-block-6').css('background-color', '#fff3e0');
+        animateMemoryBlocks([4, 5, 6], '#fff3e0', 'HEAP');
     }
     
     if (step >= 5) { // Stack section
-        $('#mem-block-7, #mem-block-8, #mem-block-9').css('background-color', '#f3e5f5');
+        animateMemoryBlocks([7, 8, 9], '#f3e5f5', 'STACK');
     }
     
     // Show garbage collection
     if (step === 8) {
-        $('#mem-block-6').css('background-color', '#ffcdd2');
+        $('#mem-block-6').css('background-color', '#ffcdd2').text('GC');
     }
+    
+    // Show program termination
+    if (step === 9) {
+        for (let i = 0; i < 10; i++) {
+            $(`#mem-block-${i}`).css('background-color', '#f5f5f5').text('FREE');
+        }
+    }
+}
+
+// Animate the coloring of memory blocks
+function animateMemoryBlocks(blockIndices, color, label) {
+    blockIndices.forEach(index => {
+        $(`#mem-block-${index}`)
+            .animate({ backgroundColor: color }, 500)
+            .text(label)
+            .css({
+                'color': '#000',
+                'font-weight': 'bold',
+                'font-size': '0.8em'
+            });
+    });
 }
 
 // Start the automatic animation
@@ -242,84 +398,4 @@ function stopAnimation() {
     
     animationPlaying = false;
     clearInterval(animationInterval);
-}
-    
-    // Create visual blocks for the process
-    for (let i = 0; i < processSize; i++) {
-        blocks += "<td " + "id=" + (process.name + (i + 1)) + 
-                " style=\"width: 30px; height: 30px; background-color:" + 
-                process.color + ";border: 1px solid;\"><\/td>";
-    }
-    
-    // Add process visualization to the animation area
-    $('#processarea').append(
-        "<span id=\"step\" style=\"display: inline; float: left; margin:" + 
-        (190 + (70 * currStep)) + "px 0px 0px -280px;\">" + process.name + 
-        "<\/span>\r\n<table id=\'processblock\' style=\"border: 0px solid;display: inline; float: left; margin: " + 
-        (220 + (70 * currStep)) + "px 0px 0px -280px;\">\r\n<tr>\r\n" + 
-        blocks + "\r\n<\/tr>\r\n<\/table>"
-    );
-    
-    // Animate each block moving into memory
-    let startAddr = parseInt(process.startAddress);
-    for (let i = 0; i < processSize; i++) {
-        moveProcessToMemory(process.name + (i + 1), startAddr + i, i);
-    }
-    
-    // Increment step counter
-    currStep++;
-    
-    // Check if animation is complete
-    if (processes.length == currStep) {
-        completed();
-    }
-
-
-// Animates moving a process block to its memory location
-function moveProcessToMemory(processBlock, memoryBlock, blockIndex) {
-    animLock = true;
-    
-    var clonedBlock = $('#' + processBlock).clone();
-    var cloned = "<div id=\"" + (processBlock + 'cloned') + 
-                "\" style=\"display: inline-block;position: absolute;height: 30px; width:30px;border: 1px solid;\"></div>";
-    
-    $('#' + processBlock).append(cloned);
-    
-    animList.push({ 
-        org: $('#' + processBlock), 
-        proc: clonedBlock, 
-        mem: memoryBlock, 
-        top: clonedBlock.position().top 
-    });
-    
-    $('#' + (processBlock + 'cloned')).css('background-color', processes[currStep].color);
-    
-    $('#' + (processBlock + 'cloned')).animate({ 
-        left: memtblpos.left + $('#' + memoryBlock).position().left + 100, 
-        top: memtblpos.top + $('#' + memoryBlock).position().top, 
-        width: 50, 
-        height: 50 
-    }, animSpeed, function () {
-        animLock = false;
-        if (blockIndex > 0) return;
-        if (currStep > totalProcesses) return;
-        animate(0);
-    });
-}
-
-// Undoes the last animation step
-function Undo() {
-    animLock = true;
-    if (currStep > 0) {
-        // Counts the step back
-        currStep--;
-        
-        // Removes the block and its corresponding text
-        $("#processarea").children().last().remove();
-        $("#processarea").children().last().remove();
-        
-        // Updates the "Step: " display
-        $('#step').html("Step: " + (currStep));
-    }
-    animLock = false;
 }
