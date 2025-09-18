@@ -1,9 +1,11 @@
 <?php
-// Start a session to store the success message
+// Force Research mode for this comparison page
+session_start();
+$_SESSION['coremode'] = 'core-c';
+
 /*
 JUSTIN FEINMAN S25 - should be 100% working. will explain how this works to any future group if needed
 */
-session_start();
 require_once "../../system.php";
 // Check if there is a success or error message
 if (isset($_SESSION['success_message'])) {

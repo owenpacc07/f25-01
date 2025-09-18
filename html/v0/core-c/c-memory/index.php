@@ -1,8 +1,7 @@
 <?php
-
-
-// Start a session to store the success message
+// Force Research mode for this comparison page
 session_start();
+$_SESSION['coremode'] = 'core-c';
 
 // Check if there is a success or error message
 if (isset($_SESSION['success_message'])) {

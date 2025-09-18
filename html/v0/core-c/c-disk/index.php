@@ -1,8 +1,7 @@
 <?php
-
-
-// Start a session to store the success message
+// Initialize session once and force Research mode
 session_start();
+$_SESSION['coremode'] = 'core-c';
 
 // Check if there is a success or error message
 if (isset($_SESSION['success_message'])) {
@@ -391,27 +390,6 @@ if (isset($_POST['save_results'])) {
 
 
 
-/*
-	$filePath = realpath("../../../files/core-c/c-disk/out-041.dat");
-	$line3 = $results["FCFS"];
-        file_put_contents($filePath, "$line1\n$line2\n$line3");
-
-	$filePath = realpath("../../../files/core-c/c-disk/out-042.dat");
-        $line3 = $results["SSTF"];
-        file_put_contents($filePath, "$line1\n$line2\n$line3");
-
-	$filePath = realpath("../../../files/core-c/c-disk/out-043.dat");
-        $line3 = $results["CSCAN"];
-        file_put_contents($filePath, "$line1\n$line2\n$line3");
-
-	$filePath = realpath("../../../files/core-c/c-disk/out-044.dat");
-        $line3 = $results["LOOK"];
-        file_put_contents($filePath, "$line1\n$line2\n$line3");
-
-	$filePath = realpath("../../../files/core-c/c-disk/out-045.dat");
-        $line3 = $results["CLOOK"];
-        file_put_contents($filePath, "$line1\n$line2\n$line3");
-*/
 
 
         echo "<script>simulationResults = " . json_encode($results) . ";</script>";
@@ -539,7 +517,6 @@ function sstfAlgorithm($requests, $head, $diskSize)
     return $totalDistance;
 
 }
-
 
 // Bubble sort for sorting arrays
 function bubbleSort($arr) {
@@ -674,8 +651,6 @@ function clookAlgorithm($requests, $head, $diskSize) {
 
     return $distance;
 }
-
-
 
 
 
@@ -905,4 +880,29 @@ function clookAlgorithmString($requests, $head, $diskSize)
     }
 </style>
 
+</html>
+</html>
+    .table th:nth-child(3) {
+        background-color: #C6A4F1;
+        /* Different color for 'Input' column */
+
+    }
+
+    /* Input field for page reference string */
+    input[type="text"] {
+        border-radius: 8px;
+        /* Rounded corners for input fields */
+        padding: 8px;
+        /* Add some internal padding */
+        border: 2px solid #ddd;
+        /* Soft border */
+    }
+
+    /* Add a little padding inside the form */
+    form {
+        padding: 8px;
+    }
+</style>
+
+</html>
 </html>

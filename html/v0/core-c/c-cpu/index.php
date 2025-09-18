@@ -1,4 +1,8 @@
 <?php
+// Force Research mode for this comparison page
+session_start();
+$_SESSION['coremode'] = 'core-c';
+
 // Start a session
 if (!session_start()) {
     die("Session failed to start");
