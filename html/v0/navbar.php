@@ -60,16 +60,18 @@ if ( strpos($uri, $version_path . '/core-a/') !== false
 || basename($_SERVER['PHP_SELF']) === 'index-a.php' ) {
 $_SESSION['coremode'] = 'core-a';
 }
-elseif ( strpos($uri, $version_path . '/core-c/') !== false
+elseif ( strpos($uri, $version_path . '/core-c/') !== false 
+|| strpos($uri, '/c-file/') !== false
+|| strpos($uri, '/c-cpu/') !== false
+|| strpos($uri, '/c-page/') !== false
+|| strpos($uri, '/c-disk/') !== false
+|| strpos($uri, '/c-memory/') !== false
 || basename($_SERVER['PHP_SELF']) === 'index-e.php' ) {
 $_SESSION['coremode'] = 'core-c';
 }
 else {
 $_SESSION['coremode'] = 'core';
 }
-
-
-
 
 // Set coretype based on session
 if (isset($_SESSION['coremode']) && in_array($_SESSION['coremode'], ['core', 'core-a', 'core-e'])) {
