@@ -217,8 +217,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
                     <thead>
                         <tr>
                             <th>Submission ID</th>
+                            <th>Date/Time</th>
                             <th>Category ID</th>
-                            <th>User ID</th>
+                            <th>User Email</th>
                             <th>Input/Output Path</th>
                             <th>Code Path</th>
                             <th>Action</th>
@@ -229,13 +230,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
                         // Loop through the experiments data
                         while ($row = mysqli_fetch_assoc($experiments_data)):
                             $modal_id = "fileModal_" . $row['experiment_id']; // Create a unique modal ID for each row
+                            
+                            // Get user email from the users table based on user_id
+                            $user_id = $row['user_id'];
+                            $email_query = "SELECT email FROM users WHERE UserID = '$user_id'";
+                            $email_result = mysqli_query($link, $email_query);
+                            $user_email = ($email_result && mysqli_num_rows($email_result) > 0) ? 
+                                          mysqli_fetch_assoc($email_result)['email'] : 'Unknown';
                             ?>
 
                             <!-- initialize variables to hold the input and output paths to call on later -->
                             <tr>
                                 <td><?php echo $row['experiment_id']; ?></td>
+                                <td><?php echo isset($row['created_at']) ? $row['created_at'] : date('Y-m-d H:i:s'); ?></td>
                                 <td><?php echo $row['family_id']; ?></td>
-                                <td><?php echo $row['user_id']; ?></td>
+                                <td><?php echo $user_email; ?></td>
                                 <td><button class='btn btn-info' data-toggle='modal' data-target='#<?php echo $modal_id ?>'>View
                                         Input/Output</button></td>
                                 <td><?php echo $row['code_path']; ?></td>

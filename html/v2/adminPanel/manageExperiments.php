@@ -74,17 +74,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <thead>
                 <tr>
                     <th>SubID</th>
-                    <th>Owner</th>
+                    <th>Date/Time</th>
+                    <th>Owner Email</th>
                     <th>Category</th>
                     <th>Input Path</th>
                     <th>Output Path</th>
-
                 </tr>
             </thead>
             <tbody>
                 <?php
                 // get all the experiments from the database
-                $sql = "SELECT * FROM experiments";
+                $sql = "SELECT e.*, u.email FROM experiments e JOIN users u ON e.user_id = u.UserID";
                 $result = mysqli_query($link, $sql);
                 if (!$result) {
                     echo "Error: " . $sql . "<br>" . mysqli_error($link);
@@ -92,7 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     while ($row = mysqli_fetch_array($result)) {
                         echo "<tr>";
                         echo "<td>" . $row['experiment_id'] . "</td>";
-                        echo "<td>" . $row['user_id'] . "</td>";
+                        echo "<td>" . (isset($row['created_at']) ? $row['created_at'] : date('Y-m-d H:i:s')) . "</td>";
+                        echo "<td>" . $row['email'] . "</td>";
                         echo "<td>" . $row['family_id'] . "</td>";
                         echo "<td>" . $row['input_path'] . "</td>";
                         echo "<td>" . $row['output_path'] . "</td>";

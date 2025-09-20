@@ -386,6 +386,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Date/Time</th>
                         <th scope="col">Mechanism</th>
                         <th scope="col">Component</th>
                         <th scope="col">Algorithm</th>
@@ -405,7 +406,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     submissions.input_path as input, 
                     submissions.output_path as output, 
                     submissions.code_path as code, 
-                    submissions.restrict_view as restrict_view from submissions
+                    submissions.restrict_view as restrict_view,
+                    submissions.created_at as created_at from submissions
                     right join (mechanisms right join components on mechanisms.component_id=components.component_id) 
                     on submissions.mechanism_id=mechanisms.mechanism_id where 
                     submissions.user_id=$userID order by submissions.submission_id;";
@@ -425,6 +427,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <tr>
                                 <td>
                                     <?php echo $row['id'] ?>
+                                </td>
+                                <td>
+                                    <?php echo isset($row['created_at']) ? $row['created_at'] : date('Y-m-d H:i:s'); ?>
                                 </td>
                                 <td>
                                     <?php echo $row['client_code'] ?>
@@ -606,6 +611,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Date/Time</th>
                         <th scope="col">Category</th>
                         <th scope="col">Component</th>
                         <th scope="col">Comparison Family</th>
@@ -625,7 +631,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     experiments.input_path as input, 
                     experiments.output_path as output, 
                     experiments.code_path as code, 
-                    experiments.restrict_view as restrict_view 
+                    experiments.restrict_view as restrict_view,
+                    experiments.created_at as created_at
 		    from experiments
                     right join (comparisons right join mechanisms on mechanisms.component_id=comparisons.component_id) 
                     on experiments.family_id=comparisons.mechanism_id 
@@ -648,6 +655,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <tr>
                                 <td>
                                     <?php echo $row['id'] ?>
+                                </td>
+                                <td>
+                                    <?php echo isset($row['created_at']) ? $row['created_at'] : date('Y-m-d H:i:s'); ?>
                                 </td>
                                 <td>
                                     <?php echo $row['client_code'] ?>
