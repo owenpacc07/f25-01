@@ -313,10 +313,10 @@ if (isset($_POST['save_results'])) {
         // Defines the links to the individual testing pages for each algorithm
         $links = [
             'FIFO' => '../../core-c/m-021',
-            'LRU' => '../../core-c/m-022',
-            'OPT' => '../../core-c/m-023',
-            'MFU' => '../../core-c/m-024',
-            'LFU' => '../../core-c/m-025'
+            'LRU' => '../../core-c/m-023',
+            'OPT' => '../../core-c/m-022',
+            'MFU' => '../../core-c/m-025',
+            'LFU' => '../../core-c/m-024'
         ];
 
         // Run the algorithms on the pages array

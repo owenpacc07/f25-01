@@ -3,6 +3,7 @@
 /*
 JUSTIN FEINMAN S25 - should be 100% working. will explain how this works to any future group if needed
 */
+$_SESSION['coremode'] = 'core-c';
 session_start();
 require_once "../../system.php";
 // Check if there is a success or error message

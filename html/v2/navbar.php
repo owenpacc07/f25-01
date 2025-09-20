@@ -72,7 +72,7 @@ $_SESSION['coremode'] = 'core';
 
 
 // Set coretype based on session
-if (isset($_SESSION['coremode']) && in_array($_SESSION['coremode'], ['core', 'core-a', 'core-e'])) {
+if (isset($_SESSION['coremode']) && in_array($_SESSION['coremode'], ['core', 'core-a', 'core-c'])) {
     $coretype = $_SESSION['coremode'];
 } else {
     $_SESSION['coremode'] = 'core';
@@ -113,7 +113,7 @@ break;
 case 'core-a':
 $modeDisplay = 'Advanced';
 break;
-case 'core-e':
+case 'core-c':
 $modeDisplay = 'Research';
 break;
 default:
@@ -339,10 +339,12 @@ break;
                         <?php foreach ($mechanisms as $mechanism): ?>
                             <li>
                                 <?php
+				$validCoreTypes = ['core','core-a','core-c'];
+				$effectiveCore = in_array($coretype, $validCoreTypes, true) ? $coretype : 'core';
                                 // Use different URL structure for Concepts family
                                 $linkPath = ($family == 'Concepts')
                                     ? $SITE_ROOT . $version_path . '/' . $mechanism['id']
-                                    : $SITE_ROOT . $version_path . '/' . ($coretype == 'core' ? 'core' : 'core-a') . '/' . $mechanism['id'];
+                                    : $SITE_ROOT . $version_path . '/' . $effectiveCore . '/' . $mechanism['id'];
                                 ?>
                                 <a class="dropdown-item text-dark" href="<?= $linkPath ?>">
                                     <?= htmlspecialchars($mechanism['name']) ?>
@@ -393,7 +395,7 @@ break;
                 <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core">Select Mechanism to View</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core-e">Do an Experiment</a>
+                <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core-c">Do an Experiment</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core-s">Make a Submission</a>

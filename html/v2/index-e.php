@@ -410,6 +410,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <footer class="bg-light text-center text-lg-start">
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+	<p>Fall 2025 Contributors: Jack Lin | Michael Scotto | Owen Pacchiana | Gavin Bell </p>
         <p>Spring 2025 Contributors: Justin Feinman | Henry Becker </p>
 	  <p>Fall 2024 Contributors: William Rubin | Marco Lemus </p>
 	  <p>Spring 2024 Contributors: Shelby Hinton | Gianella Robles | Mary Seelmann </p>
@@ -432,8 +433,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $(document).ready(function() {
   function redirect() {
     let mechanismid = $("#mechanismid").val();
-    let coremode = "<?= $coremode ?>;
-    let url = './${coremode}/m-${mechanismid}';
+    let coremode = "<?= $coremode ?>";
+    let url = './' + coremode + '/m-' + mechanismid;    
     $("#midForm").attr("action", url);
     $("#midForm").submit();
   }

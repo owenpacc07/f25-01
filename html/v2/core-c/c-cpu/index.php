@@ -271,7 +271,10 @@ $algorithmUrls = [
 
             const dataArray = [['Algorithm', 'Average Waiting Time', { role: 'style' }]];
             for (const [algorithm, waitingTimes] of Object.entries(simulationResults)) {
-                const avgWaitingTime = Object.values(waitingTimes).reduce((a, b) => a + b, 0) / Object.keys(waitingTimes).length;
+                // Convert to numbers and calculate average
+                const numericWaitingTimes = Object.values(waitingTimes).map(val => parseFloat(val) || 0);
+                const avgWaitingTime = numericWaitingTimes.reduce((a, b) => a + b, 0) / numericWaitingTimes.length;
+                console.log(`${algorithm}: individual times =`, numericWaitingTimes, `average = ${avgWaitingTime}`);
                 dataArray.push([algorithm, avgWaitingTime, randomColor]);
             }
 
@@ -501,97 +504,168 @@ $algorithmUrls = [
     }
 
     function preemptiveSJFAlgorithm($processes) {
+        $n = count($processes);
         $waitingTimes = array_fill_keys(array_column($processes, 'id'), 0);
-        $remainingBurstTimes = array_column($processes, 'burst', 'id');
+        $remainingTime = array_column($processes, 'burst', 'id');
+        $arrivalTime = array_column($processes, 'arrival', 'id');
+        $burstTime = array_column($processes, 'burst', 'id');
+        $completed = array_fill_keys(array_column($processes, 'id'), false);
+        $completionTime = array_fill_keys(array_column($processes, 'id'), 0);
+        
         $currentTime = 0;
-        $completedProcesses = 0;
-        while ($completedProcesses < count($processes)) {
-            $arrivedProcesses = array_filter($processes, function ($p) use ($currentTime, $remainingBurstTimes) {
-                return $p['arrival'] <= $currentTime && $remainingBurstTimes[$p['id']] > 0;
-            });
-            if (empty($arrivedProcesses)) {
+        $completedCount = 0;
+        
+        while ($completedCount < $n) {
+            $shortestJob = null;
+            $shortestTime = PHP_INT_MAX;
+            
+            // Find process with shortest remaining time among arrived processes
+            foreach ($processes as $process) {
+                $pid = $process['id'];
+                if ($arrivalTime[$pid] <= $currentTime && 
+                    !$completed[$pid] && 
+                    $remainingTime[$pid] < $shortestTime) {
+                    $shortestTime = $remainingTime[$pid];
+                    $shortestJob = $pid;
+                }
+            }
+            
+            if ($shortestJob === null) {
                 $currentTime++;
                 continue;
             }
-            usort($arrivedProcesses, function ($a, $b) use ($remainingBurstTimes) {
-                return $remainingBurstTimes[$a['id']] - $remainingBurstTimes[$b['id']];
-            });
-            $nextProcess = $arrivedProcesses[0];
-            $remainingBurstTimes[$nextProcess['id']]--;
+            
+            // Execute shortest job for 1 unit
+            $remainingTime[$shortestJob]--;
             $currentTime++;
-            foreach ($arrivedProcesses as $process) {
-                if ($process['id'] !== $nextProcess['id']) {
-                    $waitingTimes[$process['id']]++;
-                }
-            }
-            if ($remainingBurstTimes[$nextProcess['id']] === 0) {
-                $completedProcesses++;
+            
+            // Check if job completed
+            if ($remainingTime[$shortestJob] == 0) {
+                $completed[$shortestJob] = true;
+                $completionTime[$shortestJob] = $currentTime;
+                $completedCount++;
             }
         }
+        
+        // Calculate waiting times
+        foreach ($processes as $process) {
+            $pid = $process['id'];
+            $waitingTimes[$pid] = $completionTime[$pid] - $arrivalTime[$pid] - $burstTime[$pid];
+        }
+        
         return $waitingTimes;
     }
 
-    function roundRobinAlgorithm($processes, $timeQuantum = 2) {
+    function roundRobinAlgorithm($processes, $timeQuantum = 3) {
         $waitingTimes = array_fill_keys(array_column($processes, 'id'), 0);
         $remainingBurstTimes = array_column($processes, 'burst', 'id');
+        $completionTimes = array_fill_keys(array_column($processes, 'id'), 0);
+        $arrivalTimes = array_column($processes, 'arrival', 'id');
+        $originalBurstTimes = array_column($processes, 'burst', 'id');
+        
         $queue = [];
         $currentTime = 0;
-        usort($processes, function ($a, $b) {
-            return $a['arrival'] - $b['arrival'];
-        });
-        foreach ($processes as $process) {
-            if ($process['arrival'] <= $currentTime) {
-                $queue[] = $process['id'];
-            }
-        }
-        while (!empty($queue)) {
-            $currentProcess = array_shift($queue);
-            $executionTime = min($remainingBurstTimes[$currentProcess], $timeQuantum);
-            foreach ($queue as $processId) {
-                $waitingTimes[$processId] += $executionTime;
-            }
-            $remainingBurstTimes[$currentProcess] -= $executionTime;
-            $currentTime += $executionTime;
+        $completed = 0;
+        $n = count($processes);
+        
+        while ($completed < $n) {
+            // Add newly arrived processes to queue
             foreach ($processes as $process) {
-                if ($process['arrival'] <= $currentTime && !in_array($process['id'], $queue) && $remainingBurstTimes[$process['id']] > 0) {
+                if ($process['arrival'] <= $currentTime && 
+                    $remainingBurstTimes[$process['id']] > 0 && 
+                    !in_array($process['id'], $queue)) {
                     $queue[] = $process['id'];
                 }
             }
+            
+            if (empty($queue)) {
+                $currentTime++;
+                continue;
+            }
+            
+            $currentProcess = array_shift($queue);
+            $executionTime = min($remainingBurstTimes[$currentProcess], $timeQuantum);
+            
+            $remainingBurstTimes[$currentProcess] -= $executionTime;
+            $currentTime += $executionTime;
+            
+            // Add newly arrived processes after execution
+            foreach ($processes as $process) {
+                if ($process['arrival'] <= $currentTime && 
+                    $remainingBurstTimes[$process['id']] > 0 && 
+                    !in_array($process['id'], $queue) &&
+                    $process['id'] != $currentProcess) {
+                    $queue[] = $process['id'];
+                }
+            }
+            
             if ($remainingBurstTimes[$currentProcess] > 0) {
                 $queue[] = $currentProcess;
+            } else {
+                $completionTimes[$currentProcess] = $currentTime;
+                $completed++;
             }
         }
+        
+        // Calculate waiting times: completion_time - arrival_time - burst_time
+        foreach ($processes as $process) {
+            $waitingTimes[$process['id']] = $completionTimes[$process['id']] - $arrivalTimes[$process['id']] - $originalBurstTimes[$process['id']];
+        }
+        
         return $waitingTimes;
     }
 
     function preemptivePriorityHighAlgorithm($processes) {
+        $n = count($processes);
         $waitingTimes = array_fill_keys(array_column($processes, 'id'), 0);
-        $remainingBurstTimes = array_column($processes, 'burst', 'id');
+        $remainingTime = array_column($processes, 'burst', 'id');
+        $arrivalTime = array_column($processes, 'arrival', 'id');
+        $burstTime = array_column($processes, 'burst', 'id');
+        $priority = array_column($processes, 'priority', 'id');
+        $completed = array_fill_keys(array_column($processes, 'id'), false);
+        $completionTime = array_fill_keys(array_column($processes, 'id'), 0);
+        
         $currentTime = 0;
-        $completedProcesses = 0;
-        while ($completedProcesses < count($processes)) {
-            $arrivedProcesses = array_filter($processes, function ($p) use ($currentTime, $remainingBurstTimes) {
-                return $p['arrival'] <= $currentTime && $remainingBurstTimes[$p['id']] > 0;
-            });
-            if (empty($arrivedProcesses)) {
+        $completedCount = 0;
+        
+        while ($completedCount < $n) {
+            $highestPriorityJob = null;
+            $highestPriority = -1;
+            
+            // Find process with highest priority among arrived processes
+            foreach ($processes as $process) {
+                $pid = $process['id'];
+                if ($arrivalTime[$pid] <= $currentTime && 
+                    !$completed[$pid] && 
+                    $priority[$pid] > $highestPriority) {
+                    $highestPriority = $priority[$pid];
+                    $highestPriorityJob = $pid;
+                }
+            }
+            
+            if ($highestPriorityJob === null) {
                 $currentTime++;
                 continue;
             }
-            usort($arrivedProcesses, function ($a, $b) {
-                return $b['priority'] - $a['priority'];
-            });
-            $nextProcess = $arrivedProcesses[0];
-            $remainingBurstTimes[$nextProcess['id']]--;
+            
+            // Execute highest priority job for 1 unit
+            $remainingTime[$highestPriorityJob]--;
             $currentTime++;
-            foreach ($arrivedProcesses as $process) {
-                if ($process['id'] !== $nextProcess['id']) {
-                    $waitingTimes[$process['id']]++;
-                }
-            }
-            if ($remainingBurstTimes[$nextProcess['id']] === 0) {
-                $completedProcesses++;
+            
+            // Check if job completed
+            if ($remainingTime[$highestPriorityJob] == 0) {
+                $completed[$highestPriorityJob] = true;
+                $completionTime[$highestPriorityJob] = $currentTime;
+                $completedCount++;
             }
         }
+        
+        // Calculate waiting times
+        foreach ($processes as $process) {
+            $pid = $process['id'];
+            $waitingTimes[$pid] = $completionTime[$pid] - $arrivalTime[$pid] - $burstTime[$pid];
+        }
+        
         return $waitingTimes;
     }
 
