@@ -395,7 +395,7 @@ break;
                 <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core">Select Mechanism to View</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core-e">Do an Experiment</a>
+                <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core-c">Do an Experiment</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core-s">Make a Submission</a>
