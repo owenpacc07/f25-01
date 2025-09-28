@@ -33,9 +33,11 @@ if (!isset($_SESSION['log_messages'])) {
 
 // Fetch experiments data for the logged-in user
 $user_id = mysqli_real_escape_string($link, $_SESSION['userid']);
-$experiments_data = mysqli_query($link, "SELECT experiment_id, family_id, user_id, input_path, output_path FROM experiments WHERE user_id = '$user_id' ORDER BY experiment_id DESC");
+$experiments_data = mysqli_query($link, "SELECT e.experiment_id, e.family_id, e.user_id, e.input_path, e.output_path, e.code_path, e.created_at FROM experiments e WHERE e.user_id = '$user_id' ORDER BY e.experiment_id DESC");
 if (!$experiments_data) {
     $_SESSION['log_messages'][] = "Error fetching experiments: " . mysqli_error($link);
+} else {
+    $_SESSION['log_messages'][] = "Found " . mysqli_num_rows($experiments_data) . " experiments for user_id: $user_id";
 }
 
 // Handle experiment submission
@@ -164,8 +166,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Submission ID</th>
-                                <th>Category</th>
+                                <th>Experiment ID</th>
+                                <th>Date/Time</th>
+                                <th>Family ID</th>
+                                <th>User Email</th>
                                 <th>Input Path</th>
                                 <th>View Mechanisms</th>
                             </tr>
@@ -175,7 +179,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                 $input_modal_id = "inputModal_" . $row['experiment_id'];
                                 $mechanism_modal_id = "mechanismModal_" . $row['experiment_id'];
 
-                                // Fetch algorithm name for this experiment's family_id
+                                // Get user email from the users table based on user_id (matching core-s pattern)
+                                $user_id_row = $row['user_id'];
+                                $email_query = "SELECT email FROM users WHERE UserID = '$user_id_row'";
+                                $email_result = mysqli_query($link, $email_query);
+                                $user_email = ($email_result && mysqli_num_rows($email_result) > 0) ? 
+                                              mysqli_fetch_assoc($email_result)['email'] : 'Unknown';
+
+                                // Fetch algorithm name for display
                                 $family_id = $row['family_id'];
                                 $mechanism_query = "SELECT client_code, algorithm FROM comparisons WHERE component_id = ? LIMIT 1";
                                 $stmt = $link->prepare($mechanism_query);
@@ -183,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                 $stmt->execute();
                                 $mechanism_result = $stmt->get_result();
                                 $mechanism_row = $mechanism_result->fetch_assoc();
-                                $algorithm_name = $mechanism_row['algorithm'] ?? 'CPU Scheduling'; // Fallback to 'CPU Scheduling' if not found
+                                $algorithm_name = $mechanism_row['algorithm'] ?? 'Unknown Algorithm';
                                 $algorithm_first_word = strtolower(explode(' ', trim($algorithm_name))[0]);
 
                                 // Fetch all mechanisms for this family_id (component_id)
@@ -200,7 +211,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                             ?>
                                 <tr>
                                     <td><?php echo $row['experiment_id']; ?></td>
-                                    <td><?php echo $algorithm_name; ?></td>
+                                    <td><?php echo isset($row['created_at']) ? $row['created_at'] : date('Y-m-d H:i:s'); ?></td>
+                                    <td><?php echo $algorithm_name . " (ID: " . $row['family_id'] . ")"; ?></td>
+                                    <td><?php echo $user_email; ?></td>
                                     <td><button class='btn btn-info' data-toggle='modal' data-target='#<?php echo $input_modal_id ?>'>View Input</button></td>
                                     <td><button class='btn btn-primary' data-toggle='modal' data-target='#<?php echo $mechanism_modal_id ?>'>View Mechanisms</button></td>
                                 </tr>
@@ -220,13 +233,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                                 <pre class="bg-light p-3 rounded">
                                                     <?php
                                                     $experiment_id = $row['experiment_id'];
-                                                    $user_id = $row['user_id'];
+                                                    $user_id_modal = $row['user_id'];
                                                     $experiment_directory_path = realpath("/var/www/p/s25-01/html/files/experiments");
-                                                    $inputPath = sprintf("%s/%d_%d_%d/in-%s.dat", $experiment_directory_path, $user_id, $experiment_id, $family_id, $algorithm_first_word);
+                                                    $inputPath = sprintf("%s/%d_%d_%d/in-%s.dat", $experiment_directory_path, $user_id_modal, $experiment_id, $family_id, $algorithm_first_word);
                                                     if (file_exists($inputPath)) {
                                                         echo file_get_contents($inputPath);
                                                     } else {
-                                                        echo "File not found: $inputPath";
+                                                        echo "Input file not found: $inputPath";
                                                     }
                                                     ?>
                                                 </pre>
@@ -254,7 +267,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                                     <ul class="mechanism-list">
                                                         <?php while ($mechanism = $mechanisms_result->fetch_assoc()): ?>
                                                             <li>
-                                                                <a href="/p/s25-01/v2/core-e/m-<?php echo $mechanism['client_code']; ?>?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $user_id . '_' . $row['experiment_id'] . '_' . $family_id; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=<?php echo $mechanism['client_code']; ?>" target="_blank">
+                                                                <a href="/p/s25-01/v2/core-e/m-<?php echo $mechanism['client_code']; ?>?user_id=<?php echo $user_id_modal; ?>&experiment_id=<?php echo $user_id_modal . '_' . $row['experiment_id'] . '_' . $family_id; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=<?php echo $mechanism['client_code']; ?>" target="_blank">
                                                                     <?php echo $mechanism['algorithm']; ?> (m-<?php echo $mechanism['client_code']; ?>)
                                                                 </a>
                                                             </li>
@@ -274,6 +287,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                         </tbody>
                     </table>
                 </section>
+            </div>
+        <?php else: ?>
+            <div class="container">
+                <p>No experiments found. Create your first experiment above!</p>
             </div>
         <?php endif; ?>
     </main>
