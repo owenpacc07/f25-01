@@ -191,7 +191,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
                 <!-- Section for a button that will submit the requested algorithm -->
                 <button type="submit" class="btn custom-btn" name="algorithmSubmit">Make a Submission</button>
             </form>
+            
+            <!-- New button for custom code input -->
+            <div class="mt-3">
+                <a href="x/index.php" class="btn custom-btn">Custom Java Code Input</a>
+            </div>
         </div>
+        
         <div class="container">
             <form method="POST" class="form-inline">
             <div class="form-group mb-2">
