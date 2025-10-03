@@ -10,7 +10,9 @@ if (!isset($_SESSION['email'])) {
 // Include database configuration
 require '../config.php';
 
-// Check if the logged-in user has ModeID >= 3 from sql tables
+
+// This ModeID check is currently not restricting any users anymore, but is kept for redundancy.
+// Check if the logged-in user has ModeID >= 0 from sql tables
 // this means research user,manage user or admin.
 $email = mysqli_real_escape_string($link, $_SESSION['email']);
 $mode_query = "SELECT ModeID FROM users WHERE Email = ?";
@@ -20,8 +22,8 @@ $stmt->execute();
 $mode_result = $stmt->get_result();
 $mode_row = $mode_result->fetch_assoc();
 
-if (!$mode_row || $mode_row['ModeID'] < 3) {
-    $_SESSION['log_messages'][] = "Access denied: User does not have sufficient permissions (ModeID < 3).";
+if (!$mode_row || $mode_row['ModeID'] < 0) {
+    $_SESSION['log_messages'][] = "Access denied: Invalid user account.";
     header('Location: ../login.php'); // Redirect to an access-denied page
     exit();
 }
