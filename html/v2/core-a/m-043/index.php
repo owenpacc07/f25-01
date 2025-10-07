@@ -28,7 +28,7 @@ $mid = '043';
         var httpcore_a_IO = `<?php echo $httpcore_a_IO ?>`;
         var httpcore_a = `<?php echo $httpcore_a; ?>`;
     </script>
-    <script type="module" src="main.js" defer></script>
+    <script type="module" src="main.js?v=2" defer></script>
 </head>
 
 <body>
@@ -63,11 +63,11 @@ $mid = '043';
      		</div>
 
                 <br>
-                <img src="res/Capture.JPG" alt="Lines" width="704">
+                
                 <canvas id="myCanvas" width="700" height="500">
                     Your browser does not support the HTML5 canvas tag.
                 </canvas>
-                <img src="res/Capture2.JPG" alt="Lines" width="704">
+                
             </div>
         </div>
     </div>

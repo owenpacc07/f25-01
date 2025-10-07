@@ -52,7 +52,7 @@ shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
         <br>
         <div class="">
             <div class="container">
-                <hr>
+                <br>
                 <div id="animNavBtns" class="d-flex flex-row justify-content-center">
                     <a class="btn btn-primary" href="<?php echo $httpcore; ?>/m-<?php echo $mid; ?>/"> Reload Data </a>
                     <button class="btn btn-primary" type="button" id="Reset">Reset </button>

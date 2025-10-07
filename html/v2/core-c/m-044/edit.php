@@ -2,7 +2,7 @@
 
 // the path to the in/out directory
 $mid = '044';
-$path = realpath("../../../files/core-s/m-$mid");
+$path = realpath("../../../files/core-c/m-$mid");
 
 if (isset($_POST['submit'])) {
     if (empty($_POST['input'])) {
@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
     <br>
 
     <?php
-    $path = realpath("../../../files/core-s/m-$mid");
+    $path = realpath("../../../files/core-c/m-$mid");
     $output = file_get_contents("$path/out-$mid.dat");
     $input = file_get_contents("$path/in-$mid.dat");
     $format = file_get_contents("$path/format-$mid.txt");

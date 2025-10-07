@@ -27,7 +27,7 @@ shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
         var httpcore_IO = `<?php echo $httpcore_IO ?>`;
         var httpcore = `<?php echo $httpcore; ?>`;
     </script>
-    <script type="module" src="main.js" defer></script>
+    <script type="module" src="main.js?v=2" defer></script>
 </head>
 
 <body>
@@ -62,11 +62,11 @@ shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
                             <button class="btn btn-primary" type="button" id="End">End </button>
                 </div>
                 <br>
-                <img src="res/Capture.JPG" alt="Lines" width="704">
+                
                 <canvas id="myCanvas" width="700" height="500">
                     Your browser does not support the HTML5 canvas tag.
                 </canvas>
-                <img src="res/Capture2.JPG" alt="Lines" width="704">
+                
             </div>
         </div>
     </div>

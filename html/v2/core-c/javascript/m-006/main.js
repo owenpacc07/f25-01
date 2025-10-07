@@ -721,15 +721,29 @@ function generateWaitingTime(proc) {
 
     if (proc === -1) {
         console.log("END BUTTON PRESSED");
+
+        // Handle unique processes for preemptive algorithms
+        let processDisplayInfo = {};
         for (let i = 0; i < otherOutputInformation.length; i++) {
-            currentWaitTag = document.getElementById('wait_' + (i));
+            let processId = otherOutputInformation[i][0];
+            let displayIndex = i;
+            processDisplayInfo[processId] = {
+                index: displayIndex,
+                data: otherOutputInformation[i]
+            };
+        }
+
+        // Display only unique processes
+        let displayIndex = 0;
+        for (let processId in processDisplayInfo) {
+            currentWaitTag = document.getElementById('wait_' + displayIndex);
+            let processData = processDisplayInfo[processId].data;
 
             if (currentWaitTag != null) {
+                exitTime = sorted[processDisplayInfo[processId].index][2];
+                arrivalTime = processData[1];
 
-                exitTime = sorted[i][2];
-                arrivalTime = otherOutputInformation[i][1];
-
-                currentProcessIdIndex = otherOutputInformation[i][0] - 1;
+                currentProcessIdIndex = processData[0] - 1;
                 burstTime = procHandler[currentProcessIdIndex][2];
                 if ((exitTime - arrivalTime - burstTime) < 0)
                     negativeWaitTime = true;
@@ -737,11 +751,12 @@ function generateWaitingTime(proc) {
                     negativeWaitTime = false;
 
                 if (negativeWaitTime)
-                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${(exitTime - arrivalTime - burstTime)} ${arrow} ${otherOutputInformation[i][5]}`;
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${(exitTime - arrivalTime - burstTime)} ${arrow} ${processData[5]}`;
                 else
-                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${otherOutputInformation[i][5]}`;
-                currentWaitTag.innerHTML = "P" + (otherOutputInformation[i][0]) + ":<span class=\"space\">" + calculationText + "</span>";
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${processData[5]}`;
+                currentWaitTag.innerHTML = "P" + (processData[0]) + ":<span class=\"space\">" + calculationText + "</span>";
             }
+            displayIndex++;
         }
         displayWaitAverage();
     } else if (proc > -1) {
@@ -779,11 +794,23 @@ function displayWaitAverage() {
     let waitText = document.getElementById('averageWaitTimeText');
     let text = '';
 
+    // Handle unique processes for preemptive algorithms
+    let processWaitTimes = {};
     for (let i = 0; i < otherOutputInformation.length; i++) {
-        if (i === 0)
-            text += otherOutputInformation[i][5];
-        else
-            text += ' + ' + otherOutputInformation[i][5];
+        let processId = otherOutputInformation[i][0];
+        let waitTime = otherOutputInformation[i][5];
+        processWaitTimes[processId] = waitTime;
+    }
+
+    // Build display text using unique process wait times
+    let isFirst = true;
+    for (let processId in processWaitTimes) {
+        if (isFirst) {
+            text += processWaitTimes[processId];
+            isFirst = false;
+        } else {
+            text += ' + ' + processWaitTimes[processId];
+        }
     }
 
     waitText.innerHTML = "Wait Average:<span class=\"space\"> </span>";

@@ -1,7 +1,7 @@
 <?php
 
 require_once "../../config-legacy.php";
-require_once "../../system-a.php";
+require_once "../../system.php";
 
 global $link;
 session_start();
@@ -52,7 +52,7 @@ if ($mid) {
 
     <div class="center text-center">
         <h1 id="title">VISUALIZE: Memory Allocation - <?= $mtitle ?></h1>
-        <h4>Only 1 process can be allocated per memory slot</h4>
+        
     </div>
 
     <div id="overlay">

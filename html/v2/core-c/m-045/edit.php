@@ -2,7 +2,7 @@
 
 // the path to the in/out directory
 $mid = '045';
-$path = realpath("../../../files/core-s/m-$mid");
+$path = realpath("../../../files/core-c/m-$mid");
 
 if (isset($_POST['submit'])) {
     if (empty($_POST['input'])) {

@@ -1,186 +1,212 @@
-import {readTextFile, head, inputData, outputData,} from './load_data.js';
+import { readTextFile, head, inputData, outputData } from "./load_data.js";
 
 /*
-Contributor Spring 2023 - Dakota Marino
+  Contributor Spring 2023 - Dakota Marino
+  Dynamic axis + VSTART_OFFSET to lower starting Y of graph
 */
 
-//instance variables
-var inputValues = [];
-var outputValues = [];
+console.log("main.js loaded (dynamic axis, start offset) v5");
 
-//canvas and context for drawing lines on screen
+// ===== canvas & context =====
 const canvas = document.getElementById("myCanvas");
 const context = canvas.getContext("2d");
-context.beginPath();
-//variables for canvas
-var index = 0;
-var vIndex = 0;
-var intervalID;
-//starts the program upon refresh
-runProgram();
 
-//declare all buttons and set on click to run a function
-let Previous = document.getElementById('Previous');
-Previous.onclick = function(){displayLine("stepBack",null)};
+// ===== UI/data state =====
+let inputValues = [];
+let outputValues = [];
+let index = 0;          // which output value we are at
+let vIndex = 0;         // vertical increment counter
+let intervalID = null;  // setInterval handle
 
-let Next = document.getElementById('Next');
-Next.onclick = function(){displayLine("stepForward",null)};
+// ===== drawing constants =====
+const VSTEP = 25;            // vertical step for each line segment
+const VSTART_OFFSET = 50;   // <— move the whole graph down by this many pixels
+const PADDING_LEFT = 30;
+const PADDING_RIGHT = 20;
+const AXIS_Y = 25;           // axis line position
+let TICK_EVERY = 100;        // tick spacing (auto chosen below)
 
-let End = document.getElementById('End');
-End.onclick = function(){displayLine("run",null)};
+// ===== dynamic domain =====
+let xMin = 0;
+let xMax = 700;              // default domain so we always see an axis
 
-let reset = document.getElementById('Reset');
-reset.onclick = function(){displayLine("clearAll",null)};
-
-const btnStart = document.getElementById("play");
-
-//need event listeners for play and visualize
-btnStart.addEventListener("click", function() {
-    console.log(btnStart.innerHTML);
-    if (btnStart.innerHTML.trim() === "Play") {
-        console.log("Equals play");
-        displayLine("play",intervalID);
-        btnStart.innerHTML = "Pause";
-    }
-    else if (btnStart.innerHTML.trim() === "Pause") {
-        console.log("Equals pause");
-        displayLine("pause",intervalID);
-        btnStart.innerHTML = "Play";
-    }
-});
-
-//program that runs upon loading the page
-async function runProgram() {
-    //sets input and output values
-    await  readTextFile("input");
-    inputValues = inputData;
-    console.log(inputValues);
-    await readTextFile("output");
-    console.log(outputData);
-    outputValues = outputData;
-    document.getElementById("the-queue").innerHTML = inputValues;
-    document.getElementById("the-head").innerHTML = head;
+// ===== helpers =====
+function xScale(x) {
+  if (xMax === xMin) return PADDING_LEFT;
+  const usable = canvas.width - (PADDING_LEFT + PADDING_RIGHT);
+  return PADDING_LEFT + ((Number(x) - xMin) / (xMax - xMin)) * usable;
 }
 
-//This function handles all of the visualization commands.
-function displayLine(type, interval) {
-    //set color and line width. We need to do this every time 
-    //because <STEP sets the color to white in order to erase a line.
-    context.strokeStyle = "blue";
-    context.lineWidth = 5;
-
-    //if PLAY or VISUALIZE button was clicked
-    if (type == "play") {
-        intervalID = setInterval(function() {   
-            if (index == 0) {
-                document.getElementById("output-data").innerHTML = outputValues[index];
-                context.beginPath();
-                vIndex+=25;
-                context.moveTo(head, vIndex-25);
-                context.lineTo(outputValues[index], vIndex);
-                context.stroke();
-                index++;
-            }
-            else if (index < outputValues.length) {
-                document.getElementById("output-data").innerHTML = document.getElementById("output-data").innerHTML + "," + outputValues[index];
-                context.beginPath();
-                vIndex+=25;
-                context.moveTo(outputValues[index-1], vIndex-25);
-                context.lineTo(outputValues[index], vIndex);
-                context.stroke();
-                index++;
-            }
-            else {
-                clearInterval(interval);
-            }
-        }, 1000);
+function chooseTick(span) {
+  const bases = [1, 2, 5];
+  const pow10 = Math.pow(10, Math.floor(Math.log10(span || 1)));
+  for (let mag = pow10 / 10; mag <= span * 2; mag *= 10) {
+    for (const b of bases) {
+      const tick = b * mag;
+      const count = span / tick;
+      if (count >= 5 && count <= 12) return tick;
     }
+  }
+  return 100;
+}
 
-    //if PAUSE or VISUALIZING button was clicked
-    else if (type == "pause") {
-        clearInterval(interval);
+function drawAxis() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.strokeStyle = "#2b3a67";
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(PADDING_LEFT, AXIS_Y);
+  context.lineTo(canvas.width - PADDING_RIGHT, AXIS_Y);
+  context.stroke();
+
+  context.font = "12px sans-serif";
+  context.fillStyle = "#000";
+  context.textAlign = "center";
+
+  const firstTick = Math.ceil(xMin / TICK_EVERY) * TICK_EVERY;
+  for (let t = firstTick; t <= xMax; t += TICK_EVERY) {
+    const px = xScale(t);
+    context.beginPath();
+    context.moveTo(px, AXIS_Y);
+    context.lineTo(px, AXIS_Y - 8);         // tick up
+    context.stroke();
+    context.fillText(String(t), px, AXIS_Y - 12); // label above
+  }
+}
+
+// draw a default axis immediately
+drawAxis();
+
+// ===== buttons =====
+document.getElementById("Previous").onclick = () => displayLine("stepBack");
+document.getElementById("Next").onclick     = () => displayLine("stepForward");
+document.getElementById("End").onclick      = () => displayLine("run");
+document.getElementById("Reset").onclick    = () => displayLine("clearAll");
+
+const btnStart = document.getElementById("play");
+btnStart.addEventListener("click", () => {
+  if (btnStart.innerHTML.trim() === "Play") {
+    displayLine("play");
+    btnStart.innerHTML = "Pause";
+  } else {
+    displayLine("pause");
+    btnStart.innerHTML = "Play";
+  }
+});
+
+// ===== load & init =====
+runProgram();
+
+async function runProgram() {
+  await readTextFile("input");
+  inputValues = inputData;
+  await readTextFile("output");
+  outputValues = outputData;
+
+  console.log("head:", head, "inputs:", inputValues, "outputs:", outputValues);
+
+  document.getElementById("the-queue").innerHTML = inputValues;
+  document.getElementById("the-head").innerHTML  = head;
+
+  const allX = [Number(head), ...outputValues.map(Number)].filter(n => !Number.isNaN(n));
+  if (allX.length === 0) {
+    console.warn("No data yet — default axis shown.");
+    return;
+  }
+
+  xMin = Math.min(...allX);
+  xMax = Math.max(...allX);
+  const span = xMax - xMin || 1;
+  const pad  = span * 0.05;
+  xMin -= pad;
+  xMax += pad;
+
+  TICK_EVERY = chooseTick(xMax - xMin);
+  drawAxis();
+
+  index = 0;
+  vIndex = 0;
+  document.getElementById("output-data").innerHTML = "";
+}
+
+// ===== drawing controller =====
+function displayLine(type) {
+  context.strokeStyle = "blue";
+  context.lineWidth = 5;
+
+  if (type === "play") {
+    clearInterval(intervalID);
+    intervalID = setInterval(stepForwardDraw, 1000);
+  } else if (type === "pause") {
+    clearInterval(intervalID);
+  } else if (type === "stepForward") {
+    stepForwardDraw();
+  } else if (type === "stepBack") {
+    stepBackErase();
+  } else if (type === "clearAll") {
+    clearInterval(intervalID);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    index = 0;
+    vIndex = 0;
+    document.getElementById("output-data").innerHTML = "";
+    drawAxis();
+  } else if (type === "run") {
+    clearInterval(intervalID);
+    while (index < outputValues.length) stepForwardDraw();
+  }
+}
+
+function stepForwardDraw() {
+  if (index >= outputValues.length) {
+    clearInterval(intervalID);
+    return;
+  }
+
+  const outX = xScale(Number(outputValues[index]));
+
+  if (index === 0) {
+    document.getElementById("output-data").innerHTML = outputValues[index];
+    context.beginPath();
+    vIndex += VSTEP;
+    context.moveTo(xScale(Number(head)), VSTART_OFFSET + vIndex - VSTEP);
+    context.lineTo(outX,                VSTART_OFFSET + vIndex);
+    context.stroke();
+  } else {
+    document.getElementById("output-data").innerHTML += "," + outputValues[index];
+    context.beginPath();
+    vIndex += VSTEP;
+    context.moveTo(xScale(Number(outputValues[index - 1])), VSTART_OFFSET + vIndex - VSTEP);
+    context.lineTo(outX,                                    VSTART_OFFSET + vIndex);
+    context.stroke();
+  }
+  index++;
+}
+
+function stepBackErase() {
+  context.lineWidth = 7;
+  context.strokeStyle = "#ffffff";
+
+  if (index >= 1) {
+    if (index === 1) {
+      document.getElementById("output-data").innerHTML = "";
+      index--;
+      context.beginPath();
+      context.moveTo(xScale(Number(head)), VSTART_OFFSET + vIndex - VSTEP);
+      context.lineTo(xScale(Number(head)), VSTART_OFFSET + vIndex);
+      context.stroke();
+      vIndex -= VSTEP;
+    } else {
+      document.getElementById("output-data").innerHTML =
+        outputValues.slice(0, index - 1);
+      index--;
+      context.beginPath();
+      context.moveTo(xScale(Number(outputValues[index])),     VSTART_OFFSET + vIndex);
+      context.lineTo(xScale(Number(outputValues[index - 1])), VSTART_OFFSET + vIndex - VSTEP);
+      context.stroke();
+      vIndex -= VSTEP;
     }
+  }
 
-    //if STEP> was clicked
-    else if (type == "stepForward") {
-        if (index < outputValues.length) {
-            if (index == 0) {
-                document.getElementById("output-data").innerHTML = outputValues[index];
-                context.beginPath();
-                vIndex+=25;
-                context.moveTo(head, vIndex-25);
-                context.lineTo(outputValues[index], vIndex);
-                context.stroke();
-                index++;
-            }
-            else {
-                document.getElementById("output-data").innerHTML = document.getElementById("output-data").innerHTML + "," + outputValues[index];
-                context.beginPath();
-                vIndex+=25;
-                context.moveTo(outputValues[index-1], vIndex-25);
-                context.lineTo(outputValues[index], vIndex);
-                context.stroke();
-                index++;
-            }
-        }
-    }    
-
-    //if <STEP was clicked
-    else if (type == "stepBack") {
-        context.lineWidth = 7;
-        context.strokeStyle = "#ffffff";
-        if (index >= 1) {
-            console.log(index);
-            if (index == 1) {
-                document.getElementById("output-data").innerHTML = "";
-                index--;       
-                context.lineTo(head, vIndex-25);
-                context.stroke();
-                vIndex-=25;
-            }
-            else {
-                document.getElementById("output-data").innerHTML = outputValues.slice(0,index-1);
-                index--;
-                context.beginPath();
-                context.moveTo(outputValues[index], vIndex);
-                context.lineTo(outputValues[index-1], vIndex-25);
-                context.stroke();
-                vIndex-=25;
-            }
-        }
-        context.strokeStyle = "blue";
-        context.lineWidth = 5;
-    } 
-
-    //if RESET was clicked
-    else if (type == "clearAll") {
-        context.clearRect(0, 0, 700, 500);
-        index = 0;
-        vIndex = 0;
-        document.getElementById("output-data").innerHTML = "";
-    }
-
-    //if RUN or END was clicked
-    else if (type == "run") {
-        while (index < outputValues.length) {
-            if (index == 0) {
-                document.getElementById("output-data").innerHTML = outputValues[index];
-                context.beginPath();
-                vIndex+=25;
-                context.moveTo(head, vIndex-25);
-                context.lineTo(outputValues[index], vIndex);
-                context.stroke();
-                index++;
-            }
-            else {
-                document.getElementById("output-data").innerHTML = document.getElementById("output-data").innerHTML + "," + outputValues[index];
-                context.beginPath();
-                vIndex+=25;
-                context.moveTo(outputValues[index-1], vIndex-25);
-                context.lineTo(outputValues[index], vIndex);
-                context.stroke();
-                index++;
-            }
-        }
-    }
+  context.strokeStyle = "blue";
+  context.lineWidth = 5;
 }

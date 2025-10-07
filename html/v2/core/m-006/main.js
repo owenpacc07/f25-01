@@ -81,10 +81,18 @@ function populateDetailedTable() {
 // initalizes space for wait time calculations
 function initializeWaitTimes() {
     let waitContainer = document.getElementById('waitContainer');
-    for (let i = 0; i < input.length; i++) {
+    // Get unique processes from output to avoid duplicates
+    let uniqueProcesses = {};
+    for (let i = 0; i < output.length; i++) {
+        let processId = output[i].pid;
+        uniqueProcesses[processId] = true;
+    }
+
+    // Create elements only for unique processes
+    for (let processId in uniqueProcesses) {
         let newP = document.createElement('p');
-        newP.setAttribute('id', 'wait' + i);
-        newP.innerText = `P${i + 1}: `;
+        newP.setAttribute('id', 'wait' + (processId - 1));
+        newP.innerText = `P${processId}: `;
         waitContainer.appendChild(newP);
     }
 }
@@ -92,10 +100,18 @@ function initializeWaitTimes() {
 // initalizes space for response time calculations
 function initializeResponseTimes() {
     let responseContainer = document.getElementById('responseContainer');
-    for (let i = 0; i < input.length; i++) {
+    // Get unique processes from output to avoid duplicates
+    let uniqueProcesses = {};
+    for (let i = 0; i < output.length; i++) {
+        let processId = output[i].pid;
+        uniqueProcesses[processId] = true;
+    }
+
+    // Create elements only for unique processes
+    for (let processId in uniqueProcesses) {
         let newP = document.createElement('p');
-        newP.setAttribute('id', 'response' + i);
-        newP.innerText = `P${i + 1}: `;
+        newP.setAttribute('id', 'response' + (processId - 1));
+        newP.innerText = `P${processId}: `;
         responseContainer.appendChild(newP);
     }
 }
@@ -142,10 +158,18 @@ function refreshAnim() {
     // reset wait and response times
     waitTimes = [];
     responseTimes = [];
-    for (let i = 0; i < input.length; i++) {
-        // removes <span> from wait and response time
-        document.getElementById("wait" + i).innerHTML = `P${i + 1}: `;
-        document.getElementById("response" + i).innerHTML = `P${i + 1}: `;
+    // Get unique processes to reset only existing elements
+    let uniqueProcesses = {};
+    for (let i = 0; i < output.length; i++) {
+        let processId = output[i].pid;
+        uniqueProcesses[processId] = true;
+    }
+
+    for (let processId in uniqueProcesses) {
+        let waitElement = document.getElementById("wait" + (processId - 1));
+        let responseElement = document.getElementById("response" + (processId - 1));
+        if (waitElement) waitElement.innerHTML = `P${processId}: `;
+        if (responseElement) responseElement.innerHTML = `P${processId}: `;
     }
 
     refreshAverages(); 
@@ -190,25 +214,49 @@ function nextAnim() {
 
     }
 
-    // wait values
-    let exitTime = output.findLast((process) => process.pid == pid).end; // note that this is *last* time process was in cpu
+    // Calculate completion time (latest end time for this process)
+    let completionTime = 0;
+    for (let i = 0; i < output.length; i++) {
+        if (output[i].pid == pid) {
+            completionTime = Math.max(completionTime, output[i].end);
+        }
+    }
+
     let arrivalTime = input.find((process) => process.pid == pid).arrival;
     let burstTime = input.find((process) => process.pid == pid).burst;
-    let waitTime = exitTime - arrivalTime - burstTime;
-    // add wait time calculations to wait time container
-    let waitCalculation = document.createElement('span');
-    waitCalculation.innerText = `${exitTime} - ${arrivalTime} - ${burstTime} = ${waitTime}`;
-    document.getElementById('wait' + (pid - 1)).appendChild(waitCalculation);
-    waitTimes.push(waitTime); // add wait time to array for average calculation
 
-    // response values
-    let initialResponseTime = output.find((process) => process.pid == pid).start;
-    let responseTime = initialResponseTime - arrivalTime;
-    // add response time calculations to response time container
-    let responseCalculation = document.createElement('span');
-    responseCalculation.innerText = `${initialResponseTime} - ${arrivalTime} = ${responseTime}`;
-    document.getElementById('response' + (pid - 1)).appendChild(responseCalculation);
-    responseTimes.push(responseTime); // add response time to array for average calculation
+    // DEBUG: Log data types and values
+    console.log("=== DEBUGGING core m-006 ===");
+    console.log("completionTime:", completionTime, "type:", typeof completionTime);
+    console.log("arrivalTime:", arrivalTime, "type:", typeof arrivalTime);
+    console.log("burstTime:", burstTime, "type:", typeof burstTime);
+    console.log("Number(completionTime):", Number(completionTime));
+    console.log("Number(arrivalTime):", Number(arrivalTime));
+    console.log("Number(burstTime):", Number(burstTime));
+
+    let waitTime = Number(completionTime) - Number(arrivalTime) - Number(burstTime);
+    console.log("Final waitTime:", waitTime, "type:", typeof waitTime);
+
+    // Only add calculation if this process hasn't been calculated yet
+    let waitElement = document.getElementById('wait' + (pid - 1));
+    if (waitElement && waitElement.children.length === 0) {
+        let waitCalculation = document.createElement('span');
+        waitCalculation.innerText = `${completionTime} - ${arrivalTime} - ${burstTime} = ${waitTime}`;
+        waitElement.appendChild(waitCalculation);
+        waitTimes.push(waitTime); // add wait time to array for average calculation
+    }
+
+    // response values - only calculate once per process
+    let responseElement = document.getElementById('response' + (pid - 1));
+    if (responseElement && responseElement.children.length === 0) {
+        let initialResponseTime = output.find((process) => process.pid == pid).start;
+        let responseTime = initialResponseTime - arrivalTime;
+        // add response time calculations to response time container
+        let responseCalculation = document.createElement('span');
+        responseCalculation.innerText = `${initialResponseTime} - ${arrivalTime} = ${responseTime}`;
+        responseElement.appendChild(responseCalculation);
+        responseTimes.push(responseTime); // add response time to array for average calculation
+    }
 
     // display response and wait time average if last burst
     if (nextBurst == output.length - 1) {

@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <br>
       <div class="row justify-content-center">
         <div class="col-lg-6">
-          <img src="./pic/OSVisuals.png" alt="Image description" class="img-fluid rounded">
+	  <img src="./pic/OSVisuals.png" alt="Image description" class="img-fluid rounded" style="width: 105%; max-width: 800px; height: auto;">
         </div>
       </div>
       <br>
@@ -410,7 +410,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <footer class="bg-light text-center text-lg-start">
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    <p>Fall 2025 Contributors: Gavin Bell | Jack Lin | Michael Scotto | Owen Pacchiana </p>        <p>Spring 2025 Contributors: Justin Feinman | Henry Becker </p>
+	<p>Fall 2025 Contributors: Jack Lin | Michael Scotto | Owen Pacchiana | Gavin Bell </p>
+        <p>Spring 2025 Contributors: Justin Feinman | Henry Becker </p>
 	  <p>Fall 2024 Contributors: William Rubin | Marco Lemus </p>
 	  <p>Spring 2024 Contributors: Shelby Hinton | Gianella Robles | Mary Seelmann </p>
           <p>Fall 2023 Contributors: Kyle Wendholt | Amir Marji | Manuel Reyes | Jalen Fenton | Emmanuel Johnson </p>

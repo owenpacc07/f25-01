@@ -16,7 +16,7 @@ if ($mid) {
     $mtitle = $row['algorithm'];
 }
 // run java code
-shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
+shell_exec("java -classpath {$cgibin_core_c}/m-{$mid} m{$mid}");
 ?>
 
 <!DOCTYPE html>

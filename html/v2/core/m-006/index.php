@@ -19,7 +19,7 @@ if ($mid) {
 // $userInputFile = $_POST;
 
 // run java code
-shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
+//shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
 ?>
 <!DOCTYPE html>
 <html lang="en">

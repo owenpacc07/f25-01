@@ -788,11 +788,23 @@ function displayWaitAverage() {
     let waitText = document.getElementById('averageWaitTimeText');
     let text = '';
 
+    // Handle unique processes for preemptive algorithms
+    let processWaitTimes = {};
     for (let i = 0; i < otherOutputInformation.length; i++) {
-        if (i === 0)
-            text += otherOutputInformation[i][5];
-        else
-            text += ' + ' + otherOutputInformation[i][5];
+        let processId = otherOutputInformation[i][0];
+        let waitTime = otherOutputInformation[i][5];
+        processWaitTimes[processId] = waitTime;
+    }
+
+    // Build display text using unique process wait times
+    let isFirst = true;
+    for (let processId in processWaitTimes) {
+        if (isFirst) {
+            text += processWaitTimes[processId];
+            isFirst = false;
+        } else {
+            text += ' + ' + processWaitTimes[processId];
+        }
     }
 
     waitText.innerHTML = "Wait Average:<span class=\"space\"> </span>";

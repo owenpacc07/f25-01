@@ -227,7 +227,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="inputModalLabel">Input File Content</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">Ã—</span>
+                                                    <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
@@ -260,7 +260,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="mechanismModalLabel">Mechanisms for <?php echo $algorithm_name; ?></h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">Ã—</span>
+                                                    <span aria-hidden="true">×</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">

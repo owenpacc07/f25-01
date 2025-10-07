@@ -194,21 +194,27 @@ function nextAnim() {
     let exitTime = output.findLast((process) => process.pid == pid).end; // note that this is *last* time process was in cpu
     let arrivalTime = input.find((process) => process.pid == pid).arrival;
     let burstTime = input.find((process) => process.pid == pid).burst;
-    let waitTime = exitTime - arrivalTime - burstTime;
-    // add wait time calculations to wait time container
-    let waitCalculation = document.createElement('span');
-    waitCalculation.innerText = `${exitTime} - ${arrivalTime} - ${burstTime} = ${waitTime}`;
-    document.getElementById('wait' + (pid - 1)).appendChild(waitCalculation);
-    waitTimes.push(waitTime); // add wait time to array for average calculation
+    let waitTime = Number(exitTime) - Number(arrivalTime) - Number(burstTime);
 
-    // response values
-    let initialResponseTime = output.find((process) => process.pid == pid).start;
-    let responseTime = initialResponseTime - arrivalTime;
-    // add response time calculations to response time container
-    let responseCalculation = document.createElement('span');
-    responseCalculation.innerText = `${initialResponseTime} - ${arrivalTime} = ${responseTime}`;
-    document.getElementById('response' + (pid - 1)).appendChild(responseCalculation);
-    responseTimes.push(responseTime); // add response time to array for average calculation
+    // Only add calculation if this process hasn't been calculated yet
+    let waitElement = document.getElementById('wait' + (pid - 1));
+    if (waitElement && waitElement.children.length === 0) {
+        let waitCalculation = document.createElement('span');
+        waitCalculation.innerText = `${exitTime} - ${arrivalTime} - ${burstTime} = ${waitTime}`;
+        waitElement.appendChild(waitCalculation);
+        waitTimes.push(waitTime); // add wait time to array for average calculation
+    }
+
+    // response values - only calculate once per process
+    let responseElement = document.getElementById('response' + (pid - 1));
+    if (responseElement && responseElement.children.length === 0) {
+        let initialResponseTime = output.find((process) => process.pid == pid).start;
+        let responseTime = initialResponseTime - arrivalTime;
+        let responseCalculation = document.createElement('span');
+        responseCalculation.innerText = `${initialResponseTime} - ${arrivalTime} = ${responseTime}`;
+        responseElement.appendChild(responseCalculation);
+        responseTimes.push(responseTime); // add response time to array for average calculation
+    }
 
     // display response and wait time average if last burst
     if (nextBurst == output.length - 1) {

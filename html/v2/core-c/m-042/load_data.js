@@ -24,7 +24,7 @@ async function readTextFile(type) {
   }
   resetFlagFile();
 
-  const response = await fetchIO(compare, mid);
+  const response = await fetchIO(`${compare}?t=${Date.now()}`, mid);
   let values = [];
   var counter = 0;
   let allText = null;
@@ -57,8 +57,10 @@ async function readTextFile(type) {
   switch (type) {
     case "input":
       inputData = values;
+      break;
     case "output":
       outputData = values;
+      break;
     default:
       console.log("Sorry, no type was specified.");
   }

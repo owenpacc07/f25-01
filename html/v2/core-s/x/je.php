@@ -53,6 +53,7 @@ JAVA;
             <button type="button" onclick="loadDemo('error')">Compilation Error</button>
             <button type="button" onclick="loadDemo('timeout')">Timeout</button>
             <button type="button" onclick="loadDemo('inputFile')">Input File</button>
+            <button type="button" onclick="loadDemo('fcfs')">FCFS Example</button>
         </div>
 
         <button type="submit">Execute</button>
@@ -105,6 +106,33 @@ JAVA;
             }
         }
 
+        // --- Auto-create input files based on arguments ---
+        if (!empty($args) && preg_match('/^\d{3}$/', $args[0])) {
+            $file_number = $args[0];
+            $input_filename = "in-{$file_number}.dat";
+            
+            // Check if this input file wasn't already uploaded
+            $already_uploaded = false;
+            foreach ($inputFiles as $file) {
+                if ($file['name'] === $input_filename) {
+                    $already_uploaded = true;
+                    break;
+                }
+            }
+            
+            if (!$already_uploaded) {
+                // Read from x/files/in-XXX.dat if it exists
+                $sample_input_path = __DIR__ . "/x/files/{$input_filename}";
+                if (file_exists($sample_input_path)) {
+                    $input_data = file_get_contents($sample_input_path);
+                    $inputFiles[] = [
+                        'name' => $input_filename,
+                        'content' => $input_data
+                    ];
+                }
+            }
+        }
+
         $payload = [
             'javaCode' => $javaCode,
             'args' => $args,
@@ -148,6 +176,18 @@ JAVA;
         }
 
         // --- 4. Display the final results ---
+        /*
+        $job_result structure:
+        [
+            'stdout' => '...',        // Standard output from Java program
+            'stderr' => '...',        // Standard error output
+            'crashed' => bool,        // Whether the program crashed
+            'timedOut' => bool,       // Whether the program timed out
+            'memoryUsageMB' => float, // Peak memory usage in MB
+            'cpuPercentMax' => float, // Peak CPU usage percentage
+            'executionTimeMs' => int  // Total execution time in milliseconds
+        ]
+        */
         echo "<h2>Final Results</h2>";
         if ($job_result) {
             echo "<pre>" . htmlspecialchars(print_r($job_result, true)) . "</pre>";
@@ -155,6 +195,21 @@ JAVA;
             echo "Job did not complete within the polling time.";
         }
         echo '</div>';
+
+        // --- 5. Write out stdout
+        $tmp_dir = sys_get_temp_dir();
+        // file name is out-{args[0]}.txt or out.txt if no args
+        $arg_part = !empty($args) ? preg_replace('/[^a-zA-Z0-9_-]/', '_', $args[0]) : 'out';
+        //$output_file = $tmp_dir . '/out-' . $arg_part . '.txt';
+        $output_file = '/var/www/projects/f25-01/html/files/x/out-' . $arg_part . '.txt';
+        if ($job_result && isset($job_result['stdout'])) {
+            file_put_contents($output_file, $job_result['stdout']);
+            echo "<p>Standard output written to: <strong>$output_file</strong></p>";
+            $content = file_get_contents($output_file);
+            echo "<h3>Content of output file:</h3><pre>" . htmlspecialchars($content) . "</pre>";
+        } else {
+            echo "<p>No standard output to write.</p>"; 
+        }
     }
     ?>
 
@@ -190,6 +245,14 @@ JAVA;
                     args = '';
                     fileNote = 'NOTE: For this demo to work, please upload a file named "my_file.txt".';
                     break;
+                case 'fcfs':
+                    <?php
+                        $file_path = __DIR__ . '/Main.java';
+                        $code = file_get_contents($file_path);
+                        echo "code = " . json_encode($code) . ";";
+                    ?>
+                    args = '041';
+                    break;
             }
 
             editor.setValue(code);
@@ -213,3 +276,4 @@ JAVA;
 
 </body>
 </html>
+

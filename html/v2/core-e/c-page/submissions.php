@@ -1,5 +1,5 @@
 <?php
-/*  ----------  PAGE‑REPLACEMENT  submissions.php  ----------  */
+/*  ----------  PAGE-REPLACEMENT  submissions.php  ----------  */
 
 session_start();
 if (!isset($_SESSION['email'])) {

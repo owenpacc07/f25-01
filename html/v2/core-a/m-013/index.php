@@ -53,8 +53,7 @@ if ($mid) {
     <br>
     <div class="center text-center">
         <h1 id="title">Memory Allocation - <?= $mtitle ?></h1>
-        <h4>Only 1 process can be allocated per memory slot</h4>
-    </div>
+            </div>
 
     <div id="overlay">
         <div id="text">

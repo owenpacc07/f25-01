@@ -767,37 +767,85 @@ function generateWaitingTime(proc) {
 
     if (proc === -1) {
         console.log("END BUTTON PRESSED");
+
+        // Find completion time for each unique process (when it fully finishes)
+        let completionTimes = {};
+        let uniqueProcesses = {};
+
+        // First, identify all unique processes
         for (let i = 0; i < otherOutputInformation.length; i++) {
-            currentWaitTag = document.getElementById('wait_' + (i));
+            let processId = otherOutputInformation[i][0];
+            uniqueProcesses[processId] = otherOutputInformation[i];
+        }
+
+        // Find the completion time for each process (latest end time in sorted array)
+        for (let processId in uniqueProcesses) {
+            let maxEndTime = 0;
+            for (let i = 0; i < sorted.length; i++) {
+                if (sorted[i][0] == processId) {
+                    maxEndTime = Math.max(maxEndTime, sorted[i][2]);
+                }
+            }
+            completionTimes[processId] = maxEndTime;
+        }
+
+        // Display calculation for each unique process using completion time
+        let displayIndex = 0;
+        for (let processId in uniqueProcesses) {
+            currentWaitTag = document.getElementById('wait_' + displayIndex);
 
             if (currentWaitTag != null) {
+                let processInfo = uniqueProcesses[processId];
 
-                exitTime = sorted[i][2];
-                arrivalTime = otherOutputInformation[i][1];
+                // Use completion time (when process fully finishes)
+                exitTime = completionTimes[processId];
+                arrivalTime = processInfo[1];
 
-                currentProcessIdIndex = otherOutputInformation[i][0] - 1;
+                currentProcessIdIndex = processInfo[0] - 1;
                 burstTime = procHandler[currentProcessIdIndex][2];
-                if ((exitTime - arrivalTime - burstTime) < 0)
+
+                // Calculate waiting time: (Completion Time - Arrival Time) - Burst Time
+                let waitTime = (exitTime - arrivalTime) - burstTime;
+
+                if (waitTime < 0) {
                     negativeWaitTime = true;
-                else
+                    waitTime = 0;
+                } else {
                     negativeWaitTime = false;
+                }
 
                 if (negativeWaitTime)
-                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${(exitTime - arrivalTime - burstTime)} ${arrow} ${otherOutputInformation[i][5]}`;
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${(exitTime - arrivalTime - burstTime)} ${arrow} 0`;
                 else
-                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${otherOutputInformation[i][5]}`;
-                currentWaitTag.innerHTML = "P" + (otherOutputInformation[i][0]) + ":<span class=\"space\">" + calculationText + "</span>";
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${waitTime}`;
+
+                currentWaitTag.innerHTML = "P" + processInfo[0] + ":<span class=\"space\">" + calculationText + "</span>";
             }
+            displayIndex++;
         }
         displayWaitAverage();
     } else if (proc > -1) {
-        for (let i = 0; i < proc + 1; i++) {
-            currentWaitTag = document.getElementById('wait_' + (i));
-            if (currentWaitTag != null) {
-                exitTime = sorted[i][2];
-                arrivalTime = otherOutputInformation[i][1];
+        // Get unique processes up to the current step
+        let uniqueProcesses = {};
+        let uniqueProcessIndices = {};
+        for (let i = 0; i <= proc; i++) {
+            let processId = otherOutputInformation[i][0];
+            uniqueProcesses[processId] = otherOutputInformation[i];
+            uniqueProcessIndices[processId] = i;
+        }
 
-                currentProcessIdIndex = otherOutputInformation[i][0] - 1;
+        // Display only final information for each unique process up to current step
+        let displayIndex = 0;
+        for (let processId in uniqueProcesses) {
+            currentWaitTag = document.getElementById('wait_' + displayIndex);
+            if (currentWaitTag != null) {
+                let processInfo = uniqueProcesses[processId];
+                let sortedIndex = uniqueProcessIndices[processId];
+
+                exitTime = sorted[sortedIndex][2];
+                arrivalTime = processInfo[1];
+
+                currentProcessIdIndex = processInfo[0] - 1;
                 burstTime = procHandler[currentProcessIdIndex][2];
                 if ((exitTime - arrivalTime - burstTime) < 0)
                     negativeWaitTime = true;
@@ -805,11 +853,12 @@ function generateWaitingTime(proc) {
                     negativeWaitTime = false;
 
                 if (negativeWaitTime)
-                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${(exitTime - arrivalTime - burstTime)} ${arrow} ${otherOutputInformation[i][5]}`;
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${(exitTime - arrivalTime - burstTime)} ${arrow} ${processInfo[5]}`;
                 else
-                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${otherOutputInformation[i][5]}`;
-                currentWaitTag.innerHTML = "P" + (otherOutputInformation[i][0]) + ":<span class=\"space\">" + calculationText + "</span>";
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${processInfo[5]}`;
+                currentWaitTag.innerHTML = "P" + processInfo[0] + ":<span class=\"space\">" + calculationText + "</span>";
             }
+            displayIndex++;
         }
         if (proc == sorted.length - 1)
             displayWaitAverage();
@@ -825,46 +874,101 @@ function displayWaitAverage() {
     let waitText = document.getElementById('averageWaitTimeText');
     let text = '';
 
+    // Calculate waiting times using completion time approach (same as generateWaitingTime)
+    let completionTimes = {};
+    let uniqueProcesses = {};
+
+    // First, identify all unique processes
     for (let i = 0; i < otherOutputInformation.length; i++) {
-        if (i === 0)
-            text += otherOutputInformation[i][5];
-        else
-            text += ' + ' + otherOutputInformation[i][5];
+        let processId = otherOutputInformation[i][0];
+        uniqueProcesses[processId] = otherOutputInformation[i];
     }
+
+    // Find the completion time for each process (latest end time in sorted array)
+    for (let processId in uniqueProcesses) {
+        let maxEndTime = 0;
+        for (let i = 0; i < sorted.length; i++) {
+            if (sorted[i][0] == processId) {
+                maxEndTime = Math.max(maxEndTime, sorted[i][2]);
+            }
+        }
+        completionTimes[processId] = maxEndTime;
+    }
+
+    // Calculate waiting time for each unique process: (Completion Time - Arrival Time) - Burst Time
+    let processWaitTimes = {};
+    for (let processId in uniqueProcesses) {
+        let processInfo = uniqueProcesses[processId];
+        let arrivalTime = processInfo[1];
+        let currentProcessIdIndex = processInfo[0] - 1;
+        let burstTime = procHandler[currentProcessIdIndex][2];
+
+        let waitTime = (completionTimes[processId] - arrivalTime) - burstTime;
+        if (waitTime < 0) waitTime = 0;
+
+        processWaitTimes[processId] = waitTime;
+    }
+
+    // Build display text with calculated waiting times per process
+    let isFirst = true;
+    for (let processId in processWaitTimes) {
+        if (isFirst) {
+            text += processWaitTimes[processId];
+            isFirst = false;
+        } else {
+            text += ' + ' + processWaitTimes[processId];
+        }
+    }
+
+    // Calculate correct average using calculated waiting times
+    let finalWaitTimes = Object.values(processWaitTimes);
+    let totalWaitTime = finalWaitTimes.reduce((sum, time) => sum + time, 0);
+    let correctAverage = totalWaitTime / numberOfProcesses;
 
     waitText.innerHTML = "Wait Average:<span class=\"space\"> </span>";
     numerator.innerHTML = text;
     denominator.innerHTML = numberOfProcesses;
-    result.innerHTML = "<span class=\"space\">=</span>" + waitingInformation[0][1];
+    result.innerHTML = "<span class=\"space\">=</span>" + correctAverage.toFixed(2);
 }
 
 createWaitInfo();
 function createWaitInfo() {
 
-    // WAIT TIME
-    let parent = document.getElementById("waitContainer");
-
+    // Get unique processes to avoid creating multiple DOM elements for same process
+    let uniqueProcesses = {};
     for (let i = 0; i < otherOutputInformation.length; i++) {
-        let child = document.createElement("p");
-        let textnode = document.createTextNode("P" + (otherOutputInformation[i][0]) + ":  ");
-        child.setAttribute("id", "wait_" + (i));
-        child.appendChild(textnode);
-        child.classList.add('top-margin');
-
-        parent.appendChild(child);
+        let processId = otherOutputInformation[i][0];
+        uniqueProcesses[processId] = true;
     }
 
-    // RESPONSE TIME
-    parent = document.getElementById("responseContainer");
+    // WAIT TIME - Create elements only for unique processes
+    let parent = document.getElementById("waitContainer");
+    let elementIndex = 0;
 
-    for (let i = 0; i < otherOutputInformation.length; i++) {
+    for (let processId in uniqueProcesses) {
         let child = document.createElement("p");
-        let textnode = document.createTextNode("P" + (otherOutputInformation[i][0]) + ":  ");
-        child.setAttribute("id", "response_" + (i));
+        let textnode = document.createTextNode("P" + processId + ":  ");
+        child.setAttribute("id", "wait_" + elementIndex);
         child.appendChild(textnode);
         child.classList.add('top-margin');
 
         parent.appendChild(child);
+        elementIndex++;
+    }
+
+    // RESPONSE TIME - Create elements only for unique processes
+    parent = document.getElementById("responseContainer");
+    elementIndex = 0;
+
+    for (let processId in uniqueProcesses) {
+        let child = document.createElement("p");
+        let textnode = document.createTextNode("P" + processId + ":  ");
+        child.setAttribute("id", "response_" + elementIndex);
+        child.appendChild(textnode);
+        child.classList.add('top-margin');
+
+        parent.appendChild(child);
+        elementIndex++;
     }
 }
 

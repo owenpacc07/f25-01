@@ -52,7 +52,7 @@ shell_exec("java -classpath {$cgibin_core_a}/m-{$mid} m{$mid}");
 
     <div class="center text-center">
         <h1 id="title">RUN: Memory Allocation - <?= $mtitle ?></h1>
-        <h4>Only 1 process can be allocated per memory slot</h4>
+        
     </div>
 
     <div id="overlay">

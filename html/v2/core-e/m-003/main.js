@@ -8,23 +8,34 @@ let output = [];
 let extraOutput = [];
 let overlay = document.getElementById('overlay');
 overlay.style.display = 'block';
+const urlParams = new URLSearchParams(window.location.search);
+const user_id = urlParams.get("user_id");
+const experiment_id = urlParams.get("experiment_id");
+const family_id = urlParams.get("family_id");
+const mechanism_id = urlParams.get("mechanism_id");
 
-await loadData()
-    .then((data) => {
+// Check for missing parameters
+if (!user_id || !experiment_id || !family_id || !mechanism_id) {
+    document.getElementById("text").innerText = "Missing URL parameters. Please provide user_id, experiment_id, family_id, and mechanism_id.";
+    overlay.style.display = 'block';
+} else {
+    await loadData(user_id, experiment_id, family_id, mechanism_id).then((data) => {
         if (!data) {
-            document.getElementById('text').innerText = 'Could not load output data';
-            throw new Error('Could not load output data');
+            document.getElementById("text").innerText = "Could not load experiment data. Check the server or URL parameters.";
+            throw new Error("Could not load experiment data");
         } else {
             overlay.style.display = 'none';
             input = data.input;
             output = data.output;
             extraOutput = data.extraOutput;
-            console.log("input")
-            console.log(input)
-            console.log("output")
-            console.log(output)
+            console.log("input:", input);
+            console.log("output:", output);
         }
+    }).catch((error) => {
+        console.error("Error loading data:", error);
+        document.getElementById("text").innerText = "An error occurred while loading data.";
     });
+}
 
 // loads table with input data
 function populateTable() {

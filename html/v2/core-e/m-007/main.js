@@ -1,44 +1,41 @@
 // This file controls the visualization
 // CPU Scheduling
 
-/*
-//Hard coded input and output arrays
-let input = [{pid: 1, arrival: 0, burst: 7, priority: 1}, 
-            {pid: 2, arrival: 1, burst: 2, priority: 1}, 
-            {pid: 3, arrival: 1, burst: 5, priority: 0}, 
-            {pid: 4, arrival: 3, burst: 4, priority: 3}];
-let output = [{pid: 1, start: 0, end: 2, burst: 2}, 
-            {pid: 3, start: 2, end: 7, burst: 5}, 
-            {pid: 2, start: 7, end: 9, burst: 2}, 
-            {pid: 1, start: 9, end: 14, burst: 5}, 
-            {pid: 4, start: 14, end: 17, burst: 3}];
-*/
-//let overlay = document.getElementById('overlay');
-//overlay.style.display = 'block';
-
-//Runs load_data.js which reads in the in and out files and formats them into arrays of objects
 import { loadData } from './load_data.js';
+
 let input = [];
 let output = [];
 let extraOutput = [];
+let overlay = document.getElementById('overlay');
+overlay.style.display = 'block';
+const urlParams = new URLSearchParams(window.location.search);
+const user_id = urlParams.get("user_id");
+const experiment_id = urlParams.get("experiment_id");
+const family_id = urlParams.get("family_id");
+const mechanism_id = urlParams.get("mechanism_id");
 
-//calls the load data function from load_data.js
-await loadData()
-    .then((data) => {
+// Check for missing parameters
+if (!user_id || !experiment_id || !family_id || !mechanism_id) {
+    document.getElementById("text").innerText = "Missing URL parameters. Please provide user_id, experiment_id, family_id, and mechanism_id.";
+    overlay.style.display = 'block';
+} else {
+    await loadData(user_id, experiment_id, family_id, mechanism_id).then((data) => {
         if (!data) {
-            document.getElementById('text').innerText = 'Could not load output data';
-            throw new Error('Could not load output data');
+            document.getElementById("text").innerText = "Could not load experiment data. Check the server or URL parameters.";
+            throw new Error("Could not load experiment data");
         } else {
             overlay.style.display = 'none';
             input = data.input;
             output = data.output;
             extraOutput = data.extraOutput;
-            console.log("input")
-            console.log(input)
-            console.log("output")
-            console.log(output)
+            console.log("input:", input);
+            console.log("output:", output);
         }
+    }).catch((error) => {
+        console.error("Error loading data:", error);
+        document.getElementById("text").innerText = "An error occurred while loading data.";
     });
+}
 
 
 // loads table with input data
@@ -191,24 +188,30 @@ function nextAnim() {
     }
 
     // wait values
-    let exitTime = output.findLast((process) => process.pid == pid).end; // note that this is *last* time process was in cpu
-    let arrivalTime = input.find((process) => process.pid == pid).arrival;
-    let burstTime = input.find((process) => process.pid == pid).burst;
+    let exitTime = Number(output.findLast((process) => process.pid == pid).end); // note that this is *last* time process was in cpu
+    let arrivalTime = Number(input.find((process) => process.pid == pid).arrival);
+    let burstTime = Number(input.find((process) => process.pid == pid).burst);
     let waitTime = exitTime - arrivalTime - burstTime;
     // add wait time calculations to wait time container
-    let waitCalculation = document.createElement('span');
-    waitCalculation.innerText = `${exitTime} - ${arrivalTime} - ${burstTime} = ${waitTime}`;
-    document.getElementById('wait' + (pid - 1)).appendChild(waitCalculation);
-    waitTimes.push(waitTime); // add wait time to array for average calculation
+    let waitElement = document.getElementById('wait' + (pid - 1));
+    if (waitElement.children.length === 0) {
+        let waitCalculation = document.createElement('span');
+        waitCalculation.innerText = `${exitTime} - ${arrivalTime} - ${burstTime} = ${waitTime}`;
+        waitElement.appendChild(waitCalculation);
+        waitTimes.push(waitTime); // add wait time to array for average calculation
+    }
 
     // response values
-    let initialResponseTime = output.find((process) => process.pid == pid).start;
+    let initialResponseTime = Number(output.find((process) => process.pid == pid).start);
     let responseTime = initialResponseTime - arrivalTime;
     // add response time calculations to response time container
-    let responseCalculation = document.createElement('span');
-    responseCalculation.innerText = `${initialResponseTime} - ${arrivalTime} = ${responseTime}`;
-    document.getElementById('response' + (pid - 1)).appendChild(responseCalculation);
-    responseTimes.push(responseTime); // add response time to array for average calculation
+    let responseElement = document.getElementById('response' + (pid - 1));
+    if (responseElement.children.length === 0) {
+        let responseCalculation = document.createElement('span');
+        responseCalculation.innerText = `${initialResponseTime} - ${arrivalTime} = ${responseTime}`;
+        responseElement.appendChild(responseCalculation);
+        responseTimes.push(responseTime); // add response time to array for average calculation
+    }
 
     // display response and wait time average if last burst
     if (nextBurst == output.length - 1) {

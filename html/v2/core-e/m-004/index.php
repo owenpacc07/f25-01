@@ -8,7 +8,9 @@ $mid = '004';
 $compare = 'cpu';
 $mtitle = '';
 $cgibin_core = "/var/www/p/s25-01/html/cgi-bin/core-e";
-// get mechanism title
+define('ROOT_DIR', '/var/www/p/s25-01/html');
+
+// Get mechanism title
 if ($mid) {
     $sql = "SELECT algorithm FROM mechanisms WHERE client_code = {$mid}";
     $result = mysqli_query($link, $sql);
@@ -16,13 +18,32 @@ if ($mid) {
     $mtitle = $row['algorithm'];
 }
 
-// Get input file from user if there is one
-// print_r($_POST);
-// $userInputFile = $_POST;
+// Get experiment_id and set experiment directory
+$experiment_id = $_GET['experiment_id'] ?? $_POST['experiment_id'] ?? '2_476_1';
+$experiment_dir = ROOT_DIR . "/files/experiments/{$experiment_id}";
 
-// run java code
-//echo shell_exec('whoami');
-echo shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid} 2>&1");
+// Derive user_id and family_id from experiment_id
+$experiment_parts = explode('_', $experiment_id);
+$user_id = $experiment_parts[0] ?? '2';
+$family_id = $experiment_parts[2] ?? '1';
+
+// Run Java code
+$javaCommand = "java -classpath {$cgibin_core}/m-{$mid} m{$mid} " . escapeshellarg($experiment_dir) . " 2>&1";
+$output = shell_exec($javaCommand);
+if ($output) {
+    error_log("Java m004 output: " . $output, 3, "/var/log/apache2/m004.log");
+}
+
+// Check flag-file.txt and out-004.dat
+$flag_file = "{$experiment_dir}/flag-file.txt";
+$output_file = "{$experiment_dir}/out-{$mid}.dat";
+if (file_exists($flag_file) && file_get_contents($flag_file) === "1" && file_exists($output_file)) {
+    // Output handled by load_data.js via get-io-experiment.php
+} else {
+    error_log("Execution failed: flag_file=$flag_file, output_file=$output_file", 3, "/var/log/apache2/m004.log");
+    // Optionally write error to out-004.dat for debugging
+    file_put_contents($output_file, "No output generated for m004");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,22 +59,23 @@ echo shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid} 2>&1");
     <link rel="stylesheet" type="text/css" href="../styles/styles.css">
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- allows mid to be accessible to all js files -->
     <script type="module">
-    import { loadData } from './load_data.js';
+        import { loadData } from './load_data.js';
 
-    // Pass the PHP variables to the module
-    const mid = `<?php echo $mid; ?>`;
-    const httpcore_IO = `<?php echo $httpcore_IO; ?>`;
-    const httpcore = `<?php echo $httpcore; ?>`;
-    const compare = "<?php echo $compare; ?>";
+        // Pass PHP variables to the module
+        const mid = `<?php echo $mid; ?>`;
+        const httpcore_IO = `<?php echo $httpcore_IO ?? ''; ?>`;
+        const httpcore = `<?php echo $httpcore ?? ''; ?>`;
+        const user_id = `<?php echo $user_id; ?>`;
+        const experiment_id = `<?php echo $experiment_id; ?>`;
+        const family_id = `<?php echo $family_id; ?>`;
 
-    // Call loadData and pass the compare variable
-    loadData(compare).then(data => {
-        console.log("Data loaded:", data);
-    }).catch(error => {
-        console.error("Error loading data:", error);
-    });
+        // Call loadData with all required parameters
+        loadData(user_id, experiment_id, family_id, mid).then(data => {
+            console.log("Data loaded:", data);
+        }).catch(error => {
+            console.error("Error loading data:", error);
+        });
     </script>
     <script type="module" src="main.js" defer></script>
 </head>

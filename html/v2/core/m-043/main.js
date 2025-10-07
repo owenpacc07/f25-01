@@ -1,240 +1,237 @@
+// main.js — axis with numbers (ticks/labels above), scaled X, lowered start
+// Contributor Spring 2023 - Dakota Marino
+
 import { readTextFile, head, inputData, outputData } from "./load_data.js";
 
-/*
-Contributor Spring 2023 - Dakota Marino
-*/
-
-//instance variables
-var inputValues = [];
-var outputValues = [];
-let displayOutput = [];
-
-//canvas and context for drawing lines on screen
+// ===== canvas =====
 const canvas = document.getElementById("myCanvas");
-const context = canvas.getContext("2d");
-context.beginPath();
-//variables for canvas
-var index = 0;
-var vIndex = 0;
-var intervalID;
-//starts the program upon refresh
-runProgram();
+const ctx = canvas.getContext("2d");
 
-//declare all buttons and set on click to run a function
-let Previous = document.getElementById("Previous");
-Previous.onclick = function () {
-  displayLine("stepBack", null);
-};
+// ===== state =====
+let inputValues = [];
+let outputValues = [];
+let index = 0;
+let vIndex = 0;
+let intervalID = null;
 
-let Next = document.getElementById("Next");
-Next.onclick = function () {
-  displayLine("stepForward", null);
-};
+// ===== drawing constants =====
+const VSTEP = 25;           // vertical step per segment
+const VSTART_OFFSET = 50;   // vertical offset for the whole graph
+const PADDING_LEFT = 30;
+const PADDING_RIGHT = 20;
+const AXIS_Y = 25;          // axis line y
+let TICK_EVERY = 100;       // chosen dynamically after data
 
-let End = document.getElementById("End");
-End.onclick = function () {
-  displayLine("run", null);
-};
+// ===== x-domain & scale =====
+let xMin = 0;
+let xMax = 700;
 
-let reset = document.getElementById("Reset");
-reset.onclick = function () {
-  displayLine("clearAll", null);
-};
+function xScale(x) {
+  if (xMax === xMin) return PADDING_LEFT;
+  const usable = canvas.width - (PADDING_LEFT + PADDING_RIGHT);
+  return PADDING_LEFT + ((Number(x) - xMin) / (xMax - xMin)) * usable;
+}
 
-const btnStart = document.getElementById("play");
+// choose tick so we get ~5–12 ticks
+function chooseTick(span) {
+  const s = Math.max(span, 1);
+  const bases = [1, 2, 5];
+  const pow10 = Math.pow(10, Math.floor(Math.log10(s)));
+  for (let mag = pow10 / 10; mag <= s * 2; mag *= 10) {
+    for (const b of bases) {
+      const tick = b * mag;
+      const count = s / tick;
+      if (count >= 5 && count <= 12) return tick;
+    }
+  }
+  return 100;
+}
 
-//need event listeners for play and visualize
-btnStart.addEventListener("click", function () {
-  console.log(btnStart.innerHTML);
-  if (btnStart.innerHTML.trim() === "Play") {
-    console.log("Equals play");
-    displayLine("play", intervalID);
-    btnStart.innerHTML = "Pause";
-  } else if (btnStart.innerHTML.trim() === "Pause") {
-    console.log("Equals pause");
-    displayLine("pause", intervalID);
-    btnStart.innerHTML = "Play";
+// ===== axis (does NOT clear) =====
+function drawAxis() {
+  // line
+  ctx.strokeStyle = "#2b3a67";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(PADDING_LEFT, AXIS_Y);
+  ctx.lineTo(canvas.width - PADDING_RIGHT, AXIS_Y);
+  ctx.stroke();
+
+  // ticks + labels (above)
+  ctx.lineWidth = 1.5;
+  ctx.font = "12px sans-serif";
+  ctx.fillStyle = "#000";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "bottom";
+
+  const firstTick = Math.ceil(xMin / TICK_EVERY) * TICK_EVERY;
+  for (let t = firstTick; t <= xMax; t += TICK_EVERY) {
+    const px = xScale(t);
+    // tick
+    ctx.beginPath();
+    ctx.moveTo(px, AXIS_Y);
+    ctx.lineTo(px, AXIS_Y - 8);
+    ctx.stroke();
+    // label
+    ctx.fillText(String(t), px, AXIS_Y - 10);
+  }
+}
+
+// draw an initial axis so the page isn’t blank
+drawAxis();
+
+// ===== controls =====
+const $ = (id) => document.getElementById(id);
+$("Previous").onclick = () => displayLine("stepBack");
+$("Next").onclick     = () => displayLine("stepForward");
+$("End").onclick      = () => displayLine("run");
+$("Reset").onclick    = () => displayLine("clearAll");
+
+const btnStart = $("play");
+btnStart.addEventListener("click", () => {
+  if (btnStart.textContent.trim() === "Play") {
+    displayLine("play");
+    btnStart.textContent = "Pause";
+  } else {
+    displayLine("pause");
+    btnStart.textContent = "Play";
   }
 });
 
-//program that runs upon loading the page
+// ===== load & init =====
+runProgram();
+
 async function runProgram() {
-  //sets input and output values
   await readTextFile("input");
-  inputValues = inputData;
-  console.log(inputValues);
+  inputValues = (inputData || []).map(s => String(s).replace(/(\r\n|\n|\r)/gm, ""));
   await readTextFile("output");
-  console.log(outputData);
-  outputValues = outputData;
-  //removes all new lines from input
-  inputValues.forEach((element, index) => {
-    inputValues[index] = element.replace(/(\r\n|\n|\r)/gm, "");
-  });
-  document.getElementById("the-queue").innerHTML = inputValues;
-  document.getElementById("the-head").innerHTML = head;
-  //filters out the end and beggining of disk if its not in the input.
-  outputValues.forEach((element) => {
-    if (inputValues.includes(element)) {
-      displayOutput.push(true);
-    } else {
-      displayOutput.push(false);
-    }
-  });
+  outputValues = outputData || [];
+
+  $("the-queue").textContent = inputValues.join(",");
+  $("the-head").textContent = head;
+
+  // domain from head+outputs
+  const allX = [Number(head), ...outputValues.map(Number)].filter(n => !Number.isNaN(n));
+  if (allX.length) {
+    xMin = Math.min(...allX);
+    xMax = Math.max(...allX);
+    const span = Math.max(xMax - xMin, 1);
+    const pad = span * 0.05;
+    xMin -= pad;
+    xMax += pad;
+    TICK_EVERY = chooseTick(xMax - xMin);
+  }
+
+  // clear & paint axis
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawAxis();
+
+  index = 0;
+  vIndex = 0;
+  $("output-data").textContent = "";
 }
 
-//This function handles all of the visualization commands.
-function displayLine(type, interval) {
-  //set color and line width. We need to do this every time
-  //because <STEP sets the color to white in order to erase a line.
-  context.strokeStyle = "blue";
-  context.lineWidth = 5;
+// ===== drawing =====
+function displayLine(type) {
+  ctx.strokeStyle = "blue";
+  ctx.lineWidth = 5;
 
-  //if PLAY or VISUALIZE button was clicked
-  if (type == "play") {
-    intervalID = setInterval(function () {
-      if (index == 0) {
-        //If the output is not in the input, it will not be displayed.
-        if (displayOutput[index] != false) {
-          document.getElementById("output-data").innerHTML =
-            outputValues[index];
-        }
-        context.beginPath();
-        vIndex += 25;
-        context.moveTo(head, vIndex - 25);
-        context.lineTo(outputValues[index], vIndex);
-        context.stroke();
-        index++;
-      } else if (index < outputValues.length) {
-        //If the output is not in the input, it will not be displayed.
-        if (displayOutput[index] != false) {
-          document.getElementById("output-data").innerHTML =
-            document.getElementById("output-data").innerHTML +
-            "," +
-            outputValues[index];
-        }
-        context.beginPath();
-        vIndex += 25;
-        context.moveTo(outputValues[index - 1], vIndex - 25);
-        context.lineTo(outputValues[index], vIndex);
-        context.stroke();
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 1000);
+  if (type === "play") {
+    clearInterval(intervalID);
+    intervalID = setInterval(stepForwardDraw, 1000);
+    return;
   }
-
-  //if PAUSE or VISUALIZING button was clicked
-  else if (type == "pause") {
-    clearInterval(interval);
+  if (type === "pause") {
+    clearInterval(intervalID);
+    return;
   }
-
-  //if STEP> was clicked
-  else if (type == "stepForward") {
-    if (index < outputValues.length) {
-      if (index == 0) {
-        //If the output is not in the input, it will not be displayed.
-        if (displayOutput[index] != false) {
-          document.getElementById("output-data").innerHTML =
-            outputValues[index];
-        }
-        context.beginPath();
-        vIndex += 25;
-        context.moveTo(head, vIndex - 25);
-        context.lineTo(outputValues[index], vIndex);
-        context.stroke();
-        index++;
-      } else {
-        //If the output is not in the input, it will not be displayed.
-        if (displayOutput[index] != false) {
-          document.getElementById("output-data").innerHTML =
-            document.getElementById("output-data").innerHTML +
-            "," +
-            outputValues[index];
-        }
-        context.beginPath();
-        vIndex += 25;
-        context.moveTo(outputValues[index - 1], vIndex - 25);
-        context.lineTo(outputValues[index], vIndex);
-        context.stroke();
-        index++;
-      }
-    }
+  if (type === "stepForward") {
+    stepForwardDraw();
+    return;
   }
-
-  //if <STEP was clicked
-  else if (type == "stepBack") {
-    context.lineWidth = 7;
-    context.strokeStyle = "#ffffff";
-    if (index >= 1) {
-      console.log(index);
-      if (index == 1) {
-        //If the output is not in the input, it will not be displayed.
-        if (displayOutput[index] != false) {
-          document.getElementById("output-data").innerHTML = "";
-        }
-        index--;
-        context.lineTo(head, vIndex - 25);
-        context.stroke();
-        vIndex -= 25;
-      } else {
-        //If the output is not in the input, it will not be displayed.
-        if (displayOutput[index] != false) {
-          document.getElementById("output-data").innerHTML = outputValues.slice(
-            0,
-            index - 1,
-          );
-        }
-        index--;
-        context.beginPath();
-        context.moveTo(outputValues[index], vIndex);
-        context.lineTo(outputValues[index - 1], vIndex - 25);
-        context.stroke();
-        vIndex -= 25;
-      }
-    }
-    context.strokeStyle = "blue";
-    context.lineWidth = 5;
+  if (type === "stepBack") {
+    stepBackErase();
+    return;
   }
-
-  //if RESET was clicked
-  else if (type == "clearAll") {
-    context.clearRect(0, 0, 700, 500);
+  if (type === "clearAll") {
+    clearInterval(intervalID);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     index = 0;
     vIndex = 0;
-    document.getElementById("output-data").innerHTML = "";
+    $("output-data").textContent = "";
+    drawAxis();
+    return;
+  }
+  if (type === "run") {
+    clearInterval(intervalID);
+    while (index < outputValues.length) stepForwardDraw();
+    return;
+  }
+}
+
+function stepForwardDraw() {
+  if (index >= outputValues.length) {
+    clearInterval(intervalID);
+    return;
   }
 
-  //if RUN or END was clicked
-  else if (type == "run") {
-    while (index < outputValues.length) {
-      if (index == 0) {
-        //If the output is not in the input, it will not be displayed.
-        if (displayOutput[index] != false) {
-          document.getElementById("output-data").innerHTML =
-            outputValues[index];
-        }
-        context.beginPath();
-        vIndex += 25;
-        context.moveTo(head, vIndex - 25);
-        context.lineTo(outputValues[index], vIndex);
-        context.stroke();
-        index++;
-      } else {
-        //If the output is not in the input, it will not be displayed.
-        if (displayOutput[index] != false) {
-          document.getElementById("output-data").innerHTML =
-            document.getElementById("output-data").innerHTML +
-            "," +
-            outputValues[index];
-        }
-        context.beginPath();
-        vIndex += 25;
-        context.moveTo(outputValues[index - 1], vIndex - 25);
-        context.lineTo(outputValues[index], vIndex);
-        context.stroke();
-        index++;
-      }
+  const outX = xScale(Number(outputValues[index]));
+
+  if (index === 0) {
+    $("output-data").textContent = String(outputValues[index]);
+    ctx.beginPath();
+    vIndex += VSTEP;
+    ctx.moveTo(xScale(Number(head)), VSTART_OFFSET + vIndex - VSTEP);
+    ctx.lineTo(outX,                 VSTART_OFFSET + vIndex);
+    ctx.stroke();
+  } else {
+    $("output-data").textContent += "," + String(outputValues[index]);
+    ctx.beginPath();
+    vIndex += VSTEP;
+    ctx.moveTo(xScale(Number(outputValues[index - 1])), VSTART_OFFSET + vIndex - VSTEP);
+    ctx.lineTo(outX,                                     VSTART_OFFSET + vIndex);
+    ctx.stroke();
+  }
+
+  index++;
+}
+
+function stepBackErase() {
+  // overdraw last segment in white
+  ctx.lineWidth = 7;
+  ctx.strokeStyle = "#ffffff";
+
+  if (index >= 1) {
+    if (index === 1) {
+      // erase first segment (head -> output[0])
+      const y2 = VSTART_OFFSET + vIndex;
+      const y1 = y2 - VSTEP;
+      ctx.beginPath();
+      ctx.moveTo(xScale(Number(head)), y1);
+      ctx.lineTo(xScale(Number(outputValues[0])), y2);
+      ctx.stroke();
+      index = 0;
+      vIndex -= VSTEP;
+      $("output-data").textContent = "";
+    } else {
+      const y2 = VSTART_OFFSET + vIndex;
+      const y1 = y2 - VSTEP;
+      const x2 = xScale(Number(outputValues[index - 1]));
+      const x1 = xScale(Number(outputValues[index - 2]));
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      index--;
+      vIndex -= VSTEP;
+      $("output-data").textContent = outputValues.slice(0, index).join(",");
     }
   }
+
+  // repaint axis in case the erase clipped labels/ticks
+  drawAxis();
+
+  // restore draw style
+  ctx.strokeStyle = "blue";
+  ctx.lineWidth = 5;
 }

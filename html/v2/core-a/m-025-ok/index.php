@@ -16,8 +16,8 @@ $row = mysqli_fetch_assoc($result);
 $mtitle = $row['algorithm'];
 
 // run java code 
-$compile = "javac /var/www/projects/s23-01/html/cgi-bin-a/core/m-{$mid}/m{$mid}.java";
-$run = "java -classpath /var/www/projects/s23-01/html/cgi-bin-a/core/m-{$mid} m{$mid}";
+$compile = "javac /var/www/p/f25-01/html/cgi-bin-a/core/m-{$mid}/m{$mid}.java";
+$run = "java -classpath /var/www/p/f25-01/html/cgi-bin-a/core/m-{$mid} m{$mid}";
 shell_exec($compile);
 shell_exec($run);
 ?>

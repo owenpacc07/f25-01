@@ -5,33 +5,42 @@ const mid = '007';
 
 let flagFileUpdated = false;
 
-export async function loadData() {
-    const response = await fetchPHP(0, compare);
-    console.log("fetchPHP Response:", response);
+export async function loadData(user_id, experiment_id, family_id, mechanism_id) {
+    const response2 = await fetchIO(user_id, experiment_id, family_id, mechanism_id);
+    console.log("Raw data from get-io-experiment.php:", response2);
 
+    if (response2.error) {
+        console.error("Server error:", response2.error);
+        return false;
+    }
+
+    // Check for invalid output
+    if (response2.output === "No output generated for m007") {
+        console.error("No output generated for mechanism m007. Check server-side logic or output file (out-007.dat).");
+        return false;
+    }
+
+    const response = await fetchPHP(0, compare);
     flagFileUpdated = response;
     if (!flagFileUpdated) {
-        console.log("Flag file not updated, aborting");
+        console.warn("Flag file not updated, aborting");
         return false;
     }
 
     let data = {};
     await resetFlagFile();
 
-    const response2 = await fetchIO(compare, mid);
-    console.log("fetchIO Response:", response2);
-    console.log("Raw output string:", response2.output);
-
-    if (response2.error) {
-        console.log("Error in loading data:", response2.error);
-        return false;
-    }
-
     data.input = parseInputDataFile(response2.input);
     data.output = parseOutputDataFile(response2.output, 1);
     data.extraOutput = parseOutputDataFile(response2.output, 2);
 
-    console.log("Data loaded:", data);
+    console.log("Parsed data:", data);
+
+    // Check if output is empty and log a warning
+    if (data.output.length === 0 && data.extraOutput.length === 0) {
+        console.warn("Output data is empty. Verify the output format from out-007.dat.");
+    }
+
     return data;
 }
 

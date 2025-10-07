@@ -19,16 +19,10 @@ await loadData().then((data) => {
     input = data.input;
     output = data.output;
   }
+  ps = input.processes.map(p => p.size);
+  ms = input.memSlots.map(m => [(m.end - m.start), false]);
 });
 
-let ms = [];
-let ps = [];
-for (let i = 0; i < input.processes.length; i++) {
-  let curProcess = input.processes[i];
-  let curMemSlot = input.memSlots[i]
-  ps.push(curProcess.size);
-  ms.push([(curMemSlot.end - curMemSlot.start), false]);
-}
 
 var animList = [];
 

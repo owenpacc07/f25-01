@@ -56,11 +56,11 @@ and is a table containing the algorithm, inputs and outputs.  -->
             <br><br><!-- Displaying contents of temp and user edited files -->
             <a class="px-4 button mt-2 has-background-primary-light" href="./m-024/index.php">Run</a></th>
             <!-- Check if session array key pair exists, if not, intialize it and display the contents -->
-            <th style="max-width: 550px;"><?php  if (!array_key_exists('https://cs.newpaltz.edu/p/s23-01/files/core-a/m-024/in-024.dat', $_SESSION['temp_files'])) {
-                $_SESSION['temp_files']['https://cs.newpaltz.edu/p/s23-01/files/core-a/m-024/in-024.dat'] = 'https://cs.newpaltz.edu/p/s23-01/files/core-a/m-024/in-024.dat';}
-                echo htmlentities(file_get_contents(get_temp_file_path($_SESSION['temp_files']["https://cs.newpaltz.edu/p/s23-01/files/core-a/m-024/in-024.dat"]))) ?> </th>
+            <th style="max-width: 550px;"><?php  if (!array_key_exists('https://cs.newpaltz.edu/p/f25-01/files/core-a/m-024/in-024.dat', $_SESSION['temp_files'])) {
+                $_SESSION['temp_files']['https://cs.newpaltz.edu/p/f25-01/files/core-a/m-024/in-024.dat'] = 'https://cs.newpaltz.edu/p/f25-01/files/core-a/m-024/in-024.dat';}
+                echo htmlentities(file_get_contents(get_temp_file_path($_SESSION['temp_files']["https://cs.newpaltz.edu/p/f25-01/files/core-a/m-024/in-024.dat"]))) ?> </th>
             <th>
-            <br><span style="color: green;">lfu output:    </span> <pre><?php echo htmlentities(file_get_contents("https://cs.newpaltz.edu/p/s23-01/files/core-a/m-024/out-024.dat")); ?></pre>
+            <br><span style="color: green;">lfu output:    </span> <pre><?php echo htmlentities(file_get_contents("https://cs.newpaltz.edu/p/f25-01/files/core-a/m-024/out-024.dat")); ?></pre>
             
            </th>
         </tr>
