@@ -207,13 +207,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitInput'])) {
                                 <h4>View Mechanisms</h4>
                                 <div class="row">
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-031?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=031" target="_blank" class="btn btn-info btn-block">Continuous</a>
+                                        <a href="/p/f25-01/v2/core-e/m-031?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=031" target="_blank" class="btn btn-info btn-block">Continuous</a>
                                     </div>
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-032?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=032" target="_blank" class="btn btn-info btn-block">Linked</a>
+                                        <a href="/p/f25-01/v2/core-e/m-032?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=032" target="_blank" class="btn btn-info btn-block">Linked</a>
                                     </div>
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-033?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=033" target="_blank" class="btn btn-info btn-block">Indexed</a>
+                                        <a href="/p/f25-01/v2/core-e/m-033?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=033" target="_blank" class="btn btn-info btn-block">Indexed</a>
                                     </div>
                                 </div>
                             </div>

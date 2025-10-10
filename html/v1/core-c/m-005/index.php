@@ -7,7 +7,7 @@ session_start();
 $mid = '005';
 $compare = 'cpu';
 $mtitle = '';
-//$cgibin_core = "/var/www/p/s25-01/html/cgi-bin/core-c";
+//$cgibin_core = "/var/www/p/f25-01/html/cgi-bin/core-c";
 $cgibin_core = realpath(__DIR__ . '/../../../cgi-bin/core-c');
 // get mechanism title
 if ($mid) {

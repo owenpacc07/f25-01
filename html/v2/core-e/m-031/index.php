@@ -19,7 +19,7 @@ if ($mid) {
 }
 
 
-$javaCommand = "java -classpath /var/www/p/s25-01/html/cgi-bin/core-e/m-031 m031 " . escapeshellarg($path);
+$javaCommand = "java -classpath /var/www/p/f25-01/html/cgi-bin/core-e/m-031 m031 " . escapeshellarg($path);
 
 
 
