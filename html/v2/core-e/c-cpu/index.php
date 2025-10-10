@@ -28,7 +28,7 @@ if (isset($_SESSION['success_message'])) {
 }
 
 // Define paths
-//$coreCPath = "/var/www/projects/s25-01/html/files/core-e/c-cpu/";
+//$coreCPath = "/var/www/projects/f25-01/html/files/core-e/c-cpu/";
 $coreCPath = realpath(__DIR__ . "/../../files/core-e/c-cpu/");
 $inputFile = "$coreCPath/in-cpu.dat";
 $outputFile = "$coreCPath/out-cpu.dat";
@@ -49,7 +49,7 @@ $mechanisms = [
 
 $results = [];
 foreach ($mechanisms as $mid => $name) {
-    $mechanismPath = realpath("/var/www/projects/s25-01/html/files/core-e/m-$mid");
+    $mechanismPath = realpath("/var/www/projects/f25-01/html/files/core-e/m-$mid");
     $javaInputFile = "$mechanismPath/in-$mid.dat";
     $javaOutputFile = "$mechanismPath/out-$mid.dat";
 
@@ -61,7 +61,7 @@ foreach ($mechanisms as $mid => $name) {
     }
 
     // Execute Java program
-    $javaCommand = "java -classpath /var/www/p/s25-01/html/cgi-bin/core-e/m-$mid m$mid " . escapeshellarg($mechanismPath);
+    $javaCommand = "java -classpath /var/www/p/f25-01/html/cgi-bin/core-e/m-$mid m$mid " . escapeshellarg($mechanismPath);
     $javaOutput = shell_exec("$javaCommand 2>&1");
     if ($javaOutput) {
         error_log("Java execution output/error for m$mid: $javaOutput");

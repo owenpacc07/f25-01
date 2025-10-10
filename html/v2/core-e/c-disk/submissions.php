@@ -194,21 +194,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitInput'])) {
                                 <h4>View Mechanisms</h4>
                                 <div class="row">
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-041?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=041" target="_blank" class="btn btn-info btn-block">FCFS</a>
+                                        <a href="/p/f25-01/v2/core-e/m-041?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=041" target="_blank" class="btn btn-info btn-block">FCFS</a>
                                     </div>
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-042?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=042" target="_blank" class="btn btn-info btn-block">SSTF</a>
+                                        <a href="/p/f25-01/v2/core-e/m-042?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=042" target="_blank" class="btn btn-info btn-block">SSTF</a>
                                     </div>
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-043?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=043" target="_blank" class="btn btn-info btn-block">SCAN</a>
+                                        <a href="/p/f25-01/v2/core-e/m-043?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=043" target="_blank" class="btn btn-info btn-block">SCAN</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-044?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=044" target="_blank" class="btn btn-info btn-block">C-SCAN</a>
+                                        <a href="/p/f25-01/v2/core-e/m-044?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=044" target="_blank" class="btn btn-info btn-block">C-SCAN</a>
                                     </div>
                                     <div class="col-md-6 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-045?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=045" target="_blank" class="btn btn-info btn-block">LOOK</a>
+                                        <a href="/p/f25-01/v2/core-e/m-045?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=045" target="_blank" class="btn btn-info btn-block">LOOK</a>
                                     </div>
                                 </div>
                             </div>

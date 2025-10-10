@@ -17,7 +17,7 @@ if (isset($_SESSION['success_message'])) {
 $mid = '031';
 $path = realpath("../../../files/core-e/m-$mid");
 
-//$coreCPath = "/var/www/projects/s25-01/html/files/core-e/c-memory";
+//$coreCPath = "/var/www/projects/f25-01/html/files/core-e/c-memory";
 $coreCPath = realpath(__DIR__ . "/../../../files/core-e/c-memory");
 $inputFile = "$coreCPath/in-memory.dat"; // Input file 
 
@@ -337,7 +337,7 @@ if (isset($_POST['save_results'])) {
     
             // Run Java with the mechanism-specific path
             $javaCommand = "java -classpath " . escapeshellarg(realpath("../../../cgi-bin/core-e/m-$mid")) . " m$mid " . escapeshellarg($path);
-            echo "<script>console.log('/var/www/p/s25-01/html/cgi-bin/core-e/m-$mid m$mid');</script>";
+            echo "<script>console.log('/var/www/p/f25-01/html/cgi-bin/core-e/m-$mid m$mid');</script>";
             $javaOutput = shell_exec("$javaCommand 2>&1");
             echo "<script>console.log('Java output for m$mid:', " . json_encode($javaOutput) . ");</script>";
             if ($javaOutput) {

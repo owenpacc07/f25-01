@@ -165,21 +165,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitInput'])) {
                                 <h4>View Mechanisms</h4>
                                 <div class="row">
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-021?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=021" target="_blank" class="btn btn-info btn-block">FIFO</a>
+                                        <a href="/p/f25-01/v2/core-e/m-021?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=021" target="_blank" class="btn btn-info btn-block">FIFO</a>
                                     </div>
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-022?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=022" target="_blank" class="btn btn-info btn-block">LRU</a>
+                                        <a href="/p/f25-01/v2/core-e/m-022?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=022" target="_blank" class="btn btn-info btn-block">LRU</a>
                                     </div>
                                     <div class="col-md-4 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-023?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=023" target="_blank" class="btn btn-info btn-block">OPT</a>
+                                        <a href="/p/f25-01/v2/core-e/m-023?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=023" target="_blank" class="btn btn-info btn-block">OPT</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-024?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=024" target="_blank" class="btn btn-info btn-block">LFU</a>
+                                        <a href="/p/f25-01/v2/core-e/m-024?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=024" target="_blank" class="btn btn-info btn-block">LFU</a>
                                     </div>
                                     <div class="col-md-6 mb-2">
-                                        <a href="/p/s25-01/v2/core-e/m-025?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=025" target="_blank" class="btn btn-info btn-block">MFU</a>
+                                        <a href="/p/f25-01/v2/core-e/m-025?user_id=<?php echo $user_id; ?>&experiment_id=<?php echo $experiment_id_param; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=025" target="_blank" class="btn btn-info btn-block">MFU</a>
                                     </div>
                                 </div>
                             </div>

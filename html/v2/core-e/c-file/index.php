@@ -2,7 +2,7 @@
 // Start a session to store the success message
 session_start();
 /*
-JUSTIN FEINMAN S25 - should be 100% working. will explain how this works to any future group if needed
+JUSTIN FEINMAN f25 - should be 100% working. will explain how this works to any future group if needed
 */
 require_once "../../system.php";
 // Check if there is a success or error message
@@ -254,7 +254,7 @@ $input = file_exists($inputFile) ? file_get_contents($inputFile) : '';
             }
     
             // Run Java with the mechanism-specific path
-            //$javaCommand = "java -classpath /var/www/p/s25-01/html/cgi-bin/core-e/m-$mid m$mid " . escapeshellarg($path);
+            //$javaCommand = "java -classpath /var/www/p/f25-01/html/cgi-bin/core-e/m-$mid m$mid " . escapeshellarg($path);
             $javaCommand = "java -classpath " . escapeshellarg(realpath("../../../cgi-bin/core-e/m-$mid")) . " m$mid " . escapeshellarg($path);
             $javaOutput = shell_exec("$javaCommand 2>&1");
             echo "<script>console.log('Java output for m$mid:', " . json_encode($javaOutput) . ");</script>";
@@ -550,7 +550,7 @@ $input = file_exists($inputFile) ? file_get_contents($inputFile) : '';
                                             }
                                         }
                                         $mid = $algorithms[$algorithm]['mid'];
-                                        $link = "https://cs.newpaltz.edu/p/s25-01/v2/core-e/m-$mid/?input=" . urlencode($fileSizesInput);
+                                        $link = "https://cs.newpaltz.edu/p/f25-01/v2/core-e/m-$mid/?input=" . urlencode($fileSizesInput);
                                         ?>
                                         <tr>
                                             <td><a href="<?php echo $link; ?>" target="_blank"><?php echo htmlspecialchars($algorithm); ?></a></td>

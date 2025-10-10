@@ -57,7 +57,7 @@ $row = $result->fetch_assoc();
 $family_id = $row['family_id'];
 
 // Define base directory and experiment folder
-$base_dir = "/var/www/p/s25-01/html/files/experiments/";
+$base_dir = "/var/www/p/f25-01/html/files/experiments/";
 $folder_name = "{$user_id}_{$experiment_db_id}_{$mechanism_num}";
 $experiment_path = $base_dir . $folder_name . "/";
 
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitInputs'])) {
 
             // Run Java programs for each mechanism
             foreach ($mechanisms as $mid) {
-                $java_command = "java -classpath " . escapeshellarg(realpath("/var/www/p/s25-01/html/cgi-bin/core-c/m-$mid")) . " m$mid " . escapeshellarg($experiment_path);
+                $java_command = "java -classpath " . escapeshellarg(realpath("/var/www/p/f25-01/html/cgi-bin/core-c/m-$mid")) . " m$mid " . escapeshellarg($experiment_path);
                 $java_output = shell_exec("$java_command 2>&1");
                 if ($java_output) {
                     $_SESSION['log_messages'][] = "Java output/error for m$mid: $java_output";
