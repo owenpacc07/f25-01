@@ -227,7 +227,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="inputModalLabel">Input File Content</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
+                                                    <span aria-hidden="true">X</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
@@ -236,7 +236,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                                     <?php
                                                     $experiment_id = $row['experiment_id'];
                                                     $user_id_modal = $row['user_id'];
-                                                    $experiment_directory_path = realpath("/var/www/p/s25-01/html/files/experiments");
+                                                    $experiment_directory_path = realpath("/var/www/p/f25-01/html/files/experiments");
                                                     $inputPath = sprintf("%s/%d_%d_%d/in-%s.dat", $experiment_directory_path, $user_id_modal, $experiment_id, $family_id, $algorithm_first_word);
                                                     if (file_exists($inputPath)) {
                                                         echo file_get_contents($inputPath);
@@ -260,7 +260,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="mechanismModalLabel">Mechanisms for <?php echo $algorithm_name; ?></h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
+                                                    <span aria-hidden="true">X</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
