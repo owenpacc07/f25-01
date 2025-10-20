@@ -33,10 +33,10 @@ if (isset($_POST['mechanism_id']) || isset($_GET['mechanism_id'])) {
 
     // Query the submissions table based on if admin or not
     if ($isAdmin) {
-        $submissions_data = mysqli_query($link, "SELECT * FROM submissions WHERE mechanism_id = '$mechanism_id'");
+        $submissions_data = mysqli_query($link, "SELECT * FROM submissions WHERE mechanism_id = '$mechanism_id' ORDER BY submission_id DESC");
     } else {
         $user_id = mysqli_real_escape_string($link, $_SESSION['userid']); // Escape user ID for safety
-        $submissions_data = mysqli_query($link, "SELECT * FROM submissions WHERE user_id = '$user_id' AND mechanism_id = '$mechanism_id'");
+        $submissions_data = mysqli_query($link, "SELECT * FROM submissions WHERE user_id = '$user_id' AND mechanism_id = '$mechanism_id' ORDER BY submission_id DESC");
     }
 
 }
@@ -44,10 +44,10 @@ if (isset($_POST['mechanism_id']) || isset($_GET['mechanism_id'])) {
 // If no 'mechanism_id' is specified (or the search field is empty), fetch all submissions for the logged-in user (or all if admin)
 if (!$mechanism_id) {
     if ($isAdmin) {
-        $submissions_data = mysqli_query($link, "SELECT * FROM submissions");
+        $submissions_data = mysqli_query($link, "SELECT * FROM submissions ORDER BY submission_id DESC");
     } else {
         $user_id = mysqli_real_escape_string($link, $_SESSION['userid']);
-        $submissions_data = mysqli_query($link, "SELECT * FROM submissions WHERE user_id = '$user_id'");
+        $submissions_data = mysqli_query($link, "SELECT * FROM submissions WHERE user_id = '$user_id' ORDER BY submission_id DESC");
     }
 }
 
