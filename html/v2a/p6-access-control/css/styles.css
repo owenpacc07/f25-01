@@ -1,0 +1,220 @@
+* {
+  box-sizing: border-box;
+}
+/*Sets nav and logout as in line but seperate entities*/
+.top-navigation {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  width: auto;
+  background-color: #b9b9b9;
+  height: auto;
+  overflow: ellipsis;
+}
+.nav-item-left, 
+.nav-item-right {
+  justify-content: center;
+  flex-grow: 1;
+}
+.nav-left,
+.nav-right{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  margin: 0px;
+
+
+
+}
+/*Controls navigation links*/
+.nav-left { 
+  float: left;
+  /* align-content: center; */
+  
+}
+/*Controls login/logout box*/
+.nav-right {
+  float: right;
+  justify-content: center;
+  /* justify-content: flex-end; */
+ 
+  
+  margin: 0px;
+}
+nav{
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+/*Perfect just the way you are*/
+
+body {
+  margin: 0;
+  background-color: #00ffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.nav-left li a {
+  margin: 0;
+  padding: 5px;
+  color: white;
+  font-size: 15px;
+  width: fit-content;
+  text-decoration: none;
+  text-align: center;
+
+}
+.nav-right li a {
+  margin: 0;
+  padding: 5px;
+  color: white;
+  font-size: 15px;
+  width: fit-content;
+  text-decoration: none;
+  text-align: center;
+}
+.nav-right li,
+.nav-left li {
+  list-style-type: none;
+  /* padding: fit-content; */
+}
+/* .nav-left li {
+  padding: 5px;  this needed to be removed
+  list-style-type: none;
+} */
+
+/* Allows for color change on hover */
+nav li:hover {
+  background-color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*Deals with ALL aspects BELOW nav-bar*/
+.center-stage {
+  position: relative;
+  width: 100%;
+  margin-left: 20px;
+  margin-right: 20px; 
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.left-stage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /*great for moving content towards center*/
+  position: relative;
+  width: 20%;
+  height: fit-content;
+  /* padding-left: 40px; */
+  
+}
+
+
+
+
+.access-config-table {
+  align-items: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  /* align-content: center; */
+  background-color: cadetblue;
+  width: min-content;
+  height: auto;
+  border: 0px;
+  padding: 10px;
+  padding-top: 2px;
+  margin: 0;
+}
+
+
+
+
+
+
+.right-stage{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 80%;
+  height: fit-content;
+  justify-content: space-around;
+}
+
+
+
+
+
+
+div.scene-view-select-bar {
+  display: flex;
+  height: auto;
+  /* display: flex; */
+  width: fit-content;
+  padding: 2%;
+  margin: 30px;
+  justify-content: center; /*great for moving content towards center*/
+  text-align: center;
+  background-color: bisque;
+  position: relative;
+  background-color: rgb(145, 172, 48);
+}
+
+button.scene-view-select-button {
+  height: fit-content;
+  padding: 10px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+button.scene-view-select-button:active {
+  background-color: #04aa6d;
+}
+
+.right-stage .access-game {
+  position: relative;
+  background-color: #f8f8f8;
+  width: 800px;
+  height: 600px;
+  margin: 0;
+}
+.right-stage .access-table{
+  position: relative;
+  background-color: #f8f8f8;
+  width: 900px;
+  height: 300px;
+  margin: 0;
+}
+
+.warning {
+  font-size: x-small;
+}
+
+th,td{
+  border:1px solid black;
+  border-color: #000;
+  padding: 1rem 3rem;
+  /* padding: 4px, 10px, 4px, 10px; */
+}
+
+ /* Play Pause End Next Back  */

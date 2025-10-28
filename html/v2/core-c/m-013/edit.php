@@ -2,7 +2,7 @@
 
 // the path to the in/out directory
 $mid = '013';
-$path = realpath("../../../files/core-s/m-$mid");
+$path = realpath("../../../files/core-c/m-$mid");
 
 if (isset($_POST['submit'])) {
     if (empty($_POST['input'])) {
@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>013 Edit Data</title>
+    <title>011 Edit Data</title>
     <link rel="icon" href="/p/s23-01/files/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
     <br>
 
     <?php
-    $path = realpath("../../../files/core-s/m-$mid");
+    $path = realpath("../../../files/core-c/m-$mid");
     $output = file_get_contents("$path/out-$mid.dat");
     $input = file_get_contents("$path/in-$mid.dat");
     $format = file_get_contents("$path/format-$mid.txt");
@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
             <div class="row">
                 <div class="field is-grouped">
                     <div class="control">
-                        <h4 id="description">013 Edit Data</h4>
+                        <h4 id="description">011 Edit Data</h4>
                     </div>
                 </div>
                 <div class="col-md-4">

@@ -102,10 +102,27 @@ async function runProgram() {
   inputValues = inputData;
   await readTextFile("output");
   outputValues = outputData;
+  console.log("DEBUG main.js - inputValues (before parse check):", typeof inputValues, inputValues);
+  console.log("DEBUG main.js - outputValues (before parse check):", typeof outputValues, outputValues);
 
+ /*
+ if (typeof inputValues === "string") {
+  inputValues = inputValues
+    .split(',')
+    .map(x => parseInt(x.trim()))
+    .filter(x => !isNaN(x));
+ }
+
+ if (typeof outputValues === "string") {
+  outputValues = outputValues
+    .split(',')
+    .map(x => parseInt(x.trim()))
+    .filter(x => !isNaN(x));
+ }
+ */
   console.log("head:", head, "inputs:", inputValues, "outputs:", outputValues);
 
-  document.getElementById("the-queue").innerHTML = inputValues;
+  document.getElementById("the-queue").innerHTML = inputValues.join(" ");
   document.getElementById("the-head").innerHTML  = head;
 
   const allX = [Number(head), ...outputValues.map(Number)].filter(n => !Number.isNaN(n));
@@ -161,7 +178,7 @@ function stepForwardDraw() {
     clearInterval(intervalID);
     return;
   }
-
+  console.log("DEBUG stepForwardDraw: outputValues[index]", outputValues[index], "type:", typeof outputValues[index], "is NaN:", isNaN(outputValues[index]));
   const outX = xScale(Number(outputValues[index]));
 
   if (index === 0) {
@@ -172,7 +189,7 @@ function stepForwardDraw() {
     context.lineTo(outX,                VSTART_OFFSET + vIndex);
     context.stroke();
   } else {
-    document.getElementById("output-data").innerHTML += "," + outputValues[index];
+    document.getElementById("output-data").innerHTML += (document.getElementById("output-data").innerHTML ? " " : "") + outputValues[index];
     context.beginPath();
     vIndex += VSTEP;
     context.moveTo(xScale(Number(outputValues[index - 1])), VSTART_OFFSET + vIndex - VSTEP);

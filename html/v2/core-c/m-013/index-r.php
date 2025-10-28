@@ -14,8 +14,8 @@ if ($mid) {
     $row = mysqli_fetch_assoc($result);
     $mtitle = $row['algorithm'];
 }
-
-shell_exec("java -classpath {$cgibin_core_a}/m-{$mid} m{$mid}");
+// run java code
+shell_exec("java -classpath {$cgibin_core_c}/m-{$mid} m{$mid}");
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ shell_exec("java -classpath {$cgibin_core_a}/m-{$mid} m{$mid}");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Memory Allocation</title>
+    <title>RUN: Memory Allocation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/p/f21-13/files/favicon.ico" type="image/x-icon" />
@@ -39,9 +39,9 @@ shell_exec("java -classpath {$cgibin_core_a}/m-{$mid} m{$mid}");
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- allows mid to be accessible to all js files -->
     <script>
-        var mid = `<?php echo $mid; ?>`;
-        var httpcore_a_IO = `<?php echo $httpcore_a_IO; ?>`;
-        var httpcore_a = `<?php echo $httpcore_a; ?>`;
+        var mid = '<?php echo $mid; ?>';
+        var httpcore_a_IO = '<?php echo $httpcore_a_IO; ?>';
+        var httpcore_a = '<?php echo $httpcore_a; ?>';
     </script>
     <script type="module" src="main.js" defer></script>
 </head>
@@ -50,7 +50,6 @@ shell_exec("java -classpath {$cgibin_core_a}/m-{$mid} m{$mid}");
 
     <?php include '../../navbar.php'; ?>
 
-    <br>
     <div class="center text-center">
         <h1 id="title">RUN: Memory Allocation - <?= $mtitle ?></h1>
         <h4>Only 1 process can be allocated per memory slot</h4>

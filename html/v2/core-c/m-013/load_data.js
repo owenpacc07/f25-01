@@ -1,89 +1,58 @@
-import { fetchIO, fetchPHP } from "../api.js";
+// DIRECT core-c loader — no PHP API calls needed
 
-// Memory Allocation
+// Memory Allocation (direct read from files/core-c)
 
-let flagFileUpdated = false;
-
-// load in data from input and output files
 export async function loadData() {
+  // Build base path to core-c store (adjust if your web root differs)
+  const base = `../../../files/core-c/m-${mid}`;
 
-    
-    flagFileUpdated = await fetchPHP(0, compare);
-    if (!flagFileUpdated) {
-        console.log("Flag file not updated");
-        return false;
-    }
-    resetFlagFile();
-    
-    const IOResponse = await fetchIO(compare, mid); // Add mechanism
-    console.log("Raw data from get-io-compare.php:", IOResponse);
-    if (IOResponse.error) {
-        console.log(IOResponse.error);
-        return false;
-    }
+  // Fetch text files directly
+  const [inputText, outputText] = await Promise.all([
+    fetch(`${base}/in-${mid}.dat`,  { cache: "no-store" }).then(r => r.ok ? r.text() : Promise.reject(new Error(`Missing in-${mid}.dat`))),
+    fetch(`${base}/out-${mid}.dat`, { cache: "no-store" }).then(r => r.ok ? r.text() : Promise.reject(new Error(`Missing out-${mid}.dat`))),
+  ]);
 
-    let data = {};
-    data.input = parseInputDataFile(IOResponse.input);
-    data.output = parseOutputDataFile(IOResponse.output);
-    return data;
-}
-
-async function resetFlagFile() {
-    flagFileUpdated = await fetchPHP(1, compare);
+  // Parse the texts using the same logic as before
+  return {
+    input:  parseInputDataFile(inputText),
+    output: parseOutputDataFile(outputText),
+  };
 }
 
 function parseInputDataFile(text) {
-    // break data into lines
-    let allText = text;
+  let lines = text.split('\n');
 
-    let lines = allText.split('\n');
-    // create array of slot objects
-    let numMemSlots = parseInt(lines[0]);
-    let memSlots = [];
-    for (let i = 1; i <= numMemSlots; i++) {
-        let memSlot = lines[i].split(' ').map(Number);
-        if (memSlot.length == 2)
-            memSlots.push(
-                {
-                    start: memSlot[0],
-                    end: memSlot[1],
-                }
-            );
+  // memory slots
+  let numMemSlots = parseInt(lines[0]);
+  let memSlots = [];
+  for (let i = 1; i <= numMemSlots; i++) {
+    let memSlot = lines[i].trim().split(' ').map(Number);
+    if (memSlot.length === 2 && !Number.isNaN(memSlot[0]) && !Number.isNaN(memSlot[1])) {
+      memSlots.push({ start: memSlot[0], end: memSlot[1] });
     }
-    // create array of process objects
-    let pIndex = numMemSlots + 1; // index of process count in input file
-    let numProcesses = parseInt(lines[pIndex]);
-    let processes = [];
-    for (let i = pIndex+1; i <= (pIndex+numProcesses); i++) {
-        let process = lines[i].split(' ').map(Number);
-        if (process.length == 2)
-            processes.push(
-                {
-                    id: process[0],
-                    size: process[1],
-                }
-            );
+  }
+
+  // processes
+  let pIndex = numMemSlots + 1;
+  let numProcesses = parseInt(lines[pIndex]);
+  let processes = [];
+  for (let i = pIndex + 1; i <= (pIndex + numProcesses); i++) {
+    let process = lines[i]?.trim().split(' ').map(Number) || [];
+    if (process.length === 2 && !Number.isNaN(process[0]) && !Number.isNaN(process[1])) {
+      processes.push({ id: process[0], size: process[1] });
     }
-    // return object
-    return {
-        memSlots: memSlots,
-        processes: processes,
-    };
+  }
+
+  return { memSlots, processes };
 }
 
 function parseOutputDataFile(text) {
-    let allText = text;
-    // create array of process objects
-    let processSlots = []
-    allText.split('\n').forEach((line) => {
-        let processSlot = line.split(' ').map(Number);
-        if (processSlot.length == 3) {
-            processSlots.push({
-                start: processSlot[0],
-                end: processSlot[1],
-                id: processSlot[2],
-            });
-        }
-    });
-    return processSlots;
+  let processSlots = [];
+  text.split('\n').forEach((line) => {
+    let arr = line.trim().split(' ').map(Number);
+    if (arr.length === 3 && arr.every(n => !Number.isNaN(n))) {
+      processSlots.push({ start: arr[0], end: arr[1], id: arr[2] });
+    }
+  });
+  return processSlots;
 }

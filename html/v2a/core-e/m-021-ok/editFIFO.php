@@ -1,0 +1,101 @@
+<?php session_start();
+require "../../system.php"; //system varibales
+require_once '../tempfunctions.php'; //creating session files
+      $mid = '021';
+      if(isset($_POST['submit'])) {
+        // Sanitize and validate input
+        $input = $_POST['input'];
+        if (!preg_match('/^[0-9,]*$/', $input)) {
+            echo "<script>alert('Invalid input. Only numbers separated by commas are allowed.')</script>";
+            exit();
+        }
+
+        
+        $output_fifo = $_POST['output-fifo'];
+        $output_format = $_POST['output-format'];
+       
+
+         // Write input 
+        $filename = get_temp_file_path("../m-$mid/in-$mid.dat");
+     
+        file_put_contents($filename, $input);
+        
+        $_SESSION['temp_files'][$filename] = $filename;
+    
+        file_put_contents("../../../files/core-a/m-$mid/in-$mid.dat", $input);
+   
+
+       // do same for output
+        $filename = get_temp_file_path("../../../files/core-a/m-$mid/out-$mid.dat");
+        
+        file_put_contents($filename, $output_fifo);
+        
+        $_SESSION['temp_files'][$filename] = $filename;
+    
+
+        header('Location: .../index.php');
+        exit();
+    }
+    
+    $filename = get_temp_file_path("../../../files/core-a/m-$mid/in-$mid.dat");
+    $original_input = file_get_contents($filename);
+
+    $filename = "../../../files/core-a/m-021/out-021.dat";
+    $original_output = file_get_contents($filename);
+    ?>
+
+
+<html>
+<head>
+    <link rel="icon" href="/p/f21-13/files/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>View Files</title>
+    <style>
+        body { background-color: #F0FFF0; }
+    </style>
+</head>
+<body>
+    
+    <?php 
+        //include '/var/www/p/f21-13/html/templates/navbar.php'; 
+        include '../../navbar.php'; 
+
+        if (isset($_SESSION['temp_files']["../../../files/core-a/m-$mid/in-$mid.dat"])) {
+            $input = file_get_contents($_SESSION['temp_files']["../../../files/core-a/m-$mid/in-$mid.dat"]);
+        }
+        
+        $format = file_get_contents("../../../files/core-a/m-021/format-$mid.txt");
+      
+    ?>
+    
+    <div class="section" style="display: inline;" >
+        <div>
+            <form action="editFIFO.php" method="POST">
+                <div class="columns">
+                    <div class="field column" style="max-width: 500px;">
+                        <label for="input"><span><strong>Input: (Example Data: </strong></span> <?php echo htmlentities($original_input);?><span><strong> )</strong></span></label>
+                        <textarea name="input" id="input" cols="10" rows="10" class="textarea"><?php echo htmlentities($original_input); ?></textarea>
+                    </div>
+                    <div class="field column" style="max-width: 500px;">
+                        <label for="output-lru">Output fifo:</label>
+                        <textarea readonly name="output-lru" id="output-lru" cols="10" rows="10" class="textarea"><?php echo htmlentities($original_output); ?></textarea>
+                    </div>
+                    <div class="field column" style="max-width: 500px;">
+                        <label for="output-format">Output Format Explained:</label>
+                        <textarea readonly name="output-format" id="output-format" cols="10" rows="10" class="textarea"><?php echo htmlentities($format); ?></textarea>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link" type="submit" name="submit">Run and Vizualize</button> 
+                        <a class="button is-link is-light" href="./index.php">Cancel</a> 
+                    </div>
+                </div>
+            </form> 
+        </div>
+    </div>      
+</body>
+</html>

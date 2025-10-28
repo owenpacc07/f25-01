@@ -13,54 +13,49 @@ let inputData = [];
 let outputData = [];
 
 // implemented new api for reading input/output
-async function readTextFile(type){
-    const readFlagFile = await fetchPHP(0, mid);
-    if (!readFlagFile) {
-        console.log("Flag file not updated");
-        return false;
-      }
-    resetFlagFile();
+async function readTextFile(type) {
+  // ensure the flag file is updated before reading IO
+  const readFlagFile = await fetchPHP(0, mid);
+  if (!readFlagFile) {
+    console.log("Flag file not updated");
+    return [];
+  }
+  resetFlagFile();
 
-    const response = await fetchIO(mid);
-    let values = [];
-    var counter = 0;
-    let allText = null;
-    if (type == "input"){
-        allText = response.input;
-    }
-    else if(type == "output"){
-        allText = response.output;
-    }
-    allText.split('\n').filter(string => string).forEach(function(line) {
-        //split by space
-        line.split(' ').filter(string => string).forEach(function(number) {
-            if (counter === 1) {
-                head = number;
-            }
-            if (counter > 1) {
-                console.log(number);
-                values.push(number);
-            }
-        });
-        counter++;
-    });
-    console.log(allText)
+  // fetch the IO blob
+  const response = await fetchIO(mid);
 
-    switch (type){
-        case "input":
-            inputData = values;
-        case "output":
-            outputData = values;
-        default:
-            console.log("Sorry, no type was specified.");
-    }
-}
-
-async function resetFlagFile() {
-    flagFileUpdated = await fetchPHP(1, mid);
-    flagFileUpdated = false;
+  // choose the correct text blob
+  let allText = null;
+  if (type === "input") allText = response.input;
+  else if (type === "output") allText = response.output;
+  else {
+    console.warn("readTextFile called with unknown type:", type);
+    return [];
   }
 
+  if (!allText || typeof allText !== "string") {
+    console.warn("No text returned for", type, response);
+    return [];
+  }
+
+  const lines = allText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  let values = [];
+
+  lines.forEach((line, idx) => {
+    const nums = line.match(/-?\d+/g);
+    if (!nums) return;
+    const parsed = nums.map(Number).filter(n => !Number.isNaN(n));
+    if (idx === 1 && parsed.length > 0) head = parsed[0];
+    if (idx >= 2) values.push(...parsed);
+  });
+
+  if (type === "input") inputData = [...values];
+  if (type === "output") outputData = [...values];
+
+  console.log(`readTextFile(${type}) -> head:`, head, "values:", values);
+  return values; // ? Return parsed values directly
+}
 /**
  * async function readTextFile(type) {
     var file;

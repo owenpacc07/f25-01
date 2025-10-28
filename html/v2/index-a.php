@@ -410,7 +410,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <footer class="bg-light text-center text-lg-start">
 
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-	<p>Fall 2025 Contributors: Jack Lin | Michael Scotto | Owen Pacchiana | Gavin Bell </p>
+	<p>Fall 2025 Contributors: Jack Lin | Michael Scotto | Owen Pacchiana | Gavin Bell | Michael Manzi </p>
         <p>Spring 2025 Contributors: Justin Feinman | Henry Becker </p>
 	  <p>Fall 2024 Contributors: William Rubin | Marco Lemus </p>
 	  <p>Spring 2024 Contributors: Shelby Hinton | Gianella Robles | Mary Seelmann </p>
@@ -419,7 +419,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <p>Fall 2022 Contributors: Mark Venuto | Tim Haines </p>
           <p>Spring 2022 Contributors: Ryan Arnold | Christopher Brady | Maria Hernandez | Jordon Roberts | Jenna Rodriguez | Huaqi Zhang | Alec Lehmphul | Mitchell Chappell</p>
           <p>Fall 2021 Contributors: Matthew Morfea | Henry Murillo | Charles Agudelo | Joshua Morris | Tevin Skeete | Aaron Traver </p>
-          <p>Advisor (Manager): Hanh Pham</p>
+          <p>Advisor (Leader): Hanh Pham</p>
         </div>
 
       </footer>

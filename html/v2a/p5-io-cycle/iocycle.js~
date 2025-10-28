@@ -1,0 +1,332 @@
+//ANIMATION LOCK
+var paused=true;
+var currStep=0;
+var justUsedNext=false;
+var justUsedBack=false;
+
+const steps = [
+step1,
+step2,
+step3,
+step4,
+step5,
+step6,
+step7,
+step8,
+step9,
+step10,
+step11,
+step12,
+step13,
+step14 ];
+
+const undoSteps = [
+undoStep1,
+undoStep2,
+undoStep3,
+undoStep4,
+undoStep5,
+undoStep6,
+undoStep7,
+undoStep8,
+undoStep9,
+undoStep10,
+undoStep11,
+undoStep12,
+undoStep13,
+undoStep14 ];
+
+//$myfile = fopen("data.txt", "r") or die("Unable to open file");
+$(document).ready(function () {
+    document.getElementById('reset').addEventListener('click', function() {
+        window.location.reload(true);
+    })
+    document.getElementById('play').addEventListener('click', function () {
+        //disable start button after user clicks start
+        document.getElementById('play').setAttribute('disabled','disabled');
+        document.getElementById('pause').removeAttribute('disabled');
+        document.getElementById('next').setAttribute('disabled','disabled');
+        document.getElementById('back').setAttribute('disabled','disabled');        
+        //animation is playing
+        paused = false;
+        play();     
+    })
+    document.getElementById('pause').addEventListener('click', function () {
+        document.getElementById('pause').setAttribute('disabled','disabled');
+        document.getElementById('play').removeAttribute('disabled');
+        document.getElementById('next').removeAttribute('disabled');
+        document.getElementById('back').removeAttribute('disabled');
+        paused = true;
+    })
+    document.getElementById('next').addEventListener('click', function () {
+        if(justUsedBack && currStep!=0)
+            currStep++;
+        steps[currStep]();
+        currStep++;
+        paused = true;
+        justUsedNext=true;
+        justUsedBack=false;
+        if(currStep>13) {
+            document.getElementById('next').setAttribute('disabled','disabled');
+            currStep = 13;
+        } 
+        document.getElementById('back').removeAttribute('disabled');       
+    })
+    document.getElementById('back').addEventListener('click', function () {
+        if (justUsedNext && currStep!=13)
+            currStep--;
+        undoSteps[currStep]();
+        currStep--;
+        paused = true;
+        justUsedBack=true;
+        justUsedNext=false;
+        if(currStep<0) {
+            document.getElementById('back').setAttribute('disabled','disabled'); 
+            currStep = 0;
+        }
+        document.getElementById('next').removeAttribute('disabled');                                  
+    })
+})
+
+//function to play the animation from start to finish
+function play(){
+    if (paused)
+        return;
+    setTimeout(function(){
+        steps[currStep]();
+        currStep++;
+        if(currStep<14)
+            play();
+        else
+            document.getElementById('pause').setAttribute('disabled','disabled');        
+    }, 1000) 
+}
+
+
+function step1() {
+            $("#arrow1").show();
+            $("#box").text("1. Device Driver initiates I/O");
+            document.getElementById('io-request-box1').style.cssText = 'background-color: white';
+            document.getElementById('io-request-box2').style.cssText = 'background-color: red';
+            document.getElementById("io-request-box2").innerHTML = document.getElementById("io-request-box1").innerHTML;
+            document.getElementById("io-request-box1").innerHTML = "";
+    }
+function undoStep1() {
+            $("#arrow1").hide();
+            $("#box").text("I/O Process");
+            document.getElementById('io-request-box1').style.cssText = 'background-color: red';
+            document.getElementById('io-request-box2').style.cssText = 'background-color: white';
+            document.getElementById("io-request-box1").innerHTML = document.getElementById("io-request-box2").innerHTML;
+            document.getElementById("io-request-box2").innerHTML = "I/O Request";
+    }
+
+function step2() {
+            $("#arrow1").hide();
+            $("#arrow2").show();
+            document.getElementById("system-call-box").innerHTML = "System Call" + document.getElementById("io-request-box2").innerHTML;
+            document.getElementById('io-request-box2').innerHTML = "";
+            document.getElementById('io-request-box2').style.cssText = 'background-color: white';
+            document.getElementById('system-call-box').style.cssText = 'background-color: red';
+    }
+function undoStep2() {
+            $("#arrow1").show();
+            $("#arrow2").hide();
+            document.getElementById("system-call-box").innerHTML = "System Call";
+            document.getElementById('io-request-box2').innerHTML = "I/O Request" + " " + "Hello!"; //NEED TO GET HELLO ON NEW LINE
+            document.getElementById('io-request-box2').style.cssText = 'background-color: red';
+            document.getElementById('system-call-box').style.cssText = 'background-color: white';            
+    }
+
+function step3() {
+            $("#arrow2").hide();
+            $("#arrow3").show();
+            document.getElementById("system-call-box").innerHTML = "System Call";
+            document.getElementById("device-driver-box").innerHTML = "Device Driver:" + "   " + "I/O Request";
+            document.getElementById('system-call-box').style.cssText = 'background-color: white';
+            document.getElementById('device-driver-box').style.cssText = 'background-color: red';
+            //document.getElementById('system-call-box').innerHTML = "System Call";
+    }
+function undoStep3() {
+            $("#arrow2").show();
+            $("#arrow3").hide();
+            document.getElementById("system-call-box").innerHTML = "System Call" + "          "  + "I/O Request"; //NEED TO GET I/O REQUEST ON NEW LINE
+            document.getElementById("device-driver-box").innerHTML = "Device Driver:" + "   " + "Monitor";
+            document.getElementById('system-call-box').style.cssText = 'background-color: red';
+            document.getElementById('device-driver-box').style.cssText = 'background-color: white';
+    }
+
+function step4() { 
+            $("#arrow3").hide();
+            $("#monitor").show();
+    }
+function undoStep4() { 
+            $("#arrow3").show();
+            $("#monitor").hide();
+            
+    }
+
+function step5() {
+            $("#arrow4").show();
+            document.getElementById('system-call-box').style.cssText = 'background-color: white';
+            $("#box").text("2.1 Transfer I/O Data to command");
+            document.getElementById("monitor-box-display").innerHTML = "Display:" + "  " + " I/O Request";
+            document.getElementById('device-driver-box').innerHTML = "Device Driver";
+            document.getElementById('monitor-box-display').style.cssText = 'background-color: red';
+            document.getElementById('device-driver-box').style.cssText = 'background-color: white';
+    }
+function undoStep5() {
+            $("#arrow4").hide();
+            $("#box").text("1. Device Driver Initiates I/O ");
+            document.getElementById("monitor-box-display").innerHTML = "Display:"; 
+            document.getElementById('device-driver-box').innerHTML = "Device Driver:" + "  " + " I/O Request";
+            document.getElementById('monitor-box-display').style.cssText = 'background-color: white';
+            document.getElementById('device-driver-box').style.cssText = 'background-color: red';            
+    }
+
+function step6() {
+            $("#arrow4").hide();
+            $("#box").text("2.2 Initiates I/O");
+            document.getElementById('monitor-box-display').innerHTML = "Display:";
+            document.getElementById('monitor-box-display').style.cssText = 'background-color: white';
+    }
+function undoStep6() {
+            $("#arrow4").show();
+            $("#box").text("2.1 Transfer I/O Data to command");
+            document.getElementById('monitor-box-display').innerHTML = "Display:" + "   " + " I/O Request";
+            document.getElementById('monitor-box-display').style.cssText = 'background-color: red';            
+    }
+
+function step7() {
+            $("#arrow5").show();
+            $("#box").text("2.3 I/O Completion Status: Okay");
+            //document.getElementById('monitor-box').innerHTML = "<?php echo fread($myfile, filesize("data.txt")); ?>";
+            document.getElementById('monitor-box-done').innerHTML = "Done? Okay";
+    }
+function undoStep7() {
+            $("#arrow5").hide();
+            $("#box").text("2.2 Initiates I/O");
+            document.getElementById('monitor-box-done').innerHTML = "Done?";            
+    }
+
+function step8() {
+            $("#arrow5").hide();
+            $("#arrow10").show();
+            $("#box").text("3. Input Ready Generates Interrupt");
+    }
+function undoStep8() {
+            $("#arrow5").show();
+            $("#arrow10").hide();
+            $("#box").text("2.3 I/O Completion Status: Okay");
+    }
+    
+function step9() {
+            $("#arrow6").show();
+            $("#arrow10").hide();
+            $("#box").text("4.1 CPU Receiving Interrupt");
+            document.getElementById('io-request-box2').innerHTML = "Interrupt";
+            document.getElementById('io-request-box2').style.cssText = 'background-color: red';
+            document.getElementById('monitor-box-done').innerHTML = "Done?";
+            /* document.getElementById('io-request-box2').style.cssText = 'background-color: red';
+             document.getElementById('interrupt-handler-box').style.cssText = 'background-color: white'; 
+             document.getElementById("interrupt-handler-box").innerHTML = "Interrupt Handler";
+             document.getElementById("io-request-box2").innerHTML = "Interrupt"; */
+    }
+function undoStep9() {
+            $("#arrow6").hide();
+            $("#arrow10").show();
+            $("#box").text("3. Input Ready Generates Interrupt");
+            document.getElementById('io-request-box2').innerHTML = "";
+            document.getElementById('io-request-box2').style.cssText = 'background-color: white';
+            document.getElementById('monitor-box-done').innerHTML = "Done? Okay";            
+    }
+
+
+function step10() {
+            $("#arrow6").hide();
+            $("#arrow7").show();
+            $("#box").text("4.2 Transfer Control To Interrupt Handler");
+            document.getElementById('io-request-box2').style.cssText = 'background-color: white';
+            document.getElementById("io-request-box2").innerHTML = "";
+            document.getElementById('interrupt-handler-box').style.cssText = 'background-color: red';
+            document.getElementById("interrupt-handler-box").innerHTML = "Interrupt Handler:" + "    " + "Interrupt";
+    }
+function undoStep10() {
+            $("#arrow6").show();
+            $("#arrow7").hide();
+            $("#box").text("4.1 CPU Receiving Interrupt");
+            document.getElementById('io-request-box2').style.cssText = 'background-color: red';
+            document.getElementById("io-request-box2").innerHTML = "Interrupt";
+            document.getElementById('interrupt-handler-box').style.cssText = 'background-color: white';
+            document.getElementById("interrupt-handler-box").innerHTML = "Interrupt Handler:" + "    " + "Interrupt";            
+    }    
+
+function step11() {
+            $("#arrow7").hide();
+            $("#arrow11").show();
+            $("#box").text("5. Interrupt Processes Data");
+    }
+function undoStep11() {
+            $("#arrow7").show();
+            $("#arrow11").hide();
+            $("#box").text("4.2 Transfer Control To Interrupt Handler");            
+    }
+
+function step12() {
+            $("#arrow11").hide();
+            $("#arrow8").hide();
+            $("#arrow9").show();
+            $("#box").text("6. CPU Resumes Processing of Interrupted Task");
+            document.getElementById('io-request-box2').style.cssText = 'background-color: red';
+            document.getElementById("io-request-box2").innerHTML = document.getElementById("user-program-box").innerHTML;
+            document.getElementById("user-program-box").innerHTML = "";
+            document.getElementById('interrupt-handler-box').style.cssText = 'background-color: white';
+            document.getElementById("interrupt-handler-box").innerHTML = "Interrupt Handler";
+    }
+function undoStep12() {
+            $("#arrow11").show();
+            $("#arrow9").hide();
+            $("#box").text("5. Interrupt Processes Data");
+            document.getElementById('io-request-box2').style.cssText = 'background-color: white';
+            document.getElementById("io-request-box2").innerHTML = "";
+            document.getElementById("user-program-box").innerHTML = "User Program X";
+            document.getElementById('interrupt-handler-box').style.cssText = 'background-color: red';
+            document.getElementById("interrupt-handler-box").innerHTML = "Interrupt Handler: Interrupt";            
+    }
+
+function step13() {
+            $("#box").text("7. Process Complete");
+            $("#arrow9").hide();
+            $("#arrow12").show();
+    }
+function undoStep13() {
+            $("#box").text("6. CPU Resumes Processing of Interrupted Task");
+            $("#arrow9").show();
+            $("#arrow12").hide();
+    } 
+
+function step14() {
+            $("#arrow12").hide();
+    }
+function undoStep14() {
+            $("#arrow12").show();
+    }
+
+/*//animation type 
+$('input[type=radio][name=animationType]').change(function () {
+        if (this.value == 'StepByStep') {
+            //disable play/pause
+            document.getElementById('play').setAttribute('disabled', 'disabled')
+            document.getElementById('pause').setAttribute('disabled', 'disabled')
+            document.getElementById('next').removeAttribute("disabled");
+            document.getElementById('back').removeAttribute("disabled");
+
+        } else if (this.value == 'Automatic') {
+            //disable next/back
+            document.getElementById('next').setAttribute('disabled', 'disabled')
+            document.getElementById('back').setAttribute('disabled', 'disabled')
+            document.getElementById('play').removeAttribute("disabled");
+            document.getElementById('pause').removeAttribute("disabled");
+
+        }
+    });
+*/

@@ -15,8 +15,8 @@ if ($mid) {
     $row = mysqli_fetch_assoc($result);
     $mtitle = $row['algorithm'];
 }
-
-shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
+// run java code
+shell_exec("java -classpath {$cgibin_core_c}/m-{$mid} m{$mid}");
 ?>
 
 <!DOCTYPE html>
@@ -51,11 +51,10 @@ shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
 <body>
 
     <?php include '../../navbar.php'; ?>
-    
-    <br>
+
     <div class="center text-center">
         <h1 id="title">Memory Allocation - <?= $mtitle ?></h1>
-        <h4>Only 1 process can be allocated per memory slot</h4>
+        
     </div>
 
     <div id="overlay">
