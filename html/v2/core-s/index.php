@@ -171,31 +171,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
         <div class="container">
             <form method="POST" action="">
                 <!--Section for a dropdown menu to view the algorithms to select-->
-                <div class="form-group">
-                    <label name="algorithm" for="algorithm">Algorithms:</label>
-                    <select class="form-select" id="algorithm-options" name="algorithm-options">
-                        <?php
-                            $algorithm_query = "select mechanisms.client_code as client_code, components.component_name as component, mechanisms.algorithm as algorithm from components inner join mechanisms on components.component_id = mechanisms.component_id order by client_code;";
-                            $algorithm_result = mysqli_query($link, $algorithm_query);
-                            while ($row = mysqli_fetch_assoc($algorithm_result)):
-                        ?>
-                        <option value="<?php echo $row['client_code'] ?>">
-                        <?php echo $row['client_code'] . " " . $row['component'] . " " . $row['algorithm'] ?>
-                        </option>
-                        <?php
-                            endwhile;
-                        ?>
-                    </select>
+                <div class="form-row align-items-center">
+                    <div class="col-auto" style="flex-grow: 1;">
+                        <label name="algorithm" for="algorithm">Algorithms:</label>
+                        <select class="form-select" id="algorithm-options" name="algorithm-options">
+                            <?php
+                                $algorithm_query = "select mechanisms.client_code as client_code, components.component_name as component, mechanisms.algorithm as algorithm from components inner join mechanisms on components.component_id = mechanisms.component_id order by client_code;";
+                                $algorithm_result = mysqli_query($link, $algorithm_query);
+                                while ($row = mysqli_fetch_assoc($algorithm_result)):
+                            ?>
+                            <option value="<?php echo $row['client_code'] ?>">
+                            <?php echo $row['client_code'] . " " . $row['component'] . " " . $row['algorithm'] ?>
+                            </option>
+                            <?php
+                                endwhile;
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn custom-btn" name="algorithmSubmit" style="margin-left: 0; margin-top: 32px;">Make a Submission</button>
+                    </div>
                 </div>
-
-                <!-- Section for a button that will submit the requested algorithm -->
-                <button type="submit" class="btn custom-btn" name="algorithmSubmit">Make a Submission</button>
             </form>
-            
-            <!-- New button for custom code input -->
-            <div class="mt-3">
-                <a href="x/index.php" class="btn custom-btn">Custom Java Code Input</a>
-            </div>
         </div>
         
         <div class="container">
