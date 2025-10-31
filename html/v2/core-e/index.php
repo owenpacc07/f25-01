@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
 
     // Construct folder name using the database experiment_id
     $base_folder_name = "{$user_id}_{$experiment_id}_{$family_id}";
-    $base_path = "/var/www/p/s25-01/html/files/experiments/{$base_folder_name}";
+    $base_path = "/var/www/p/f25-01/html/files/experiments/{$base_folder_name}";
 
     // Create base experiment folder
     if (!file_exists($base_path)) {
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
     // Process each mechanism to set the directory paths
     $first_mechanism = true;
     foreach ($mechanisms as $mechanism_id) {
-        $code_path = "/var/www/p/s25-01/html/cgi-bin/core-e/m-{$mechanism_id}";
+        $code_path = "/var/www/p/f25-01/html/cgi-bin/core-e/m-{$mechanism_id}";
         if ($first_mechanism) {
             $input_path_db = "experiments/{$base_folder_name}/";
             $output_path_db = "experiments/{$base_folder_name}/";
@@ -269,7 +269,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submitExperiment'])) {
                                                     <ul class="mechanism-list">
                                                         <?php while ($mechanism = $mechanisms_result->fetch_assoc()): ?>
                                                             <li>
-                                                                <a href="/p/s25-01/v2/core-e/m-<?php echo $mechanism['client_code']; ?>?user_id=<?php echo $user_id_modal; ?>&experiment_id=<?php echo $user_id_modal . '_' . $row['experiment_id'] . '_' . $family_id; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=<?php echo $mechanism['client_code']; ?>" target="_blank">
+                                                                <a href="/p/f25-01/v2/core-e/m-<?php echo $mechanism['client_code']; ?>?user_id=<?php echo $user_id_modal; ?>&experiment_id=<?php echo $user_id_modal . '_' . $row['experiment_id'] . '_' . $family_id; ?>&family_id=<?php echo $family_id; ?>&mechanism_id=<?php echo $mechanism['client_code']; ?>" target="_blank">
                                                                     <?php echo $mechanism['algorithm']; ?> (m-<?php echo $mechanism['client_code']; ?>)
                                                                 </a>
                                                             </li>
