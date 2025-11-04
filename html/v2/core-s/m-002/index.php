@@ -20,7 +20,7 @@ if ($mid) {
 
 // run java code
 //echo shell_exec('whoami');
-//echo shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
+shell_exec("java -classpath {$cgibin_core_s}/m-{$mid} m{$mid}");
 ?>
 <!DOCTYPE html>
 <html lang="en">

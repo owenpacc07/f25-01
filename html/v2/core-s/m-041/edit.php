@@ -90,6 +90,157 @@ if (isset($_POST['submit'])) {
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+        /* Main header styling */
+        #description {
+            font-weight: bold;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Box headers styling */
+        label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        /* Custom Code Submission Box Styling */
+        .form-control {
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        /* Input textarea - dark theme with green text */
+        #input {
+            background-color: #1e1e1e;
+            color: #4ec9b0;
+        }
+
+        #input:focus {
+            background-color: #1e1e1e;
+            color: #4ec9b0;
+            border-color: #007acc;
+            box-shadow: 0 0 8px rgba(0,122,204,0.5);
+            outline: none;
+        }
+
+        /* Output textarea - dark navy theme with cyan text */
+        #output {
+            background-color: #0e1621;
+            color: #9cdcfe;
+        }
+
+        #output:focus {
+            background-color: #0e1621;
+            color: #9cdcfe;
+            border-color: #007acc;
+            box-shadow: 0 0 8px rgba(0,122,204,0.5);
+            outline: none;
+        }
+
+        /* Format textarea - light theme */
+        #format {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+
+        /* Button group styling */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        /* Center the textareas within their columns */
+        .row {
+            display: flex;
+            justify-content: center;
+        }
+
+        .col-md-4 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Custom Java Code Submission Box */
+        #codeSubmissionSection {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        #codeSubmissionSection h5 {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            color: #2c3e50;
+        }
+
+        #javaCode {
+            width: 100%;
+            min-height: 300px;
+            background-color: #282c34;
+            color: #abb2bf;
+            border: 2px solid #61afef;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 18px;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        #javaCode:focus {
+            background-color: #282c34;
+            color: #abb2bf;
+            border-color: #98c379;
+            box-shadow: 0 0 10px rgba(152,195,121,0.4);
+            outline: none;
+        }
+
+        #javaCode::placeholder {
+            color: #5c6370;
+            opacity: 0.8;
+        }
+
+        /* Alert message styling */
+        .alert {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -111,7 +262,7 @@ if (isset($_POST['submit'])) {
             <div class="row">
                 <div class="field is-grouped">
                     <div class="control">
-                        <h4 id="description">041 Edit Data</h4>
+                        <h4 id="description">Disk Schedueling - Edit Data</h4>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -128,10 +279,24 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="btn btn-primary" type="submit" name="submit">Submit Data and Proceed to View</button>
+                        <button class="btn btn-primary" type="submit" name="submit">Save Data</button>
+ 			<button class="btn btn-primary" type="submit" name="submit" value="proceed">Proceed to View</button>
                         <button class="btn btn-primary" type="submit" name="submit" href=$path>Cancel</button>
                     </div>
                 </div>
+		<!-- Custom Java Code Submission Section -->
+            	<div id="codeSubmissionSection">
+                	<h5>Custom Java Code Submission</h5>
+                	<label for="javaCode">Enter your custom Java code here:</label>
+                	<textarea class="form-control" name="javaCode" id="javaCode" rows="15" placeholder="// Enter your Java code here...
+public class CustomScheduler {
+    public static void main(String[] args) {
+        // Your code implementation
+    }
+}"></textarea>
+            </div>
+        </div>
+    
             </div>
         </div>
     </form>

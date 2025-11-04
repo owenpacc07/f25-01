@@ -117,22 +117,24 @@ $text4 = file_exists('t4.dat') ? file_get_contents('t4.dat') : '';
         <h2>SUBMISSION ID</h2>
         <?php if (!empty($message)) echo "<div class='message'>$message</div>"; ?>
         <form method="post">
-            <label>Text 1 (t1.dat):</label>
+            <label>INPUT (t1.dat):</label>
             <textarea name="text1"><?= htmlspecialchars($text1) ?></textarea>
 
-            <label>Text 2 (t2.dat):</label>
+            <label>OUTPUT (t2.dat):</label>
             <textarea name="text2"><?= htmlspecialchars($text2) ?></textarea>
 
-            <label>Text 3 (t3.dat):</label>
+            <label>FORMAT (t3.dat):</label>
             <textarea name="text3"><?= htmlspecialchars($text3) ?></textarea>
 
-            <label>Text 4 (t4.dat):</label>
+            <label>CODES (t4.dat):</label>
             <textarea name="text4"><?= htmlspecialchars($text4) ?></textarea>
 
+
             <div class="buttons">
-                <button type="submit" name="save">SAVE</button>
-                <button type="submit" name="viz">VIZ</button>
+                <button type="submit" name="save">SAVE data</button>
+                <button type="submit" name="viz">VISUALIZE</button>
                 <button type="submit" name="run">RUN</button>
+                <button type="submit" name="save">CANCEL</button>
             </div>
         </form>
     </div>

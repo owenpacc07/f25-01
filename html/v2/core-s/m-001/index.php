@@ -20,7 +20,7 @@ if ($mid) {
 
 // run java code
 //shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/core/m-{$mid} m{$mid}");
-//shell_exec("java -classpath {$cgibin_core_a}/m-{$mid} m{$mid}");
+shell_exec("java -classpath {$cgibin_core_s}/m-{$mid} m{$mid}");
 
 ?>
 <!DOCTYPE html>

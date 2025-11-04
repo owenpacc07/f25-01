@@ -22,7 +22,7 @@ $_SESSION['mechanismid'] = '008';
 // $userInputFile = $_POST;
 
 // run java code
-//shell_exec("java -classpath {$cgibin_core_a}/m-{$mid} m{$mid}");
+shell_exec("java -classpath {$cgibin_core_s}/m-{$mid} m{$mid}");
 ?>
 <!DOCTYPE html>
 <html lang="en">

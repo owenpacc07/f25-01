@@ -111,7 +111,7 @@ if (isset($_POST['submit'])) {
             <div class="row">
                 <div class="field is-grouped">
                     <div class="control">
-                        <h4 id="description">045 Edit Data</h4>
+                         <h4 id="description">Disk Schedueling - Edit Data</h4>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -128,10 +128,21 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="btn btn-primary" type="submit" name="submit">Submit Data and Proceed to View</button>
+                        <button class="btn btn-primary" type="submit" name="submit">Save Data</button>
+ 			<button class="btn btn-primary" type="submit" name="submit" value="proceed">Proceed to View</button>
                         <button class="btn btn-primary" type="submit" name="submit" href=$path>Cancel</button>
                     </div>
                 </div>
+		<!-- Custom Java Code Submission Section -->
+            	<div id="codeSubmissionSection">
+                	<h5>Custom Java Code Submission</h5>
+                	<label for="javaCode">Enter your custom Java code here:</label>
+                	<textarea class="form-control" name="javaCode" id="javaCode" rows="15" placeholder="// Enter your Java code here...
+public class CustomScheduler {
+    public static void main(String[] args) {
+        // Your code implementation
+    }
+}"></textarea>
             </div>
         </div>
     </form>
