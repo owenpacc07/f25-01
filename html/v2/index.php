@@ -9,10 +9,18 @@ session_start();
 
 //for search bar submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+    // Get or set the coremode first
+    if (isset($_SESSION['coremode'])) {
+        $coremode = $_SESSION['coremode'];
+    } else {
+        $_SESSION['coremode'] = "core";
+        $coremode = "core";
+    }
+    
     $_SESSION['mechanismid'] = $_POST['mechanismid'];
     $mechanismid = $_POST['mechanismid'];
-    header("Location: ./core/m-" . $mechanismid);
+    header("Location: ./" . $coremode . "/m-" . $mechanismid);
+    exit();
 }
 
 

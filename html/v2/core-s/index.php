@@ -232,13 +232,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
                             $email_result = mysqli_query($link, $email_query);
                             $user_email = ($email_result && mysqli_num_rows($email_result) > 0) ? 
                                           mysqli_fetch_assoc($email_result)['email'] : 'Unknown';
+                            
+                            // Get the client_code from the mechanisms table to display the correct mechanism ID
+                            $mechanism_id = $row['mechanism_id'];
+                            $client_code_query = "SELECT client_code FROM mechanisms WHERE mechanism_id = '$mechanism_id'";
+                            $client_code_result = mysqli_query($link, $client_code_query);
+                            $display_mechanism_id = ($client_code_result && mysqli_num_rows($client_code_result) > 0) ? 
+                                                    mysqli_fetch_assoc($client_code_result)['client_code'] : $mechanism_id;
                             ?>
 
                                 <!-- initialize variables to hold the input and output paths to call on later -->
                                 <tr>
                                     <td><?php echo $row['submission_id']; ?></td>
                                     <td><?php echo isset($row['created_at']) ? $row['created_at'] : date('Y-m-d H:i:s'); ?></td>
-                                    <td><?php echo $row['mechanism_id']; ?></td>
+                                    <td><?php echo $display_mechanism_id; ?></td>
                                     <td><?php echo $user_email; ?></td>
                                     <td><button class='btn btn-info' data-toggle='modal' data-target='#<?php echo $modal_id ?>'>View
                                             Input/Output</button></td>
@@ -274,7 +281,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
                                     
                                                     $submission_directory_path = realpath("../../files/submissions");
 
-                                                    $inputPath = sprintf("%s/%d_%d_%d/in-%03d.dat", $submission_directory_path, $submission_id, $mechanism_id, $user_id, $mechanism_id);
+                                                    // Get the client_code from the mechanisms table
+                                                    $client_code_query = "SELECT client_code FROM mechanisms WHERE mechanism_id = '$mechanism_id'";
+                                                    $client_code_result = mysqli_query($link, $client_code_query);
+                                                    $client_code = ($client_code_result && mysqli_num_rows($client_code_result) > 0) ? 
+                                                                   mysqli_fetch_assoc($client_code_result)['client_code'] : str_pad($mechanism_id, 3, '0', STR_PAD_LEFT);
+                                                    
+                                                    $inputPath = sprintf("%s/%d_%d_%d/in-%s.dat", $submission_directory_path, $submission_id, $mechanism_id, $user_id, $client_code);
                                                     
                                                     if (file_exists($inputPath)) {
                                                         echo file_get_contents($inputPath);
@@ -288,7 +301,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
                                                 <h5>Output Data</h5>
                                                 <pre class="bg-light p-3 rounded">
                                                     <?php
-                                                    $outputPath = sprintf("%s/%d_%d_%d/out-%03d.dat", $submission_directory_path, $submission_id, $mechanism_id, $user_id, $mechanism_id);
+                                                    $outputPath = sprintf("%s/%d_%d_%d/out-%s.dat", $submission_directory_path, $submission_id, $mechanism_id, $user_id, $client_code);
                                                     
                                                     if (file_exists($outputPath)) {
                                                         echo file_get_contents($outputPath);
