@@ -22,41 +22,18 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
     // Get mechanism_id
     $mechanism = mysqli_fetch_all(mysqli_query($link, "select mechanism_id from mechanisms where client_code=$mid"))[0][0];
     
-    // Check if a submission already exists for this user and mechanism
+    // Find the most recent submission for this user and mechanism, or create temp directory
     $result = mysqli_query($link, "SELECT submission_id FROM submissions WHERE user_id=$user AND mechanism_id=$mechanism ORDER BY submission_id DESC LIMIT 1");
     
     if ($result && mysqli_num_rows($result) > 0) {
-        // Use existing submission folder
         $submission_id = mysqli_fetch_row($result)[0];
         $subDir = realpath("../../../files/submissions/") . "/{$submission_id}_{$mechanism}_{$user}/";
     } else {
-        // Create a new submission in database to get proper ID
-        $filenameIN = realpath("../../../files/core-s/m-$mid/in-$mid.dat");
-        $filenameOUT = realpath("../../../files/core-s/m-$mid/out-$mid.dat");
-        $codeFilePath = realpath("../../../cgi-bin/core-s/m-$mid/");
-        $restrict_view = 1;
-        
-        $submission_insert = "INSERT INTO submissions (mechanism_id, user_id, input_path, output_path, code_path, restrict_view) VALUES ($mechanism, $user,'$filenameIN','$filenameOUT','$codeFilePath', $restrict_view);";
-        mysqli_query($link, $submission_insert);
-        
-        $submission_id = mysqli_insert_id($link);
-        $subDir = realpath("../../../files/submissions/") . "/{$submission_id}_{$mechanism}_{$user}/";
-        
+        // Create temporary directory if no submission exists yet
+        $subDir = realpath("../../../files/submissions/") . "/temp_{$mechanism}_{$user}/";
         if (!is_dir($subDir)) {
             mkdir($subDir, 0770, true);
-            chown($subDir, 'nobody');
         }
-    }
-    
-    // Copy input and output files to the submission directory
-    $inputPath = realpath("../../../files/core-s/m-$mid/in-$mid.dat");
-    $outputPath = realpath("../../../files/core-s/m-$mid/out-$mid.dat");
-    
-    if (file_exists($inputPath)) {
-        copy($inputPath, "$subDir/in-$mid.dat");
-    }
-    if (file_exists($outputPath)) {
-        copy($outputPath, "$subDir/out-$mid.dat");
     }
     
     // Save Java file
@@ -70,25 +47,9 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
     
     $response = [];
     if (empty($compileOutput) || strpos($compileOutput, 'error') === false) {
-        // Execute Java code with timeout, passing the input file path as argument
-        $inputArg = escapeshellarg("in-$mid.dat");
-        $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java " . escapeshellarg($className) . " " . $inputArg . " 2>&1";
+        // Execute Java code with timeout
+        $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java " . escapeshellarg($className) . " 2>&1";
         $runOutput = shell_exec($runCmd);
-        
-        // Read the output file if it was created
-        $outputFile = "$subDir/out-$mid.dat";
-        if (file_exists($outputFile)) {
-            $fileOutput = file_get_contents($outputFile);
-            $runOutput .= "\n\n--- Output File Contents ---\n" . $fileOutput;
-        }
-        
-        // Update database with correct paths - keep code_path as cgi-bin
-        $filenameIN = "$subDir/in-$mid.dat";
-        $filenameOUT = "$subDir/out-$mid.dat";
-        $codeFilePath = realpath("../../../cgi-bin/core-s/m-$mid/");
-        $submission_update = "UPDATE submissions SET input_path='$filenameIN', output_path='$filenameOUT', code_path='$codeFilePath' WHERE submission_id=$submission_id;";
-        mysqli_query($link, $submission_update);
-        
         $response = [
             'success' => true,
             'output' => $runOutput ?: 'Program executed successfully with no output.',
@@ -151,33 +112,12 @@ if (isset($_POST['submit'])) {
         copy($filenameIN, "$submission_path/in-$mid.dat");
         copy($filenameOUT, "$submission_path/out-$mid.dat");
 
-        // Check if there's a temp directory with Java files and copy them
-        $submissionsDir = realpath("../../../files/submissions/");
-        
-        // Look for most recent submission folder instead of temp
-        $result = mysqli_query($link, "SELECT submission_id FROM submissions WHERE user_id=$user AND mechanism_id=$mechanism AND submission_id < $submission_id ORDER BY submission_id DESC LIMIT 1");
-        
-        if ($result && mysqli_num_rows($result) > 0) {
-            $prev_submission_id = mysqli_fetch_row($result)[0];
-            $prevSubDir = "$submissionsDir/{$prev_submission_id}_{$mechanism}_{$user}/";
-            
-            if (is_dir($prevSubDir)) {
-                // Copy all Java and class files from previous submission directory
-                $javaFiles = glob("$prevSubDir/*.java");
-                $classFiles = glob("$prevSubDir/*.class");
-                foreach (array_merge($javaFiles, $classFiles) as $file) {
-                    copy($file, $submission_path . '/' . basename($file));
-                }
-            }
-        }
-
         // update the filenameIN and filenameOUT to the new paths
         $filenameIN = "$submission_path/in-$mid.dat";
         $filenameOUT = "$submission_path/out-$mid.dat";
 
         // Create a submission query to edit the submission with the new paths
-        // Keep code_path as cgi-bin, NOT submission_path
-        $submission_update = "UPDATE submissions SET input_path='$filenameIN', output_path='$filenameOUT', code_path='$codeFilePath' WHERE submission_id=$submission_id;";
+        $submission_update = "UPDATE submissions SET input_path='$filenameIN', output_path='$filenameOUT' WHERE submission_id=$submission_id;";
         mysqli_query($link, $submission_update);
 
         // Check which button was clicked
