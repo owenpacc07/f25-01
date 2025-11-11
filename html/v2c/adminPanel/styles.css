@@ -1,0 +1,17 @@
+#password {
+    color: transparent;
+    text-shadow: 0 0 8px #000;
+}
+
+#password:hover {
+    color: #000;
+    text-shadow: 0 0 0 #000;
+}
+
+.error-addGroups {
+    color: #FF0000;
+}
+
+.groupPageTableStyle {
+    margin: 5rem;
+}

@@ -1,0 +1,73 @@
+/* Button styles to match purple theme */
+    .btn-purple {
+        background-color: #9769D9;
+        color: white;
+        border-radius: 8px;
+        /* Rounded corners for buttons */
+    }
+
+    .btn-purple:hover {
+        background-color: #B594E4;
+        /* Lighter purple for hover effect */
+        color: white;
+    }
+
+    /* Customize the background color of the table card header */
+    .card-header {
+        background-color: #9769D9;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Add a subtle shadow to the card */
+    .card {
+        border-radius: 12px;
+        /* Rounding corners of the card */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* Soft shadow */
+        overflow: hidden;
+        /* Ensures content doesn't overflow rounded corners */
+
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        /* Slight upward movement */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        /* Deeper shadow on hover */
+    }
+
+    .table th,
+    .table td {
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        /* Soft bottom borders */
+    }
+
+    /* Customize the table header background color */
+    .table th {
+        background-color: #B594E4;
+        color: white;
+        font-weight: bold;
+    }
+
+    .table th:nth-child(3) {
+        background-color: #C6A4F1;
+        /* Different color for 'Input' column */
+
+    }
+
+    /* Input field for page reference string */
+    input[type="text"] {
+        border-radius: 8px;
+        /* Rounded corners for input fields */
+        padding: 8px;
+        /* Add some internal padding */
+        border: 2px solid #ddd;
+        /* Soft border */
+    }
+
+    /* Add a little padding inside the form */
+    form {
+        padding: 8px;
+    }
