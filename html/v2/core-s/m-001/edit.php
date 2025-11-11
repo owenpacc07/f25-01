@@ -1,7 +1,10 @@
 <?php
 
+// Automatically detect mechanism ID from current directory path
+$mid = basename(dirname(__FILE__)); // Gets 'm-###' from path
+$mid = str_replace('m-', '', $mid);  // Extracts '###' from 'm-###'
+
 // the path to the in/out directory
-$mid = '001';
 $path = realpath("../../../files/core-s/m-$mid");
 
 $output = file_get_contents("$path/out-$mid.dat");
@@ -221,7 +224,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>001 Edit Data</title>
+    <title>M-<?php echo $mid; ?> Edit Data</title>
     <link rel="icon" href="/p/s23-01/files/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -441,7 +444,7 @@ if (isset($_POST['submit'])) {
         <div class="container">
             <div class="field is-grouped">
                 <div class="control" style="width: 100%;">
-                    <h4 id="description">CPU Scheduling - Edit Data</h4>
+                    <h4 id="description">Mechanism <?php echo $mid; ?> - Edit Data</h4>
                 </div>
             </div>
             <div class="row">
