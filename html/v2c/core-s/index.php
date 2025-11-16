@@ -14,6 +14,14 @@ if (!isset($_SESSION['email'])) {
 // establish db connection
 require '../config.php';
 
+// Get user ID from session BEFORE the make_submission handler
+$user = $_SESSION['userid'] ?? null;
+
+if (!$user) {
+    header('Location: ../login.php');
+    exit();
+}
+
 if (isset($_SESSION['user_type'])) {
     $_SESSION['log_messages'][] = "User Type in session: " . $_SESSION['user_type'];
 }
@@ -138,6 +146,163 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
         echo "Mechanism not found.";
     }
 }
+
+// Handle "Make a Submission" button click
+if (isset($_POST['action']) && $_POST['action'] === 'make_submission' && isset($_POST['mid'])) {
+    try {
+        $mid = (int)$_POST['mid'];
+        $mid_padded = str_pad($mid, 3, '0', STR_PAD_LEFT);
+        $session_key = "submission_m{$mid_padded}_uid{$user}";
+        
+        // Log to console
+        $_SESSION['log_messages'][] = "DEBUG: Creating NEW submission - MID: $mid, MID_PADDED: $mid_padded, USER: $user, SESSION_KEY: $session_key";
+        
+        // Get mechanism_id
+        $mech_query = "SELECT mechanism_id FROM mechanisms WHERE client_code = ?";
+        $stmt = mysqli_prepare($link, $mech_query);
+        mysqli_stmt_bind_param($stmt, "i", $mid);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $mech_row = mysqli_fetch_assoc($result);
+        
+        if (!$mech_row) {
+            throw new Exception("Mechanism not found");
+        }
+        
+        $mechanism_id = $mech_row['mechanism_id'];
+        $mid_padded = str_pad($mid, 3, '0', STR_PAD_LEFT);
+        
+        // Use realpath for existing files, construct proper paths for submission files
+        $basePath = realpath(__DIR__ . "/../files/core-s/m-{$mid_padded}");
+        if (!$basePath) {
+            // Try alternative path
+            $basePath = realpath(__DIR__ . "/../../files/core-s/m-{$mid_padded}");
+        }
+        if (!$basePath) {
+            $_SESSION['log_messages'][] = "DEBUG: Path attempts failed - __DIR__: " . __DIR__;
+            $_SESSION['log_messages'][] = "DEBUG: Looking for: " . __DIR__ . "/../files/core-s/m-{$mid_padded}";
+            throw new Exception("Mechanism directory not found: m-{$mid_padded}");
+        }
+        
+        $_SESSION['log_messages'][] = "DEBUG: Found basePath: $basePath";
+        
+        // Try to find code file path, but don't fail if it doesn't exist
+        $codeFilePath = realpath(__DIR__ . "/../cgi-bin/core-s/m-{$mid_padded}/");
+        if (!$codeFilePath) {
+            $codeFilePath = realpath(__DIR__ . "/../../cgi-bin/core-s/m-{$mid_padded}/");
+        }
+        if (!$codeFilePath) {
+            // Use a placeholder path if directory doesn't exist
+            $codeFilePath = __DIR__ . "/../cgi-bin/core-s/m-{$mid_padded}/";
+        }
+        
+        $_SESSION['log_messages'][] = "DEBUG: codeFilePath: $codeFilePath";
+        
+        $restrict_view = 1;
+        
+        // Create submission folder with absolute path FIRST
+        $submissions_base = realpath(__DIR__ . "/../files/submissions/");
+        if (!$submissions_base) {
+            $submissions_base = realpath(__DIR__ . "/../../files/submissions/");
+        }
+        if (!$submissions_base) {
+            throw new Exception("Submissions directory not found");
+        }
+        
+        $_SESSION['log_messages'][] = "DEBUG: submissions_base: $submissions_base";
+        
+        // We need to create the folder first to get a submission_id, but we need the submission_id to create the folder
+        // So we'll use temporary paths and update after folder creation
+        $temp_in_path = $submissions_base . "/temp_in.dat";
+        $temp_out_path = $submissions_base . "/temp_out.dat";
+        
+        // Create submission in database with temporary paths
+        $query = "INSERT INTO submissions (mechanism_id, user_id, input_path, output_path, code_path, restrict_view) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($link, $query);
+        
+        if (!$stmt) {
+            $_SESSION['log_messages'][] = "DEBUG: Prepare failed: " . mysqli_error($link);
+            throw new Exception("Database prepare failed: " . mysqli_error($link));
+        }
+        
+        mysqli_stmt_bind_param($stmt, "iisssi", $mechanism_id, $user, $temp_in_path, $temp_out_path, $codeFilePath, $restrict_view);
+        
+        if (!mysqli_stmt_execute($stmt)) {
+            $_SESSION['log_messages'][] = "DEBUG: Execute failed: " . mysqli_stmt_error($stmt);
+            throw new Exception("Database insert failed: " . mysqli_stmt_error($stmt));
+        }
+        
+        $submission_id = mysqli_insert_id($link);
+        $_SESSION[$session_key] = $submission_id;
+        
+        $_SESSION['log_messages'][] = "DEBUG: NEW Submission created - ID: $submission_id, SESSION_KEY: $session_key";
+        
+        $submission_folder = $submissions_base . "/{$submission_id}_{$mechanism_id}_{$user}/";
+        
+        $_SESSION['log_messages'][] = "DEBUG: Creating folder at: $submission_folder";
+        
+        if (!is_dir($submission_folder)) {
+            mkdir($submission_folder, 0770, true);
+            if (function_exists('chown')) {
+                @chown($submission_folder, 'nobody');
+            }
+        }
+        
+        // Copy default files to submission folder
+        $inputPath = $basePath . "/in-$mid.dat";
+        $outputPath = $basePath . "/out-$mid.dat";
+        
+        $_SESSION['log_messages'][] = "DEBUG: Copying from inputPath: $inputPath (exists: " . (file_exists($inputPath) ? 'YES' : 'NO') . ")";
+        $_SESSION['log_messages'][] = "DEBUG: Copying from outputPath: $outputPath (exists: " . (file_exists($outputPath) ? 'YES' : 'NO') . ")";
+        
+        $copySuccess = true;
+        if (file_exists($inputPath)) {
+            $result = copy($inputPath, "$submission_folder/in-$mid.dat");
+            if (!$result) {
+                $_SESSION['log_messages'][] = "DEBUG: Failed to copy input file";
+                $copySuccess = false;
+            }
+        } else {
+            $_SESSION['log_messages'][] = "DEBUG: Input source file does not exist: $inputPath";
+            // Create empty file as fallback
+            file_put_contents("$submission_folder/in-$mid.dat", "");
+        }
+        
+        if (file_exists($outputPath)) {
+            $result = copy($outputPath, "$submission_folder/out-$mid.dat");
+            if (!$result) {
+                $_SESSION['log_messages'][] = "DEBUG: Failed to copy output file";
+                $copySuccess = false;
+            }
+        } else {
+            $_SESSION['log_messages'][] = "DEBUG: Output source file does not exist: $outputPath";
+            // Create empty file as fallback
+            file_put_contents("$submission_folder/out-$mid.dat", "");
+        }
+        
+        $_SESSION['log_messages'][] = "DEBUG: File copy operation " . ($copySuccess ? "completed" : "had issues");
+        
+        // Update database with actual submission folder paths
+        $new_in_path = $submission_folder . "in-$mid.dat";
+        $new_out_path = $submission_folder . "out-$mid.dat";
+        
+        $_SESSION['log_messages'][] = "DEBUG: Saving to DB - in_path: $new_in_path";
+        $_SESSION['log_messages'][] = "DEBUG: Saving to DB - out_path: $new_out_path";
+        
+        $update = "UPDATE submissions SET input_path = ?, output_path = ? WHERE submission_id = ?";
+        $stmt = mysqli_prepare($link, $update);
+        mysqli_stmt_bind_param($stmt, "ssi", $new_in_path, $new_out_path, $submission_id);
+        mysqli_stmt_execute($stmt);
+        
+        // Redirect to edit page
+        header("Location: ./m-{$mid_padded}/edit.php");
+        exit();
+        
+    } catch (Exception $e) {
+        $_SESSION['log_messages'][] = "DEBUG: Exception during submission creation: " . $e->getMessage();
+        die("Error creating submission: " . htmlspecialchars($e->getMessage()));
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -189,7 +354,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
                         </select>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn custom-btn" name="algorithmSubmit" style="margin-left: 0; margin-top: 32px;">Make a Submission</button>
+                        <input type="hidden" name="action" value="make_submission">
+                        <input type="hidden" name="mid" id="mid-input" value="">
+                        <button type="button" class="btn custom-btn" onclick="submitMakeSubmission()" style="margin-left: 0; margin-top: 32px;">Make a Submission</button>
                     </div>
                 </div>
             </form>
@@ -327,6 +494,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['algorithmSubmit'])) {
     
 
     <script>
+        function submitMakeSubmission() {
+            const selectedCode = document.getElementById('algorithm-options').value;
+            document.getElementById('mid-input').value = selectedCode;
+            document.querySelector('form').submit();
+        }
+
         $('#fileModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var filePath = button.data('filepath');
