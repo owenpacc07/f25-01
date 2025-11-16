@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <?php include '../../../navbar.php'; ?>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+        .lst-kix_9h5vv9pa9jz8-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_9h5vv9pa9jz8-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_9h5vv9pa9jz8-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_9h5vv9pa9jz8-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9h5vv9pa9jz8-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-1 {
+            list-style-type: none
+        }
+
+        .lst-kix_9h5vv9pa9jz8-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-3 {
+            list-style-type: none
+        }
+
+        .lst-kix_9h5vv9pa9jz8-1>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_bfo3u3jwd2ht-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_9h5vv9pa9jz8-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_9h5vv9pa9jz8-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_9h5vv9pa9jz8-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_ryuue4z2y1jw-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_ryuue4z2y1jw-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_ryuue4z2y1jw-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_bfo3u3jwd2ht-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_ryuue4z2y1jw-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_bfo3u3jwd2ht-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_bfo3u3jwd2ht-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_bfo3u3jwd2ht-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_bfo3u3jwd2ht-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_bfo3u3jwd2ht-8>li:before {
+            content: "\0025a0   "
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        .lst-kix_ryuue4z2y1jw-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_ryuue4z2y1jw-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_ryuue4z2y1jw-2>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-4 {
+            list-style-type: none
+        }
+
+        .lst-kix_bfo3u3jwd2ht-2>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_ryuue4z2y1jw-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_bfo3u3jwd2ht-1>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_ryuue4z2y1jw-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_bfo3u3jwd2ht-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_ryuue4z2y1jw-1 {
+            list-style-type: none
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c2 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c7 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c10 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 16pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c1 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c18 {
+            color: #ff00ff;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c5 {
+            color: #0000ff;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c4 {
+            padding-top: 18pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c13 {
+            padding-top: 20pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c8 {
+            padding-top: 0pt;
+            padding-bottom: 3pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c6 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c17 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c0 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c16 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c12 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c15 {
+            margin-left: 72pt;
+            padding-left: 0pt
+        }
+
+        .c11 {
+            margin-left: 36pt;
+            padding-left: 0pt
+        }
+
+        .c19 {
+            margin-left: 108pt;
+            padding-left: 0pt
+        }
+
+        .c14 {
+            font-weight: 700
+        }
+
+        .c20 {
+            color: #ff00ff
+        }
+
+        .c3 {
+            height: 11pt
+        }
+
+        .c9 {
+            color: #0000ff
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #666666;
+            font-size: 15pt;
+            padding-bottom: 16pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; width: 100%; padding: 0; box-sizing: border-box; padding-top: 50px;">
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; margin-top: 50px; border: 2px solid #000000; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); padding: 25px;  max-width: 80%;">
+        <a href="javascript:history.back()">Go Back</a>
+
+        <p class="c17 title" id="h.96drq47lg7n6"><span class="c18"
+                style="color: green; text-decoration: underline; font-weight: bold;">A Quick Abstract:</span></p>
+        <h1 class="c13" id="h.sdybmha7utce"><span class="c7" style="font-weight: bold; font-size: 26px;">1. Introduction
+                to Memory Allocation:</span></h1>
+        <p class="c0"><span class="c1">Memory allocation is a critical aspect of operating systems, where processes
+                request
+                and utilize memory during execution. The goal is to efficiently manage available memory space and
+                allocate
+                it to processes as needed.</span></p>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <h1 class="c13" id="h.j510vpxd82mj"><span class="c7" style="font-weight: bold; font-size: 26px;">2. First Fit
+                Memory Allocation:</span></h1>
+        <h2 class="c4" id="h.iozxv79xjwah"><span class="c10" style="text-decoration: underline;">Definition: </span>
+        </h2>
+        <p class="c0"><span class="c1">First Fit is a memory allocation algorithm where the operating system allocates
+                the
+                first available block of memory that is large enough to accommodate a process.</span></p>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <h2 class="c4" id="h.cs3yx09d0ape"><span class="c10" style="text-decoration: underline;">Process:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">The operating system starts from the beginning of the available memory.</span>
+        </p>
+        <p class="c0"><span class="c1">It allocates the first block that is equal to or larger than the size requested
+                by
+                the process.</span></p>
+        <h2 class="c4" id="h.l2zjl7sfmpm9"><span class="c10" style="text-decoration: underline;">Advantages:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">Simple and easy to implement.</span></p>
+        <p class="c0"><span class="c1">Quick allocation of memory.</span></p>
+        <h2 class="c4" id="h.28m6ft9sk3ci"><span class="c10" style="text-decoration: underline;">Disadvantages:</span>
+        </h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">May lead to fragmentation issues over time.</span></p>
+        <p class="c0"><span class="c1">Suboptimal for memory utilization.</span></p>
+        <h1 class="c13" id="h.ixc8teav4ynp"><span class="c7" style="font-weight: bold; font-size: 26px;">3. Best Fit
+                Memory Allocation:</span></h1>
+        <h2 class="c4" id="h.yyzbhc5paly7"><span class="c10" style="text-decoration: underline;">Definition:</span></h2>
+        <p class="c0"><span class="c1">&nbsp;Best Fit is a memory allocation algorithm where the operating system
+                allocates
+                the smallest available block of memory that is large enough to accommodate a process.</span></p>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <h2 class="c4" id="h.kzn9wficxvnw"><span class="c10" style="text-decoration: underline;">Process:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">The operating system searches for the smallest block that can accommodate the
+                process.</span></p>
+        <p class="c0"><span class="c1">It allocates the process to this block, leaving the smallest possible
+                remainder.</span></p>
+        <h2 class="c4" id="h.slislxny0dmq"><span class="c10" style="text-decoration: underline;">Advantages:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">Reduces external fragmentation.</span></p>
+        <p class="c0"><span class="c1">Can result in better memory utilization.</span></p>
+        <h2 class="c4" id="h.hirhntva42h8"><span class="c10" style="text-decoration: underline;">Disadvantages:</span>
+        </h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">May be slower than First Fit due to the search for the best fit.</span></p>
+        <p class="c0"><span class="c1">Fragmentation can still occur.</span></p>
+        <h1 class="c13" id="h.l4lv15qardu6"><span class="c7" style="font-weight: bold; font-size: 26px;">4. Worst Fit
+                Memory Allocation:</span></h1>
+        <h2 class="c4" id="h.1hpkbk8ri4ra"><span class="c10" style="text-decoration: underline;">Definition:</span></h2>
+        <p class="c0"><span class="c1">&nbsp;Worst Fit is a memory allocation algorithm where the operating system
+                allocates
+                the largest available block of memory to a process.</span></p>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <h2 class="c4" id="h.quha29gcwgik"><span class="c10" style="text-decoration: underline;">Process:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">The operating system searches for the largest available block.</span></p>
+        <p class="c0"><span class="c1">It allocates the process to this block, leaving a potentially large
+                remainder.</span>
+        </p>
+        <h2 class="c4" id="h.84tm4sxgd1nd"><span class="c10" style="text-decoration: underline;">Advantages:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">Reduces external fragmentation.</span></p>
+        <p class="c0"><span class="c1">Can result in better memory utilization for larger processes.</span></p>
+        <h2 class="c4" id="h.p1vz9jy85vbx"><span class="c10" style="text-decoration: underline;">Disadvantages:</span>
+        </h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">May leave smaller gaps, leading to fragmentation issues.</span></p>
+        <p class="c0"><span class="c1">Slower allocation process compared to First Fit.</span></p>
+        <h1 class="c13" id="h.k4emeuahjkwh"><span class="c7" style="font-weight: bold; font-size: 26px;">5. Example
+                Scenario:</span></h1>
+        <p class="c0"><span class="c1">Consider memory blocks A, B, C, and D with sizes 200KB, 300KB, 150KB, and 400KB,
+                respectively. Processes P1, P2, and P3 request memory of sizes 250KB, 200KB, and 300KB.</span></p>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <h2 class="c4" id="h.8k800hb0ifd"><span class="c10" style="text-decoration: underline;">First Fit:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">P1 &rarr; A (250KB), P2 &rarr; B (200KB), P3 &rarr; D (300KB).</span></p>
+        <h2 class="c4" id="h.x4y1tf1aklew"><span class="c10" style="text-decoration: underline;">Best Fit:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">P1 &rarr; C (250KB), P2 &rarr; A (200KB), P3 &rarr; B (300KB).</span></p>
+        <h2 class="c4" id="h.krqt0stsgpuv"><span class="c10" style="text-decoration: underline;">Worst Fit:</span></h2>
+        <p class="c0 c3"><span class="c1"></span></p>
+        <p class="c0"><span class="c1">P1 &rarr; D (250KB), P2 &rarr; D (200KB), P3 &rarr; D (300KB).</span></p>
+        <h1 class="c13" id="h.tmjzva3c6gy9"><span class="c7" style="font-weight: bold; font-size: 26px;">6.
+                Conclusion:</span></h1>
+        <p class="c0"><span class="c1">Each memory allocation algorithm has its strengths and weaknesses. First Fit is
+                simple but can lead to fragmentation. Best Fit aims to minimize fragmentation, while Worst Fit allocates
+                the
+                largest available block. The choice of algorithm depends on the system&#39;s requirements and
+                characteristics.</span></p>
+        <p class="c17 title" id="h.k9yx1qn2abhs"><span class="c20"
+                style="color: maroon; text-decoration: underline; font-weight: bold; text-align: left;">Notes From The
+                Slides:</span></p>
+        <br>
+        <br>
+        <p class="c8 c3 title" id="h.b5d82aydq7um"><span class="c6"></span></p>
+        <p class="c8 title" id="h.t8gfiuftc89e"><span class="c6">Dynamic Storage-Allocation Problem</span></p>
+        <p class="c0"><span class="c2">How to satisfy a request of size n from a list of free holes?</span></p>
+        <p class="c0 c3"><span class="c2"></span></p>
+        <ul class="c12 lst-kix_bfo3u3jwd2ht-0 start">
+            <li class="c0 c11 li-bullet-0"><span class="c9">First-fit</span><span>: &nbsp;Allocate the </span><span
+                    class="c14">first </span><span class="c2">hole that is big enough</span></li>
+            <li class="c0 c11 li-bullet-0"><span class="c9">Best-fit</span><span>: &nbsp;Allocate the </span><span
+                    class="c14">smallest </span><span class="c2">hole that is big enough; must search entire list,
+                    unless
+                    ordered by size &nbsp;</span></li>
+        </ul>
+        <ul class="c12 lst-kix_bfo3u3jwd2ht-1 start">
+            <li class="c0 c15 li-bullet-0"><span class="c2">Produces the smallest leftover hole</span></li>
+        </ul>
+        <ul class="c12 lst-kix_bfo3u3jwd2ht-0">
+            <li class="c0 c11 li-bullet-0"><span class="c9">Worst-fit</span><span>: &nbsp;Allocate the </span><span
+                    class="c14">largest </span><span class="c2">hole; must also search entire list &nbsp;</span></li>
+        </ul>
+        <ul class="c12 lst-kix_bfo3u3jwd2ht-1 start">
+            <li class="c0 c15 li-bullet-0"><span class="c2">Produces the largest leftover hole</span></li>
+        </ul>
+        <p class="c0 c3"><span class="c2"></span></p>
+        <p class="c0"><span class="c2">First-fit and best-fit better than worst-fit in terms of speed and storage
+                utilization</span></p>
+        <p class="c0"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 349.33px;"><img
+                    alt="" src="images/image3.png"
+                    style="width: 624.00px; height: 349.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c8 title" id="h.g5fk6pkbyxrx"><span class="c6">First-Fit Memory Allocation Method</span></p>
+        <p class="c0"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 354.67px;"><img
+                    alt="" src="images/image2.png"
+                    style="width: 624.00px; height: 354.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c0"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 317.33px;"><img
+                    alt="" src="images/image5.png"
+                    style="width: 624.00px; height: 317.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c0"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 388.00px;"><img
+                    alt="" src="images/image4.png"
+                    style="width: 624.00px; height: 388.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c8 title" id="h.kr8y47ae81g"><span class="c6">Fragmentation</span></p>
+        <p class="c0 c3"><span class="c2"></span></p>
+        <ul class="c12 lst-kix_ryuue4z2y1jw-0 start">
+            <li class="c0 c11 li-bullet-0"><span class="c9">External Fragmentation</span><span class="c2">&nbsp;&ndash;
+                    total memory space exists to satisfy a request, but it is not contiguous</span></li>
+            <li class="c0 c11 li-bullet-0"><span class="c9">Internal Fragmentation</span><span class="c2">&nbsp;&ndash;
+                    allocated memory may be slightly larger than requested memory; this size difference is memory
+                    internal
+                    to a partition, but not being used</span></li>
+            <li class="c0 c11 li-bullet-0"><span class="c2">First fit analysis reveals that given N blocks allocated,
+                    0.5 N
+                    blocks lost to fragmentation</span></li>
+        </ul>
+        <ul class="c12 lst-kix_ryuue4z2y1jw-1 start">
+            <li class="c0 c15 li-bullet-0"><span>1/3 may be unusable -&gt; </span><span class="c5">50-percent
+                    rule</span>
+            </li>
+        </ul>
+        <p class="c0"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 264.00px;"><img
+                    alt="" src="images/image1.png"
+                    style="width: 624.00px; height: 264.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c8 title" id="h.w3hluzkpwv52"><span class="c6">Fragmentation (Cont.)</span></p>
+        <ul class="c12 lst-kix_9h5vv9pa9jz8-0 start">
+            <li class="c0 c11 li-bullet-0"><span>Reduce external fragmentation by </span><span
+                    class="c5">compaction</span>
+            </li>
+        </ul>
+        <ul class="c12 lst-kix_9h5vv9pa9jz8-1 start">
+            <li class="c0 c15 li-bullet-0"><span class="c2">Shuffle memory contents to place all free memory together in
+                    one
+                    large block</span></li>
+            <li class="c0 c15 li-bullet-0"><span class="c2">Compaction is possible only if relocation is dynamic, and is
+                    done at execution time</span></li>
+            <li class="c0 c15 li-bullet-0"><span class="c2">I/O problem</span></li>
+        </ul>
+        <ul class="c12 lst-kix_9h5vv9pa9jz8-2 start">
+            <li class="c0 c19 li-bullet-0"><span class="c2">Latch job in memory while it is involved in I/O</span></li>
+            <li class="c0 c19 li-bullet-0"><span class="c2">Do I/O only into OS buffers</span></li>
+        </ul>
+        <ul class="c12 lst-kix_9h5vv9pa9jz8-0">
+            <li class="c0 c11 li-bullet-0"><span class="c2">Now consider that backing store has same fragmentation
+                    problems</span></li>
+        </ul>
+        <p class="c0 c3"><span class="c2"></span></p>
+        <p class="c0 c3"><span class="c2"></span></p>
+</body>
+<footer style="background-color: #f2f2f2; padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+    <p style="color: green;">Most of the content on this page is based on the OS Book 10. It can be found at
+        <a href="https://www.os-book.com/" target="_blank" style="color: green;">www.os-book.com</a>.
+    </p>
+</footer>
+
+</html>

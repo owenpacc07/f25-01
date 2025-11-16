@@ -7,7 +7,7 @@ session_start();
 $mid = '005';
 $compare = 'cpu';
 $mtitle = '';
-$cgibin_core = "/var/www/p/f25-01/html/cgi-bin/core-e";
+$cgibin_core = "/var/www/p/s25-01/html/cgi-bin/core-e";
 // get mechanism title
 if ($mid) {
     $sql = "SELECT algorithm FROM mechanisms WHERE client_code = {$mid}";

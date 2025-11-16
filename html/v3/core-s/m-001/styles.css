@@ -1,0 +1,12 @@
+
+
+.fraction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+form {
+    justify-content: center;
+}

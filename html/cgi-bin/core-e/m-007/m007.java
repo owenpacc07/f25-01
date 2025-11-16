@@ -134,11 +134,10 @@ public class m007 {
 		File inFile = new File(inputFile);
 		Scanner scan = new Scanner(inFile);
 
-		// Read scheduler type from first line
-		String firstLine = scan.nextLine();
-		typeScheduler = Integer.parseInt(firstLine.split(",")[0].trim()); // Parse scheduler type
+		// Hardcode scheduler type for Preemptive Priority High (m-007 always uses type 6)
+		typeScheduler = 6;
 
-		// Iterate through remaining lines of the input file
+		// Iterate through all lines of the input file
 		while (scan.hasNextLine()) {
 			// Split the current line into parts using comma as the delimiter
 			String currentProcessInfo[] = scan.nextLine().split(",");

@@ -1,6 +1,7 @@
-//PROCESS ALLOCATION, BEST FIT
-//March 2023, Aleks Pilmanis
+// PROCESS ALLOCATION, BEST FIT
+// March 2023, Aleks Pilmanis
 // edits by Amir Marji
+// Best-Fit updated to allow multiple processes per original slot by splitting free blocks
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,154 +9,150 @@ import java.util.Scanner;
 import java.lang.Integer;
 
 public class m012 {
-	static String mid = "012";
-	static String workingDirectory = "../../../files/core-a/m-" + mid;
+    static String mid = "012";
+    // CHANGED: point to core-a instead of core
+    static String workingDirectory = "../../../files/core-a/m-" + mid;
 
-	public static void main(String args[]) throws IOException {
-		ArrayList<String> input = inFile(); // Read input data from a file
+    public static void main(String args[]) throws IOException {
+        ArrayList<String> input = inFile(); // Read input data from a file
 
-		// Create memory slot objects, store them in an ArrayList
-		int numOfMemorySlots = Integer.parseInt(input.get(0));
-		ArrayList<MemorySlot> memSlots = new ArrayList<>();
+        // ===== Build initial FREE list from memory slots =====
+        int numOfMemorySlots = Integer.parseInt(input.get(0));
+        ArrayList<MemorySlot> memSlots = new ArrayList<>(); // each is a FREE block
 
-		for (int i = 1; i < (numOfMemorySlots * 2); i += 2) {
-			// Create memory slots based on input data and add them to the list
-			MemorySlot slot = new MemorySlot(Integer.parseInt(input.get(i)), Integer.parseInt(input.get(i + 1)));
-			memSlots.add(slot);
-		}
+        for (int i = 1; i < (numOfMemorySlots * 2); i += 2) {
+            MemorySlot slot = new MemorySlot(Integer.parseInt(input.get(i)), Integer.parseInt(input.get(i + 1)));
+            memSlots.add(slot);
+        }
 
-		// Create process objects, store them in an ArrayList
-		int newBaseIndex = numOfMemorySlots * 2 + 2;
-		int numOfProcesses = Integer.parseInt(input.get(newBaseIndex - 1));
-		ArrayList<Process> processes = new ArrayList<>();
+        // ===== Build process list =====
+        int newBaseIndex = numOfMemorySlots * 2 + 2;
+        int numOfProcesses = Integer.parseInt(input.get(newBaseIndex - 1));
+        ArrayList<Process> processes = new ArrayList<>();
 
-		for (int i = newBaseIndex; i < (newBaseIndex + numOfProcesses * 2); i += 2) {
-			// Create process objects based on input data and add them to the list
-			Process proc = new Process(Integer.parseInt(input.get(i)), Integer.parseInt(input.get(i + 1)));
-			processes.add(proc);
-		}
+        for (int i = newBaseIndex; i < (newBaseIndex + numOfProcesses * 2); i += 2) {
+            Process proc = new Process(Integer.parseInt(input.get(i)), Integer.parseInt(input.get(i + 1)));
+            processes.add(proc);
+        }
 
-		// Iterate through processes and allocate them to memory slots based on the best
-		// fit
-		for (int i = 0; i < processes.size(); i++) {
-			int bestFitIndex = -1;
-			int fitSpace = Integer.MAX_VALUE;
-			boolean foundFit = false;
+        // ===== Best-Fit with splitting (multiple allocations per original slot) =====
+        for (int i = 0; i < processes.size(); i++) {
+            Process p = processes.get(i);
 
-			for (int x = 0; x < memSlots.size(); x++) {
+            int bestFitIndex = -1;
+            int bestFitLeftover = Integer.MAX_VALUE;
 
-				// If memory slot is big enough for the process and not already allocated
-				if (memSlots.get(x).size >= processes.get(i).size && !(memSlots.get(x).allocated)) {
+            for (int x = 0; x < memSlots.size(); x++) {
+                MemorySlot free = memSlots.get(x);
 
-					// Check if this fit is better than previously checked memory slots
-					if (memSlots.get(x).size - processes.get(i).size < fitSpace) {
-						bestFitIndex = x;
-						fitSpace = memSlots.get(x).size - processes.get(i).size;
-						foundFit = true;
-					}
-				}
-			}
+                if (free.size >= p.size) {
+                    int leftover = free.size - p.size;
+                    if (leftover < bestFitLeftover) {
+                        bestFitLeftover = leftover;
+                        bestFitIndex = x;
+                    }
+                }
+            }
 
-			// If there is a suitable fit, allocate the process to it
-			if (foundFit) {
-				processes.get(i).setStart(memSlots.get(bestFitIndex).start);
+            if (bestFitIndex != -1) {
+                // place process at the START of the chosen free block
+                MemorySlot chosen = memSlots.get(bestFitIndex);
+                p.setStart(chosen.start);
 
-				// Mark memory slot as allocated
-				memSlots.get(bestFitIndex).allocated = true;
-			}
-		}
+                // split/shrink the free block
+                if (chosen.size == p.size) {
+                    // exact fit: remove this free block
+                    memSlots.remove(bestFitIndex);
+                } else {
+                    // shrink from the front: move start forward, reduce size; end stays the same
+                    chosen.start += p.size;
+                    chosen.size -= p.size;
+                    // chosen.end unchanged
+                }
+            }
+            // if bestFitIndex == -1, p remains unallocated
+        }
 
-		// Write the output to a file
-		outFile(processes);
+        // ===== Output allocated processes =====
+        outFile(processes);
 
-		// Update a flag file to indicate completion
-		updateFlagFile();
-	}
+        // ===== Flag done =====
+        updateFlagFile();
+    }
 
-	// Reads input data from a file and returns it as an ArrayList
-	public static ArrayList<String> inFile() throws FileNotFoundException {
+    // Reads input data from a file and returns it as an ArrayList
+    public static ArrayList<String> inFile() throws FileNotFoundException {
+        ArrayList<String> arr = new ArrayList<>();
+        File inFile = new File(workingDirectory + "/in-" + mid + ".dat");
+        Scanner in = new Scanner(inFile);
+        while (in.hasNextLine()) {
+            arr.add(in.nextLine());
+        }
+        in.close();
 
-		// Read from the input file and store each line in an ArrayList
-		ArrayList<String> arr = new ArrayList<>();
-		File inFile = new File(workingDirectory + "/in-" + mid + ".dat");
-		Scanner in = new Scanner(inFile);
-		while (in.hasNextLine()) {
-			arr.add(in.nextLine());
-		}
-		in.close();
+        ArrayList<String> input = new ArrayList<>();
+        for (int i = 0; i < arr.size(); i++) {
+            String[] temp = arr.get(i).split(" ");
+            for (int x = 0; x < temp.length; x++) {
+                if (!temp[x].isEmpty()) input.add(temp[x]);
+            }
+        }
+        return input;
+    }
 
-		// Parse each line into words and put them in a new ArrayList
-		ArrayList<String> input = new ArrayList<>();
+    // Write the output to a file
+    public static void outFile(ArrayList<Process> processes) throws IOException {
+        File outFile = new File(workingDirectory + "/out-" + mid + ".dat");
+        PrintWriter out = new PrintWriter(outFile);
 
-		for (int i = 0; i < arr.size(); i++) {
-			String[] temp = arr.get(i).split(" ");
+        for (int i = 0; i < processes.size(); i++) {
+            if (processes.get(i).allocated) {
+                out.println(processes.get(i).start + " " + processes.get(i).end + " " + processes.get(i).id);
+            }
+        }
+        out.close();
+    }
 
-			for (int x = 0; x < temp.length; x++) {
-				input.add(temp[x]);
-			}
-		}
-		return input;
-	}
-
-	// Write the output to a file
-	public static void outFile(ArrayList<Process> processes) throws IOException {
-		File outFile = new File(workingDirectory + "/out-" + mid + ".dat");
-		PrintWriter out = new PrintWriter(outFile);
-
-		// Iterate through processes and write the allocated ones to the output file
-		for (int i = 0; i < processes.size(); i++) {
-
-			// If the process is allocated, write its details to the output file
-			if (processes.get(i).allocated) {
-				out.println(processes.get(i).start + " " + processes.get(i).end + " " + processes.get(i).id);
-			}
-		}
-
-		out.close();
-	}
-
-	// Update a flag file to have a value of 1 to indicate completion
-	static void updateFlagFile() {
-		try {
-			File flagFile = new File(workingDirectory + "/flag-file.txt");
-			FileWriter writer = new FileWriter(flagFile, false);
-			writer.write("1");
-			writer.close();
-
-		} catch (IOException e) {
-			System.out.println("Error in updateFlagFile()");
-		}
-	}
+    // Update a flag file to have a value of 1 to indicate completion
+    static void updateFlagFile() {
+        try {
+            File flagFile = new File(workingDirectory + "/flag-file.txt");
+            FileWriter writer = new FileWriter(flagFile, false);
+            writer.write("1");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error in updateFlagFile()");
+        }
+    }
 }
 
 class Process {
-	public int id;
-	public int size;
-	public int start;
-	public int end;
-	public boolean allocated = false;
+    public int id;
+    public int size;
+    public int start;
+    public int end;
+    public boolean allocated = false;
 
-	public Process(int id, int size) {
-		this.id = id;
-		this.size = size;
-	}
+    public Process(int id, int size) {
+        this.id = id;
+        this.size = size;
+    }
 
-	public void setStart(int start) {
-		this.start = start;
-		end = start + this.size;
-		allocated = true;
-	}
+    public void setStart(int start) {
+        this.start = start;
+        this.end = start + this.size;
+        this.allocated = true;
+    }
 }
 
 class MemorySlot {
-	public int start;
-	public int end;
-	public int size;
-	public boolean allocated = false;
+    public int start;
+    public int end;
+    public int size;
 
-	public MemorySlot(int start, int end) {
-		this.start = start;
-		this.end = end;
-		this.size = end - start;
-	}
+    public MemorySlot(int start, int end) {
+        this.start = start;
+        this.end = end;
+        this.size = end - start;
+    }
 }

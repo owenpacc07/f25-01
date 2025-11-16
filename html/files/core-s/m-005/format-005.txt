@@ -1,4 +1,4 @@
-Mechanism = FCFS (Non-Preemptive) CPU Scheduling
+Mechanism = Round Robin (Preemptive) CPU Scheduling
 
 INPUT data in "in.dat"
 ------------------------------------------------------------------------

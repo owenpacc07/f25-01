@@ -1,7 +1,10 @@
 <?php
 
+// Automatically detect mechanism ID from current directory path
+$mid = basename(dirname(__FILE__)); // Gets 'm-###' from path
+$mid = str_replace('m-', '', $mid);  // Extracts '###' from 'm-###'
+
 // the path to the in/out directory
-$mid = '033';
 $path = realpath("../../../files/core-s/m-$mid");
 
 $output = file_get_contents("$path/out-$mid.dat");
@@ -12,59 +15,114 @@ $saveMessage = '';
 
 // Handle Java code execution via AJAX
 if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
-    require_once './../../config.php';
-    session_start();
-    $user = $_SESSION['userid'];
-    
-    $javaCode = $_POST['java_code'] ?? '';
-    $fileName = 'Main.java';
-    
-    // Get mechanism_id
-    $mechanism = mysqli_fetch_all(mysqli_query($link, "select mechanism_id from mechanisms where client_code=$mid"))[0][0];
-    
-    // Find the most recent submission for this user and mechanism, or create temp directory
-    $result = mysqli_query($link, "SELECT submission_id FROM submissions WHERE user_id=$user AND mechanism_id=$mechanism ORDER BY submission_id DESC LIMIT 1");
-    
-    if ($result && mysqli_num_rows($result) > 0) {
-        $submission_id = mysqli_fetch_row($result)[0];
-        $subDir = realpath("../../../files/submissions/") . "/{$submission_id}_{$mechanism}_{$user}/";
-    } else {
-        // Create temporary directory if no submission exists yet
-        $subDir = realpath("../../../files/submissions/") . "/temp_{$mechanism}_{$user}/";
-        if (!is_dir($subDir)) {
-            mkdir($subDir, 0770, true);
+    ob_start(); // Start output buffering to catch any stray output
+    try {
+        require_once './../../config.php';
+        session_start();
+        
+        if (!isset($_SESSION['userid'])) {
+            ob_end_clean(); // Clear any buffered output
+            $response = ['success' => false, 'output' => 'Error: User not logged in'];
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
         }
+        
+        $user = $_SESSION['userid'];
+        
+        $javaCode = $_POST['java_code'] ?? '';
+        $fileName = 'Main.java';
+        
+        // Get mechanism_id
+        $mechanism = mysqli_fetch_all(mysqli_query($link, "select mechanism_id from mechanisms where client_code=$mid"))[0][0];
+        
+        // ALWAYS create a new submission in database to get proper ID
+        $filenameIN = realpath("../../../files/core-s/m-$mid/in-$mid.dat");
+        $filenameOUT = realpath("../../../files/core-s/m-$mid/out-$mid.dat");
+        $codeFilePath = realpath("../../../cgi-bin/core-s/m-$mid/");
+        $restrict_view = 1;
+        
+        $submission_insert = "INSERT INTO submissions (mechanism_id, user_id, input_path, output_path, code_path, restrict_view) VALUES ($mechanism, $user,'$filenameIN','$filenameOUT','$codeFilePath', $restrict_view);";
+        
+        if (!mysqli_query($link, $submission_insert)) {
+            throw new Exception("Database insert failed: " . mysqli_error($link));
+        }
+        
+        $submission_id = mysqli_insert_id($link);
+        $subDir = realpath("../../../files/submissions/") . "/{$submission_id}_{$mechanism}_{$user}/";
+        
+        // Create the NEW submission folder
+        if (!is_dir($subDir)) {
+            if (!mkdir($subDir, 0770, true)) {
+                throw new Exception("Failed to create directory: $subDir");
+            }
+            chown($subDir, 'nobody');
+        }
+        
+        // Copy input and output files to the submission directory
+        $inputPath = realpath("../../../files/core-s/m-$mid/in-$mid.dat");
+        $outputPath = realpath("../../../files/core-s/m-$mid/out-$mid.dat");
+        
+        if (file_exists($inputPath)) {
+            copy($inputPath, "$subDir/in-$mid.dat");
+        }
+        if (file_exists($outputPath)) {
+            copy($outputPath, "$subDir/out-$mid.dat");
+        }
+        
+        // Save Java file
+        $javaFilePath = $subDir . $fileName;
+        file_put_contents($javaFilePath, $javaCode);
+        
+        // Compile Java code
+        $className = pathinfo($fileName, PATHINFO_FILENAME);
+        $compileCmd = "cd " . escapeshellarg($subDir) . " && javac " . escapeshellarg($fileName) . " 2>&1";
+        $compileOutput = shell_exec($compileCmd);
+        
+        $response = [];
+        if (empty($compileOutput) || strpos($compileOutput, 'error') === false) {
+            // Execute Java code with timeout, passing the input file path as argument
+            $inputArg = escapeshellarg("in-$mid.dat");
+            $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java " . escapeshellarg($className) . " " . $inputArg . " 2>&1";
+            $runOutput = shell_exec($runCmd);
+            
+            // Read the output file if it was created
+            $outputFile = "$subDir/out-$mid.dat";
+            if (file_exists($outputFile)) {
+                $fileOutput = file_get_contents($outputFile);
+                $runOutput .= "\n\n--- Output File Contents ---\n" . $fileOutput;
+            }
+            
+            // Update database with correct paths - keep code_path as cgi-bin
+            $filenameIN = "$subDir/in-$mid.dat";
+            $filenameOUT = "$subDir/out-$mid.dat";
+            $submission_update = "UPDATE submissions SET input_path='$filenameIN', output_path='$filenameOUT' WHERE submission_id=$submission_id;";
+            mysqli_query($link, $submission_update);
+            
+            $response = [
+                'success' => true,
+                'output' => $runOutput ?: 'Program executed successfully with no output.',
+                'path' => $subDir
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'output' => $compileOutput
+            ];
+        }
+        
+        ob_end_clean(); // Clear any buffered output before sending JSON
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+        
+    } catch (Exception $e) {
+        ob_end_clean(); // Clear any buffered output
+        $response = ['success' => false, 'output' => 'Exception: ' . $e->getMessage()];
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
     }
-    
-    // Save Java file
-    $javaFilePath = $subDir . $fileName;
-    file_put_contents($javaFilePath, $javaCode);
-    
-    // Compile Java code
-    $className = pathinfo($fileName, PATHINFO_FILENAME);
-    $compileCmd = "cd " . escapeshellarg($subDir) . " && javac " . escapeshellarg($fileName) . " 2>&1";
-    $compileOutput = shell_exec($compileCmd);
-    
-    $response = [];
-    if (empty($compileOutput) || strpos($compileOutput, 'error') === false) {
-        // Execute Java code with timeout
-        $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java " . escapeshellarg($className) . " 2>&1";
-        $runOutput = shell_exec($runCmd);
-        $response = [
-            'success' => true,
-            'output' => $runOutput ?: 'Program executed successfully with no output.',
-            'path' => $subDir
-        ];
-    } else {
-        $response = [
-            'success' => false,
-            'output' => $compileOutput
-        ];
-    }
-    
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit;
 }
 
 if (isset($_POST['submit'])) {
@@ -112,12 +170,33 @@ if (isset($_POST['submit'])) {
         copy($filenameIN, "$submission_path/in-$mid.dat");
         copy($filenameOUT, "$submission_path/out-$mid.dat");
 
+        // Check if there's a temp directory with Java files and copy them
+        $submissionsDir = realpath("../../../files/submissions/");
+        
+        // Look for most recent submission folder instead of temp
+        $result = mysqli_query($link, "SELECT submission_id FROM submissions WHERE user_id=$user AND mechanism_id=$mechanism AND submission_id < $submission_id ORDER BY submission_id DESC LIMIT 1");
+        
+        if ($result && mysqli_num_rows($result) > 0) {
+            $prev_submission_id = mysqli_fetch_row($result)[0];
+            $prevSubDir = "$submissionsDir/{$prev_submission_id}_{$mechanism}_{$user}/";
+            
+            if (is_dir($prevSubDir)) {
+                // Copy all Java and class files from previous submission directory
+                $javaFiles = glob("$prevSubDir/*.java");
+                $classFiles = glob("$prevSubDir/*.class");
+                foreach (array_merge($javaFiles, $classFiles) as $file) {
+                    copy($file, $submission_path . '/' . basename($file));
+                }
+            }
+        }
+
         // update the filenameIN and filenameOUT to the new paths
         $filenameIN = "$submission_path/in-$mid.dat";
         $filenameOUT = "$submission_path/out-$mid.dat";
 
         // Create a submission query to edit the submission with the new paths
-        $submission_update = "UPDATE submissions SET input_path='$filenameIN', output_path='$filenameOUT' WHERE submission_id=$submission_id;";
+        // Keep code_path as cgi-bin, NOT submission_path
+        $submission_update = "UPDATE submissions SET input_path='$filenameIN', output_path='$filenameOUT', code_path='$codeFilePath' WHERE submission_id=$submission_id;";
         mysqli_query($link, $submission_update);
 
         // Check which button was clicked
@@ -145,7 +224,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>001 Edit Data</title>
+    <title>M-<?php echo $mid; ?> Edit Data</title>
     <link rel="icon" href="/p/s23-01/files/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -365,7 +444,7 @@ if (isset($_POST['submit'])) {
         <div class="container">
             <div class="field is-grouped">
                 <div class="control" style="width: 100%;">
-                    <h4 id="description">CPU Scheduling - Edit Data</h4>
+                    <h4 id="description">Mechanism <?php echo $mid; ?> - Edit Data</h4>
                 </div>
             </div>
             <div class="row">
@@ -433,18 +512,30 @@ public class Main {
                 },
                 body: 'action=execute_java&java_code=' + encodeURIComponent(javaCode)
             })
-            .then(response => response.json())
-            .then(data => {
-                outputDiv.className = data.success ? 'success' : 'error';
-                outputDiv.textContent = data.output;
-                if (data.path) {
-                    outputDiv.textContent += '\n\n[Executed in: ' + data.path + ']';
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('HTTP error ' + response.status);
+                }
+                return response.text();
+            })
+            .then(text => {
+                try {
+                    const data = JSON.parse(text);
+                    outputDiv.className = data.success ? 'success' : 'error';
+                    outputDiv.textContent = data.output;
+                    if (data.path) {
+                        outputDiv.textContent += '\n\n[Executed in: ' + data.path + ']';
+                    }
+                } catch (e) {
+                    outputDiv.className = 'error';
+                    outputDiv.textContent = 'Error parsing response:\n' + text;
+                    console.error('Parse error:', e);
                 }
             })
             .catch(error => {
                 outputDiv.className = 'error';
-                outputDiv.textContent = 'Error: Failed to execute Java code.';
-                console.error('Error:', error);
+                outputDiv.textContent = 'Error: ' + error.message;
+                console.error('Fetch error:', error);
             });
         }
         

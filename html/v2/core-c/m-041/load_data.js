@@ -1,105 +1,186 @@
+import {readTextFile, head, inputData, outputData,} from './load_data.js';
+
 /*
 Contributor Spring 2023 - Dakota Marino
 */
+
 //instance variables
-var head = 0;
-var inputFileLocation = httpcore_a_IO + `/m-${mid}/in-${mid}.dat`;
-var outputFileLocation = httpcore_a_IO + `/m-${mid}/out-${mid}.dat`;
-let flagFileUpdated = false;
-let inputData = [];
-let outputData = [];
+var inputValues = [];
+var outputValues = [];
 
-// load in data from input and output files
-// returns true if successful, false otherwise
-async function checkFlag() {
-    await fetchPHP(0);
-    if (!flagFileUpdated) {
-        console.log("Flag file not updated");
-        return false;
+//canvas and context for drawing lines on screen
+const canvas = document.getElementById("myCanvas");
+const context = canvas.getContext("2d");
+context.beginPath();
+//variables for canvas
+var index = 0;
+var vIndex = 0;
+var intervalID;
+//starts the program upon refresh
+runProgram();
+
+//declare all buttons and set on click to run a function
+let Previous = document.getElementById('Previous');
+Previous.onclick = function(){displayLine("stepBack",null)};
+
+let Next = document.getElementById('Next');
+Next.onclick = function(){displayLine("stepForward",null)};
+
+let End = document.getElementById('End');
+End.onclick = function(){displayLine("run",null)};
+
+let reset = document.getElementById('Reset');
+reset.onclick = function(){displayLine("clearAll",null)};
+
+const btnStart = document.getElementById("play");
+
+//need event listeners for play and visualize
+btnStart.addEventListener("click", function() {
+    console.log(btnStart.innerHTML);
+    if (btnStart.innerHTML.trim() === "Play") {
+        console.log("Equals play");
+        displayLine("play",intervalID);
+        btnStart.innerHTML = "Pause";
     }
-    else {
-        return true;
+    else if (btnStart.innerHTML.trim() === "Pause") {
+        console.log("Equals pause");
+        displayLine("pause",intervalID);
+        btnStart.innerHTML = "Play";
     }
+});
+
+//program that runs upon loading the page
+async function runProgram() {
+    //sets input and output values
+    await  readTextFile("input");
+    inputValues = inputData;
+    console.log(inputValues);
+    await readTextFile("output");
+    console.log(outputData);
+    outputValues = outputData;
+    document.getElementById("the-queue").innerHTML = inputValues;
+    document.getElementById("the-head").innerHTML = head;
 }
 
-// calls php file which manages flag file
-// type: 0 = read value of flag file, 1 = reset flag file to 0
-async function fetchPHP(type) {
-    await fetch(`setFlag.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        // enter mid and flag file action 
-        body: JSON.stringify({
-            'type': type,
-        })
-    })
-        .then(response => response.text())
-        .then((data) => {
-            // change flagFileUpdated based on value of flag file
-            if (data == 0)
-                flagFileUpdated = false;
-            else if (data == 1)
-                flagFileUpdated = true;
-            else { // write message to console 
-                console.log(data);
+//This function handles all of the visualization commands.
+function displayLine(type, interval) {
+    //set color and line width. We need to do this every time 
+    //because <STEP sets the color to white in order to erase a line.
+    context.strokeStyle = "blue";
+    context.lineWidth = 5;
+
+    //if PLAY or VISUALIZE button was clicked
+    if (type == "play") {
+        intervalID = setInterval(function() {   
+            if (index == 0) {
+                document.getElementById("output-data").innerHTML = outputValues[index];
+                context.beginPath();
+                vIndex+=25;
+                context.moveTo(head, vIndex-25);
+                context.lineTo(outputValues[index], vIndex);
+                context.stroke();
+                index++;
             }
-        })
-}
-
-async function resetFlagFile() {
-    await fetchPHP(1);
-    flagFileUpdated = false;
-}
-
-
-
-async function readTextFile(type) {
-    var file;
-    if (type === "input") {
-        file = inputFileLocation;
+            else if (index < outputValues.length) {
+                document.getElementById("output-data").innerHTML = document.getElementById("output-data").innerHTML + "," + outputValues[index];
+                context.beginPath();
+                vIndex+=25;
+                context.moveTo(outputValues[index-1], vIndex-25);
+                context.lineTo(outputValues[index], vIndex);
+                context.stroke();
+                index++;
+            }
+            else {
+                clearInterval(interval);
+            }
+        }, 1000);
     }
-    else if (type === "output") {
-        file = outputFileLocation;
+
+    //if PAUSE or VISUALIZING button was clicked
+    else if (type == "pause") {
+        clearInterval(interval);
     }
-    var values = [];          
-    console.log(file);
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4) {
-            if (rawFile.status === 0 || (rawFile.status >= 200 && rawFile.status < 400)) {
-                var allText = rawFile.responseText;
-                var counter = 0;
-                console.log(allText);
-                //split string by newline
-                allText.split('\n').forEach(function(line) {
-                    //split by space
-                    line.split(' ').forEach(function(number) {
-                        if (counter === 1) {
-                            head = number;
-                        }
-                        if (counter > 1) {
-                            console.log(number);
-                            values.push(number);
-                        }
-                    });//end ' '
-                    counter++;
-                });// end /n
+
+    //if STEP> was clicked
+    else if (type == "stepForward") {
+        if (index < outputValues.length) {
+            if (index == 0) {
+                document.getElementById("output-data").innerHTML = outputValues[index];
+                context.beginPath();
+                vIndex+=25;
+                context.moveTo(head, vIndex-25);
+                context.lineTo(outputValues[index], vIndex);
+                context.stroke();
+                index++;
+            }
+            else {
+                document.getElementById("output-data").innerHTML = document.getElementById("output-data").innerHTML + "," + outputValues[index];
+                context.beginPath();
+                vIndex+=25;
+                context.moveTo(outputValues[index-1], vIndex-25);
+                context.lineTo(outputValues[index], vIndex);
+                context.stroke();
+                index++;
+            }
+        }
+    }    
+
+    //if <STEP was clicked
+    else if (type == "stepBack") {
+        context.lineWidth = 7;
+        context.strokeStyle = "#ffffff";
+        if (index >= 1) {
+            console.log(index);
+            if (index == 1) {
+                document.getElementById("output-data").innerHTML = "";
+                index--;       
+                context.lineTo(head, vIndex-25);
+                context.stroke();
+                vIndex-=25;
+            }
+            else {
+                document.getElementById("output-data").innerHTML = outputValues.slice(0,index-1);
+                index--;
+                context.beginPath();
+                context.moveTo(outputValues[index], vIndex);
+                context.lineTo(outputValues[index-1], vIndex-25);
+                context.stroke();
+                vIndex-=25;
+            }
+        }
+        context.strokeStyle = "blue";
+        context.lineWidth = 5;
+    } 
+
+    //if RESET was clicked
+    else if (type == "clearAll") {
+        context.clearRect(0, 0, 700, 500);
+        index = 0;
+        vIndex = 0;
+        document.getElementById("output-data").innerHTML = "";
+    }
+
+    //if RUN or END was clicked
+    else if (type == "run") {
+        while (index < outputValues.length) {
+            if (index == 0) {
+                document.getElementById("output-data").innerHTML = outputValues[index];
+                context.beginPath();
+                vIndex+=25;
+                context.moveTo(head, vIndex-25);
+                context.lineTo(outputValues[index], vIndex);
+                context.stroke();
+                index++;
+            }
+            else {
+                document.getElementById("output-data").innerHTML = document.getElementById("output-data").innerHTML + "," + outputValues[index];
+                context.beginPath();
+                vIndex+=25;
+                context.moveTo(outputValues[index-1], vIndex-25);
+                context.lineTo(outputValues[index], vIndex);
+                context.stroke();
+                index++;
             }
         }
     }
-    rawFile.send(null);
-    console.log(values);
-    if (type === "input") {
-        inputData = values;
-    }
-    if (type === "output") {
-        //values.pop();
-        //values.pop();
-        outputData = values;
-    }
 }
-
-export {readTextFile, head, inputData, outputData, checkFlag, resetFlagFile};

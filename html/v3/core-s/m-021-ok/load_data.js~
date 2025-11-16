@@ -1,0 +1,188 @@
+let flagFileUpdated = false;
+//First In First Out
+// Input and output file paths
+
+const input_file_path =  `../../../files/core-a/m-${mid}/in-${mid}.dat`;
+const output_file_path =  `../../..files/core-a/m-${mid}/out-${mid}.dat`;
+
+// This file handles the loading of data from the server 
+
+/*
+const HardCodedOutput =[7,7,`-`,`-`,1,``,
+0,7,0,`-`,1,``,
+1,7,0,1,1,``,
+2,2,0,1,1,``,
+0,2,0,1,0,``,
+3,2,3,1,1,``,
+0,2,3,0,1,``,
+4,4,3,0,1,``,
+2,4,2,0,1,``,
+3,4,2,3,1,``,
+0,0,2,3,1,``,
+3,0,2,3,0,``,
+2,0,2,3,0,``,
+1,0,1,3,1,``,
+2,0,1,2,1,``,
+0,0,1,2,0,``,
+1,0,1,2,0,``,
+7,7,1,2,1,``,
+0,7,0,2,1,``,
+1,7,0,1,1,``,15];//format of output explained: `-` is for "used in" values, `+` is for frames never allocated again
+//first # in output is # of frames
+//empty string = end of line, Last slot in array is # of faults
+const HardCodedInput = [7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1];
+*/
+
+
+let data = {}
+// load in data from input and output files
+// returns an object with parsed input and output data
+/*export async function loadData() {
+    await fetchPHP(0);
+    if (!flagFileUpdated) {
+        console.log("Flag file not updated");
+        return false;
+    }
+   
+    resetFlagFile();
+
+    data.input = parseInputDataFile();
+    console.log("Parsed input");
+
+    data.output = parseOutputDataFile();
+    console.log("Parsed output");
+
+    return data;
+}*/
+
+// calls php file which manages flag file
+// type: 0 = read value of flag file, 1 = reset flag file to 0
+
+//for some reason, system.php is not working for pathing to get type. Had to use current pathing for data to load
+async function fetchPHP(type) {
+    await fetch(`../../core/m-${mid}/manage-flag-file.php`, {//changing the file to s23 prevents data from loading
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        // enter mid and flag file action 
+        body: JSON.stringify({
+            'type': type,
+        })
+    })
+        .then(response => response.text())
+        .then((data) => {
+            // change flagFileUpdated based on value of flag file
+            if (data == 0)
+                flagFileUpdated = false;
+            else if (data == 1)
+                flagFileUpdated = true;
+            else { // write message to console 
+                console.log("Flag file updated");
+            }
+        })
+}
+
+async function resetFlagFile() {
+   await fetchPHP(1);
+    flagFileUpdated = false;
+}
+
+// Makes HTTP request to get data from server file
+function loadDataFile(file) {
+ let rawFile = new XMLHttpRequest(); // <-- only way to read in a file in js
+    rawFile.open("GET", file, false); // not async, so send() will wait for response
+    rawFile.onreadystatechange = function () {
+        // check status
+        if (rawFile.readyState !== 4) {
+            console.log("readyState: " + rawFile.readyState);
+            return;
+        }
+        if (rawFile.status != 200 && rawFile.status != 0) {
+            console.log("status code = " + rawFile.status);
+            console.log(typeof rawFile.status);
+            console.log(rawFile.status == 200);
+            return;
+        }
+        console.log("File " + file.split('/').pop() + " loaded");
+    }
+    rawFile.send(null); // send request, (should) change readyState to 4
+    return rawFile.responseText;
+}
+
+function parseInputDataFile() {
+  
+    let allText = loadDataFile(input_file_path);  // *function call to parse file  needed to prevent page error
+    /*
+    let allval = HardCodedInput; //hardcoded values
+    let input = []; // array of input data
+    allval.forEach((val) => {
+        let page = parseInt(val);
+        if (page >= 0) { // make sure page is valid
+            input.push(page);
+        }
+    });
+    */
+
+    let input = []; // array of input data
+    allText.split(',').forEach((val) => {
+        let page = parseInt(val);
+        if (page >= 0) { // make sure page is valid
+            input.push(page);
+        }
+    });
+
+    return input;
+}
+
+function parseOutputDataFile() {
+ let allText = loadDataFile(output_file_path);
+  let output = [];
+  //let allval = HardCodedOutput; 
+  // decosntruciton of the outputfile array into an array of arrays by Extract the first character and split the rest of the input on newline
+  const [firstChar, ...lines] = allText.trim().split('\n'); 
+  // Split each result on comma and remove any empty values
+  const result = lines.map(lines => lines.split(',').filter(Boolean));
+  // Log the results
+  console.log("First character:", firstChar);
+  console.log("Array of arrays:", result, result.length);
+  let frameCount = parseInt(firstChar);
+
+    for(let i = 0; i <= data.input.length; i++) { //start at i = 0 because First value is no longer at # of frames
+        //let line = lines[i].split(',');
+        //line becomes 2d array of output file
+      /*  let line = HardCodedOutput
+        .join('#')                     // joins # to each elements in the array
+        .split(/(?:^|#)()(?:#|$)/)    // split on empty string  but you retain the emepty arrays and capture between the pound symbols
+        .filter(Boolean)               // remove empty values, deletes all empty arrays
+        .map(v => v.split('#')); */
+       // split on pound, essentially copying outpput array, splitting on empty string and creating seperate output arrays for each line so for exmaple [6,3,1,6,1,3,2,+] on line 6 in out.022.dat becomes its onr array
+        console.log("line elements " +result); 
+        if (result.result - 1 < (frameCount*2+2)) { // lines contains all elements of frame + used-in vals for all frames + cur page + faulted boolean
+            console.log(`the line "${result}" does not contain ${frameCount*2+2} necessary values`);
+        } else {
+            let slot = {}
+            slot.page =(parseInt(result[i][0]));//getting appropiate slots // [7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1
+            // console.log("first " +line[i-1][0]);
+            //this  was changed from lines[0] 
+            // frameCount+1 because faulted comes after list of frames, like [page, frame1, frame2, ..., faulted]
+            slot.faulted = (parseInt(result[i][frameCount+1]) == 1) ? true : false; //0 = no fault, 1 = fault,
+            console.log(slot.faulted);
+            slot.frames = []
+            for (let k = 1; k <= frameCount; k++) {
+                slot.frames.push(result[i][k]);
+                console.log("slots " + slot.frames);
+            }
+            // removed because the meedin values are not needed
+             slot.neededIn = [] 
+            for (let k = frameCount+2; k < result.length; k++) {
+                slot.neededIn.push(result[i][k]);
+                console.log(slot.neededIn);
+                
+            }
+            output.push(slot);
+            console.log("output "+ slot);
+
+        }
+    return output;
+    }

@@ -316,8 +316,13 @@ public static int endFlag= 0;
 		}
 		
 			out.println(wait);
-			
-			float avgWait = wait/process.size();
+
+			// Calculate average wait time using individual process wait times
+			float totalIndividualWait = 0;
+			for(int i = 0; i < process.size(); i++) {
+				totalIndividualWait += pwait[i];
+			}
+			float avgWait = totalIndividualWait/process.size();
 				out.println(avgWait);
 
 			out.println(response);

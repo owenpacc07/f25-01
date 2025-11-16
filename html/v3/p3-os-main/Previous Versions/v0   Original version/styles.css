@@ -1,0 +1,24 @@
+gantt th {
+    background: linear-gradient(WhiteSmoke, lightgray);
+    text-align: left;
+    border: 1px solid black;
+    height: 400 px;
+}
+gantt td {
+    border: 1px solid black;
+    border-bottom: 0;
+    height: 20px;
+    text-align: left;
+}
+body {
+    background-color: #F0FFF0;
+}
+#title {
+    font-family: 'Orbitron', sans-serif;
+}
+input[type=button]:focus{
+     background: orange;  
+}
+input[type=button]:active{
+     background: orange; 
+}

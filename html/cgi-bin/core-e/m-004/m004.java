@@ -133,15 +133,10 @@ public class m004 {
 		File inFile = new File(inputFile);
 		Scanner scan = new Scanner(inFile);
 
-		// Read scheduler type and quantum from first line (e.g., "4,3" for RR with quantum 3)
-		String firstLine = scan.nextLine();
-		String[] firstLineParts = firstLine.split(",");
-		typeScheduler = Integer.parseInt(firstLineParts[0].trim());
-		if (typeScheduler == 4 && firstLineParts.length > 1) {
-			quantum = Integer.parseInt(firstLineParts[1].trim());
-		}
+		// Hardcode scheduler type for Priority Low (m-004 always uses type 3)
+		typeScheduler = 3;
 
-		// Iterate through remaining lines of the input file
+		// Iterate through all lines of the input file
 		while (scan.hasNextLine()) {
 			// Split the current line into parts using comma as the delimiter
 			String currentProcessInfo[] = scan.nextLine().split(",");

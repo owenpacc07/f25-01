@@ -10,7 +10,7 @@ $SITE_ROOT=$env['SITE_ROOT'];
 $ROOT_DIR = realpath(__DIR__ . '/..');
 
 //change this prefix to match current class key
-$prefix = "/var/www/p/s25-01/html";
+$prefix = "/var/www/p/f25-01/html";
 
 //navbar location
 $navbar = __DIR__ . "./navbar.php";

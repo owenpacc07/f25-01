@@ -6,8 +6,8 @@ session_start();
 $mid = '001';
 $compare = 'cpu';
 $mtitle = '';
-$cgibin_core = "/var/www/p/f25-01/html/cgi-bin/core-e";
-define('ROOT_DIR', '/var/www/p/f25-01/html'); // Adjust if different
+$cgibin_core = "/var/www/p/s25-01/html/cgi-bin/core-e";
+define('ROOT_DIR', '/var/www/p/s25-01/html'); // Adjust if different
 
 // Get mechanism title
 if ($mid) {

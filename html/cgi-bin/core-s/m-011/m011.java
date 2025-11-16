@@ -1,6 +1,7 @@
-//PROCESS ALLOCATION, FIRST FIT
-//March 2023, Aleks Pilmanis
-// edits by Amir Marji
+// PROCESS ALLOCATION, FIRST FIT (with splitting / reusable leftover space)
+// March 2023, Aleks Pilmanis
+// Edits by Amir Marji
+// Update: Allow reusing a memory slot's leftover space after an allocation.
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,92 +9,98 @@ import java.util.Scanner;
 
 public class m011 {
     static String mid = "011";
-    static String workingDirectory = "../../../files/core-a/m-" + mid;
+    // NOTE: core-s path
+    static String workingDirectory = "../../../files/core-s/m-" + mid;
 
     public static void main(String args[]) throws IOException {
         ArrayList<String> input = inFile();
 
-        // Create memory slot objects, store them in arraylist
+        // Build free-list (memory slots)
         int numOfMemorySlots = Integer.parseInt(input.get(0));
         ArrayList<MemorySlot> memSlots = new ArrayList<>();
-
         for (int i = 1; i < (numOfMemorySlots * 2); i += 2) {
-            MemorySlot slot = new MemorySlot(Integer.parseInt(input.get(i)), Integer.parseInt(input.get(i + 1)));
-            memSlots.add(slot);
+            memSlots.add(new MemorySlot(
+                Integer.parseInt(input.get(i)),
+                Integer.parseInt(input.get(i + 1))
+            ));
         }
 
-        // Create process objects, store them in arraylist
+        // Build processes
         int newBaseIndex = numOfMemorySlots * 2 + 2;
         int numOfProcesses = Integer.parseInt(input.get(newBaseIndex - 1));
         ArrayList<Process> processes = new ArrayList<>();
-
         for (int i = newBaseIndex; i < (newBaseIndex + numOfProcesses * 2); i += 2) {
-            Process proc = new Process(Integer.parseInt(input.get(i)), Integer.parseInt(input.get(i + 1)));
-            processes.add(proc);
+            processes.add(new Process(
+                Integer.parseInt(input.get(i)),
+                Integer.parseInt(input.get(i + 1))
+            ));
         }
 
-        // Iterate through processes, for each process allocate through each memory slot
-        // to find a fit
-        for (int i = 0; i < processes.size(); i++) {
-            for (int x = 0; x < memSlots.size(); x++) {
-                // If memory slot is big enough for process, and neither process or memory slot
-                // is allocated already
-                if (memSlots.get(x).size >= processes.get(i).size &&
-                        !(processes.get(i).allocated) && !(memSlots.get(x).allocated)) {
-                    // Allocate process to memory slot, mark process as allocated
-                    processes.get(i).setStart(memSlots.get(x).start);
-                    // Mark memory slot as allocated
-                    memSlots.get(x).allocated = true;
+        // FIRST-FIT with splitting:
+        // scan slots in order; place into the first slot that fits.
+        // exact fit -> remove hole; partial fit -> shrink hole from the front.
+        for (int p = 0; p < processes.size(); p++) {
+            Process proc = processes.get(p);
+            if (proc.allocated) continue;
+
+            for (int s = 0; s < memSlots.size(); s++) {
+                MemorySlot slot = memSlots.get(s);
+                int leftover = slot.size - proc.size;
+                if (leftover >= 0) {
+                    // allocate at slot.start
+                    proc.setStart(slot.start);
+
+                    if (leftover == 0) {
+                        // hole fully consumed
+                        memSlots.remove(s);
+                    } else {
+                        // consume from the front; remainder stays a free hole
+                        slot.start += proc.size;
+                        slot.size = slot.end - slot.start;
+                        if (slot.size < 0) { // defensive
+                            memSlots.remove(s);
+                        }
+                    }
+                    break; // first-fit: stop scanning for this process
                 }
             }
         }
 
-        // Write output to file
         outFile(processes);
-
-        // Update flag file
         updateFlagFile();
     }
 
-    // Reads input file and returns as arraylist
+    // Read workingDirectory/in-011.dat into tokens
     public static ArrayList<String> inFile() throws FileNotFoundException {
-        // Reads from input file, stores each line in an ArrayList
         ArrayList<String> arr = new ArrayList<>();
         File inFile = new File(workingDirectory + "/in-" + mid + ".dat");
         Scanner in = new Scanner(inFile);
-        while (in.hasNextLine()) {
-            arr.add(in.nextLine());
-        }
+        while (in.hasNextLine()) arr.add(in.nextLine());
         in.close();
 
-        // Parses each line into words, and puts in new ArrayList
         ArrayList<String> input = new ArrayList<>();
         for (int i = 0; i < arr.size(); i++) {
             String[] temp = arr.get(i).split(" ");
             for (int x = 0; x < temp.length; x++) {
-                input.add(temp[x]);
+                if (!temp[x].isEmpty()) input.add(temp[x]);
             }
         }
         return input;
     }
 
-    // Writes to output file
+    // Write allocations to workingDirectory/out-011.dat
     public static void outFile(ArrayList<Process> processes) throws IOException {
         File outFile = new File(workingDirectory + "/out-" + mid + ".dat");
         PrintWriter out = new PrintWriter(outFile);
-
-        // Iterate through processes
         for (int i = 0; i < processes.size(); i++) {
-            // If process is allocated, write it to the output file
             if (processes.get(i).allocated) {
                 out.println(processes.get(i).start + " " + processes.get(i).end + " " + processes.get(i).id);
             }
         }
-
         out.close();
     }
 
-    // Updates flag file to have a value of 1
+    // Flag file so the UI knows Java completed
     static void updateFlagFile() {
         try {
             File flagFile = new File(workingDirectory + "/flag-file.txt");
@@ -117,11 +124,10 @@ class Process {
         this.id = id;
         this.size = size;
     }
-
     public void setStart(int start) {
         this.start = start;
-        end = start + this.size;
-        allocated = true;
+        this.end = start + this.size;
+        this.allocated = true;
     }
 }
 
@@ -129,7 +135,6 @@ class MemorySlot {
     public int start;
     public int end;
     public int size;
-    public boolean allocated = false;
 
     public MemorySlot(int start, int end) {
         this.start = start;

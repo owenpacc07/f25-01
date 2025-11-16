@@ -248,7 +248,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'make_submission' && isset($
             }
         }
         
-        // Copy default files to submission folder
+        // Copy or create files with default test data
         $inputPath = $basePath . "/in-$mid.dat";
         $outputPath = $basePath . "/out-$mid.dat";
         
@@ -257,26 +257,19 @@ if (isset($_POST['action']) && $_POST['action'] === 'make_submission' && isset($
         
         $copySuccess = true;
         if (file_exists($inputPath)) {
-            $result = copy($inputPath, "$submission_folder/in-$mid.dat");
-            if (!$result) {
-                $_SESSION['log_messages'][] = "DEBUG: Failed to copy input file";
-                $copySuccess = false;
-            }
+            copy($inputPath, "$submission_folder/in-$mid.dat");
         } else {
             $_SESSION['log_messages'][] = "DEBUG: Input source file does not exist: $inputPath";
-            // Create empty file as fallback
-            file_put_contents("$submission_folder/in-$mid.dat", "");
+            // Create file with sample process data
+            $defaultInput = "1 0 7 1\n2 2 4 2\n3 4 1 3";
+            file_put_contents("$submission_folder/in-$mid.dat", $defaultInput);
         }
         
         if (file_exists($outputPath)) {
-            $result = copy($outputPath, "$submission_folder/out-$mid.dat");
-            if (!$result) {
-                $_SESSION['log_messages'][] = "DEBUG: Failed to copy output file";
-                $copySuccess = false;
-            }
+            copy($outputPath, "$submission_folder/out-$mid.dat");
         } else {
             $_SESSION['log_messages'][] = "DEBUG: Output source file does not exist: $outputPath";
-            // Create empty file as fallback
+            // Create empty output file
             file_put_contents("$submission_folder/out-$mid.dat", "");
         }
         
