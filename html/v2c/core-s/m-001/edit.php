@@ -50,10 +50,15 @@ if ($submission_id) {
     } else {
         // Fix incomplete paths if they don't start with /
         if ($submission['input_path'] && strpos($submission['input_path'], '/') !== 0) {
-            $submissions_base = realpath("../../../files/submissions/");
-            $submission['input_path'] = $submissions_base . $submission['input_path'];
-            $submission['output_path'] = $submissions_base . $submission['output_path'];
-            $_SESSION['log_messages'][] = "DEBUG edit.php - Fixed incomplete paths";
+            $submissions_base = realpath("../../../files/submissions/") ?: "../../../files/submissions";
+            $base = rtrim($submissions_base, '/\\');
+            $inpRel = ltrim($submission['input_path'], '/\\');
+            $outRel = ltrim($submission['output_path'] ?? '', '/\\');
+            $submission['input_path'] = $base . DIRECTORY_SEPARATOR . $inpRel;
+            if ($outRel !== '') {
+                $submission['output_path'] = $base . DIRECTORY_SEPARATOR . $outRel;
+            }
+            $_SESSION['log_messages'][] = "DEBUG edit.php - Fixed incomplete paths with base: $base";
         }
     }
 }
@@ -69,41 +74,74 @@ if ($submission) {
     $_SESSION['log_messages'][] = "DEBUG edit.php - Output path: " . $submission['output_path'];
 
     $subDir = dirname($submission['input_path']) . '/';
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Using submission folder: $subDir";
+
     $in1Path   = $subDir . "in-$mid.dat";
     $inPadPath = $subDir . "in-$mid_padded.dat";
-    $out1Path   = $subDir . "out-$mid.dat";
-    $outPadPath = $subDir . "out-$mid_padded.dat";
+    $out1Path  = $subDir . "out-$mid.dat";
+    $outPadPath= $subDir . "out-$mid_padded.dat";
 
-    // Prefer padded input; fallback to unpadded
-    if (file_exists($inPadPath) && filesize($inPadPath) > 0) {
-        $input = file_get_contents($inPadPath);
-    } elseif (file_exists($in1Path)) {
+    // Track sources for debug
+    $inputSource = 'UNKNOWN';
+    $outputSource = 'UNKNOWN';
+
+    // Prefer UNPADDED; fallback to PADDED (read-only legacy)
+    if (file_exists($in1Path) && filesize($in1Path) > 0) {
         $input = file_get_contents($in1Path);
+        $inputSource = $in1Path;
+    } elseif (file_exists($inPadPath) && filesize($inPadPath) > 0) {
+        $input = file_get_contents($inPadPath);
+        $inputSource = $inPadPath;
     } else {
         $input = '';
+        $inputSource = 'MISSING';
     }
 
-    // Prefer padded output; fallback to unpadded
-    if (file_exists($outPadPath) && filesize($outPadPath) > 0) {
-        $output = file_get_contents($outPadPath);
-    } elseif (file_exists($out1Path)) {
+    if (file_exists($out1Path) && filesize($out1Path) > 0) {
         $output = file_get_contents($out1Path);
+        $outputSource = $out1Path;
+    } elseif (file_exists($outPadPath) && filesize($outPadPath) > 0) {
+        $output = file_get_contents($outPadPath);
+        $outputSource = $outPadPath;
     } else {
         $output = '';
+        $outputSource = 'MISSING';
     }
 
-    // Ensure input has data; write to BOTH for compatibility
+    // Ensure input has data; WRITE UNPADDED ONLY
     if (empty(trim($input))) {
         $input = "1 0 7 1\n2 2 4 2\n3 4 1 3";
-        @file_put_contents($inPadPath, $input);
         @file_put_contents($in1Path, $input);
-        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded default input to both in-$mid_padded.dat and in-$mid.dat";
+        $inputSource = 'DEFAULT_SEEDED';
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded default INPUT to $in1Path";
     }
 
-    $_SESSION['log_messages'][] = "DEBUG edit.php - Input(001) exists: " . (file_exists($inPadPath) ? 'YES' : 'NO');
+    // Ensure output has data; seed from core default; WRITE UNPADDED ONLY
+    if (empty(trim($output))) {
+        $coreDefaultDir = realpath("../../../files/core-s/m-$mid_padded");
+        $coreOut = $coreDefaultDir ? ($coreDefaultDir . "/out-$mid_padded.dat") : null;
+        if ($coreOut && file_exists($coreOut) && filesize($coreOut) > 0) {
+            $output = file_get_contents($coreOut);
+            $outputSource = "CORE_DEFAULT:$coreOut";
+        } else {
+            $output = "Type of Scheduler: First Come First Serve(Non-Preemptive)\nNumber of Processes: 0";
+            $outputSource = 'STUB_SEEDED';
+        }
+        @file_put_contents($out1Path, $output);
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded OUTPUT from {$outputSource} to $out1Path";
+    }
+
+    // Final concise source summary + previews
+    $_SESSION['log_messages'][] = "DEBUG edit.php - INPUT source: $inputSource";
+    $_SESSION['log_messages'][] = "DEBUG edit.php - OUTPUT source: $outputSource";
+    $inSize = strlen($input);
+    $outSize = strlen($output);
+    $inPreview  = addslashes(substr($input, 0, 120));
+    $outPreview = addslashes(substr($output, 0, 120));
+    $_SESSION['log_messages'][] = "DEBUG edit.php - INPUT size: {$inSize}, preview: {$inPreview}";
+    $_SESSION['log_messages'][] = "DEBUG edit.php - OUTPUT size: {$outSize}, preview: {$outPreview}";
     $_SESSION['log_messages'][] = "DEBUG edit.php - Input(1) exists: " . (file_exists($in1Path) ? 'YES' : 'NO');
     $_SESSION['log_messages'][] = "DEBUG edit.php - Output(1) exists: " . (file_exists($out1Path) ? 'YES' : 'NO');
-    $_SESSION['log_messages'][] = "DEBUG edit.php - Output(001) exists: " . (file_exists($outPadPath) ? 'YES' : 'NO');
     $_SESSION['log_messages'][] = "DEBUG edit.php - Input content length: " . strlen($input);
     $_SESSION['log_messages'][] = "DEBUG edit.php - Output content length: " . strlen($output);
 } else {
@@ -117,17 +155,62 @@ if (!$format_path) {
     $format_path = realpath("../../files/core-s/m-$mid_padded");
 }
 if ($format_path) {
-    $format_file = $format_path . "/format-$mid.txt";
+    // Use padded file name, e.g., format-001.txt
+    $format_file = $format_path . "/format-$mid_padded.txt";
     if (file_exists($format_file)) {
         $format = file_get_contents($format_file);
     } else {
-        // If format file doesn't exist, create a default one
-        $format = "Process Scheduling Algorithm Format\n\nInput Format:\nprocess_id arrival_time burst_time priority\n\nExample:\n1 0 7 1\n2 2 4 2\n3 4 1 3\n\nOutput Format:\nType of Scheduler: [Algorithm Name]\nNumber of Processes: [count]\n\n[process_id],[start_time],[end_time]";
+        // Detailed default FCFS format fallback
+        $format = "Mechanism = FCFS (Non-Preemptive) CPU Scheduling
+
+INPUT data in \"in.dat\"
+------------------------------------------------------------------------
+1 0 7 1//       ID: 1    Arrival: 0     Burst: 10  Priority: 1
+2 1 2 1//       ID: 2    Arrival: 2     Burst: 6   Priority: 1
+3 2 5 0//       ID: 3    Arrival: 1     Burst: 2   Priority: 0
+4 3 4 3//       ID: 4    Arrival: 7     Burst: 1   Priority: 3
+------------------------------------------------------------------------
+
+OUTPUT data in \"out.dat\"
+THE DETAILED TABLE IS LIMITED TO 4 PROCESSES ONLY
+-----------------------
+1,0,7       // ID: 1   Start: 0   End: 7
+2,7,9       // ID: 2   Start: 7   End: 9
+3,9,14      // ID: 3   Start: 9   End: 14
+4,14,18     // ID: 4   Start: 14  End: 18
+
+
+CURRENT_TIME, P1_BURST_TIME_REMAINING, P2_BURST_TIME_REMAINING, P3_BURST_TIME_REMAINING, P4_BURST_TIME_REMAINING, CURRENT_PROCESS_HELD_BY_CPU, P1_WAITING_TIME,P2_WAITING_TIME, P3_WAITING_TIME,P4_WAITING_TIME,QUEUE (space separated)
+- : indicates the process has not yet arrived
+0,10,-,-,-,1,0,-,-,-,1 
+1,9,2,-,-,1,0,0,-,-,2 
+2,8,2,5,-,1,0,1,0,-,2 3 
+3,7,2,5,4,1,0,2,1,0,2 3 4 
+4,6,2,5,4,1,0,3,2,1,2 3 4 
+5,5,2,5,4,1,0,4,3,2,2 3 4 
+6,4,2,5,4,1,0,5,4,3,2 3 4 
+7,3,2,5,4,1,0,6,5,4,2 3 4 
+8,2,2,5,4,1,0,7,6,5,2 3 4 
+9,1,2,5,4,1,0,8,7,6,2 3 4 
+10,0,2,5,4,1,0,9,8,7,2 3 4 
+11,0,1,5,4,2,0,9,9,8,3 4 
+12,0,0,5,4,2,0,9,10,9,3 4 
+13,0,0,4,4,3,0,9,10,10,4 
+14,0,0,3,4,3,0,9,10,11,4 
+15,0,0,2,4,3,0,9,10,12,4 
+16,0,0,1,4,3,0,9,10,13,4 
+17,0,0,0,4,3,0,9,10,14,4 
+18,0,0,0,3,4,0,9,10,14,
+19,0,0,0,2,4,0,9,10,14,
+20,0,0,0,1,4,0,9,10,14,
+21,0,0,0,0,4,0,9,10,14,
+
+------------------------";
     }
-    $_SESSION['log_messages'][] = "DEBUG edit.php - Format loaded from: $format_file";
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Format loaded from: " . ($format_file ?? 'fallback');
 } else {
     $format = 'Format directory not found';
-    $_SESSION['log_messages'][] = "DEBUG edit.php - Format directory not found: ../../../files/core-s/m-$mid_padded";
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Format directory not found: ../../../files/core-s/m-' . $mid_padded";
 }
 
 $saveMessage = '';
@@ -158,57 +241,40 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
         
         if (!$sub_data) throw new Exception("Submission not found");
         
-        $subDir = dirname($sub_data['input_path']) . '/';
-        $in1Path   = $subDir . "in-$mid.dat";
-        $inPadPath = $subDir . "in-$mid_padded.dat";
-        $out1Path   = $subDir . "out-$mid.dat";
-        $outPadPath = $subDir . "out-$mid_padded.dat";
+        $subDir   = dirname($sub_data['input_path']) . '/';
+        $in1Path  = $subDir . "in-$mid.dat";
+        $out1Path = $subDir . "out-$mid.dat";
 
-        // Always write current textarea input to BOTH
+        // Write current textarea input to UNPADDED only
         $inputContent = $_POST['input_content'] ?? '';
         if (empty(trim($inputContent))) {
             $inputContent = "1 0 7 1\n2 2 4 2\n3 4 1 3";
         }
-        @file_put_contents($inPadPath, $inputContent);
         @file_put_contents($in1Path, $inputContent);
 
-        // Determine which input file will be used (padded preferred)
-        $inputFileUsed = (file_exists($inPadPath) ? $inPadPath : $in1Path);
-        $inputFileBasename = basename($inputFileUsed);
-
+        // Compile in submission dir
+        $javaCode = $_POST['java_code'] ?? '';
+        if (!$javaCode) throw new Exception("No Java code provided");
         $fileName = 'Main.java';
         file_put_contents($subDir . $fileName, $javaCode);
-
-        $className = 'Main';
         $compileCmd = "cd " . escapeshellarg($subDir) . " && javac " . escapeshellarg($fileName) . " 2>&1";
         $compileOutput = shell_exec($compileCmd);
 
         $response = [];
         if (empty($compileOutput) || strpos($compileOutput, 'error') === false) {
-            // Pass the PADDED input filename to match v2 behaviour
-            $inputArg = escapeshellarg("in-$mid_padded.dat");
+            // Run with UNPADDED input
+            $inputArg = escapeshellarg("in-$mid.dat");
             $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java Main " . $inputArg . " 2>&1";
             $runOutput = shell_exec($runCmd);
 
-            // Append input file contents to output
-            $inputFileContentsEcho = file_exists($inputFileUsed) ? file_get_contents($inputFileUsed) : '(input file not found)';
+            // Append input preview
+            $inputFileBasename = basename($in1Path);
+            $inputFileContentsEcho = file_exists($in1Path) ? file_get_contents($in1Path) : '(input file not found)';
             $runOutput .= "\n\n--- Input File Used: $inputFileBasename ---\n" . $inputFileContentsEcho;
 
-            // After run, prefer padded output; sync to unpadded for compatibility
-            if (file_exists($outPadPath)) {
-                @copy($outPadPath, $out1Path);
-            }
-
-            // Read output back: prefer padded when non-empty
-            $outFileToRead = null;
-            if (file_exists($outPadPath) && filesize($outPadPath) > 0) {
-                $outFileToRead = $outPadPath;
-            } elseif (file_exists($out1Path)) {
-                $outFileToRead = $out1Path;
-            }
-
-            if ($outFileToRead) {
-                $fileOutput = file_get_contents($outFileToRead);
+            // Read output back from UNPADDED only
+            if (file_exists($out1Path) && filesize($out1Path) > 0) {
+                $fileOutput = file_get_contents($out1Path);
                 $runOutput .= "\n\n--- Output File Contents ---\n" . $fileOutput;
             }
 
@@ -254,10 +320,9 @@ if (isset($_POST['submit'])) {
         if (!$sub_data) throw new Exception("Submission not found");
         
         $subDir = dirname($sub_data['input_path']) . '/';
-        // Save to BOTH file name styles to keep v2/v2c in sync
-        @file_put_contents($subDir . "in-$mid_padded.dat", $_POST['input']);
+
+        // Save UNPADDED only
         @file_put_contents($subDir . "in-$mid.dat", $_POST['input']);
-        @file_put_contents($subDir . "out-$mid_padded.dat", $_POST['output']);
         @file_put_contents($subDir . "out-$mid.dat", $_POST['output']);
 
         if ($_POST['submit'] === 'proceed') {
@@ -265,12 +330,9 @@ if (isset($_POST['submit'])) {
             exit();
         } else {
             $saveMessage = '<div class="alert alert-success text-center" role="alert">Data saved to submission #' . $submission_id . '!</div>';
-            // Prefer padded when reloading, fallback to unpadded
-            $reloadIn  = file_exists($subDir . "in-$mid_padded.dat") ? "in-$mid_padded.dat" : "in-$mid.dat";
-            $reloadOut = file_exists($subDir . "out-$mid_padded.dat") && filesize($subDir . "out-$mid_padded.dat") > 0
-                ? "out-$mid_padded.dat" : "out-$mid.dat";
-            $input  = file_get_contents($subDir . $reloadIn);
-            $output = file_get_contents($subDir . $reloadOut);
+            // Reload UNPADDED
+            $input  = file_get_contents($subDir . "in-$mid.dat");
+            $output = file_get_contents($subDir . "out-$mid.dat");
         }
     } catch (Exception $e) {
         $saveMessage = '<div class="alert alert-danger text-center" role="alert">Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
@@ -542,7 +604,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String inputFile = args.length > 0 ? args[0] : "in-001.dat"; // prefer padded like v2
+        String inputFile = args.length > 0 ? args[0] : "in-1.dat";
         
         // Read processes
         ArrayList<Process> processes = new ArrayList<>();
@@ -578,7 +640,7 @@ public class Main {
         }
         
         // Write output
-        PrintWriter out = new PrintWriter("out-001.dat");
+        PrintWriter out = new PrintWriter("out-1.dat");
         out.println("Type of Scheduler: First Come First Serve(Non-Preemptive)");
         out.println("Number of Processes: " + processes.size());
         out.println();
@@ -678,10 +740,9 @@ class Result {
 
 <?php
 if (!empty($_SESSION['log_messages'])) {
-    foreach ($_SESSION['log_messages'] as $logMessage) {
-        $escapedMsg = addslashes($logMessage);
-        echo "<script>console.log('" . $escapedMsg . "');</script>";
-    }
+    // Use JSON to safely escape newlines/quotes in console logs
+    $msgsJson = json_encode($_SESSION['log_messages']);
+    echo "<script>(function(){var msgs={$msgsJson};for(var i=0;i<msgs.length;i++){console.log(msgs[i]);}})();</script>";
 }
 unset($_SESSION['log_messages']);
 ?>
