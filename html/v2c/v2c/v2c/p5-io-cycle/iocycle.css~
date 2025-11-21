@@ -1,0 +1,277 @@
+html, body {
+    height:100%; 
+}
+
+.btn .btn-primary {
+    border-color: #0d6efd;
+/*    border: 2px solid black;
+    border-radius: 8px;
+    color: black;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: Times New Roman; */
+}
+
+#animarea {
+    position: relative;
+    width: 1000px;
+    height: 700px;
+    border: 1px solid;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#cpu {
+
+    font-family: Times New Roman;
+    top: 220px;
+}
+
+#cpu #title1 {
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+    position: absolute;
+    top: 20px; /*300*/
+    left: 200px;
+    font-size: 25px;
+}
+
+#io-request-box2 {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 3px;
+    position: absolute;
+    left: 150px;
+    top: 70px;
+    text-align: center;
+    font-family: Times New Roman;
+}
+
+
+#ram {
+    font-family: Times New Roman;
+    top: 120px;
+}
+
+#ram #title2 {
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+    position: absolute;
+    top: 170px;
+    left: 200px;
+    font-size: 25px;
+}
+
+#system-call-box {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 3px;
+    position: absolute;
+    left: 150px;
+    top: 220px;
+    text-align: center;
+    font-family: Times New Roman;
+}
+
+#device-driver-box {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 3px;
+    position: absolute;
+    left: 150px;
+    top: 270px;
+    text-align: center;
+    font-family: Times New Roman;
+}
+
+#user-program-box {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 3px;
+    position: absolute;
+    left: 150px;
+    top: 420px;
+    text-align: center;
+    font-family: Times New Roman;
+
+}
+
+#io-request-box1 {
+    width: 150px;
+    height: 50px;
+    background-color: red;
+    border-style: solid;
+    border-radius: 3px;
+    position: absolute;
+    left: 150px;
+    top: 370px;
+    text-align: center;
+    font-family: Times New Roman;
+}
+
+#interrupt-handler-box {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 3px;
+    position: absolute;
+    left: 150px;
+    top: 320px;
+    text-align: center;
+    font-family: Times New Roman;
+}
+
+#box {
+
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+    width: 300px;
+    height: 75px;
+    background-color: #CFFBF8;
+    padding: 15px;
+    font-family: Times New Roman;
+    font-size: 20px;
+    text-align: center;
+}
+
+#monitor-box-display {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 3px;
+    position: absolute;
+    left: 670px;
+    top: 140px;
+    text-align: center;
+    font-family: Times New Roman;
+}
+
+#monitor-box-done {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+    border-style: solid;
+    border-radius: 3px;
+    position: absolute;
+    left: 670px;
+    top: 190px;
+    text-align: center;
+    font-family: Times New Roman;
+}
+
+#monitor #title3 {
+    margin: 0px;
+    padding: 0px;
+    text-align: right;
+    position: absolute;
+    top: 100px;
+    left: 700px;
+    font-size: 25px;
+}
+
+#monitor #image {
+    position: absolute;
+    top: 240px;
+    left: 650px;
+}
+
+#monitor-box {
+    position: absolute;
+    top: 250px;
+    left: 670px;
+    width: 160px;
+    height: 100px;
+    border-style: solid;
+    border-radius: 3px;
+    text-align: center;
+    font-family: Times New Roman;
+    font-size: 50px;
+}
+
+#arrow1 {
+    position: absolute;
+    top: 70px;
+
+}
+
+#arrow2 {
+    position: absolute;
+    left: 260px;
+    top: 70px;
+}
+
+#arrow3 {
+    position: absolute;
+    left: 270px;
+    top: 195px;
+}
+
+#arrow4 {
+    position: absolute;
+    left: 300px;
+    top: 160px;
+}
+
+#arrow5 {
+    position: absolute;
+    left: 810px;
+    top: 130px;
+}
+
+#arrow6 {
+    position: absolute;
+    left: 300px;
+    top: 30px;
+}
+
+#arrow7 {
+    position: absolute;
+    top: 60px;
+    left: 260px;
+}
+
+#arrow8 {
+    position: absolute;
+    top: 60px;
+    left: 250px;
+}
+
+#arrow9 {
+    position: absolute;
+    top: 70px;
+    left: 50px;
+}
+
+#arrow10 {
+    position: absolute;
+    top: 220px;
+    left: 830px;
+}
+
+#arrow11 {
+    position: absolute;
+    top: 290px;
+    left: 310px;
+} 
+
+#arrow12 {
+    position: absolute;
+    top: 50px;
+    left: 40px;
+}

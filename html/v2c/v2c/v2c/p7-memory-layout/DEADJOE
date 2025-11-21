@@ -1,0 +1,22 @@
+
+*** These modified files were found in JOE when it aborted on Sun Apr 14 22:55:07 2024
+*** JOE was aborted because the terminal closed
+
+*** File '(Unnamed)'
+index.php
+index.php~
+index.php
+index.php
+index.php
+index.php
+index.php
+index.php
+index.php
+index.php
+index.php
+
+*** File '* Startup Log *'
+Processing '/etc/joe/jpicorc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/jpicorc

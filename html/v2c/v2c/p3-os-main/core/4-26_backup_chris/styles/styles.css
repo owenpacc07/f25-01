@@ -1,0 +1,308 @@
+
+#title {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 40px;
+
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+.process_id {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.space {
+    padding: 5px;
+    margin-left: 4px;
+}
+.top-margin {
+    margin-top: 8px;
+}
+#waitingTime, #responseTime, #processInformation {
+    width: 33%;
+}
+#scheduling-method-buttons {
+    margin-bottom: 15px;
+}
+.selection {
+    width: 90%;
+    border-top: 2px solid dimgrey;
+    border-bottom: 2px solid dimgray;
+    border-radius: 2px;
+
+    /* Centers div box */
+    margin: auto;
+
+    margin-top: -5px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+label {
+    color: black;
+}
+h5 {
+    color: black;
+    text-decoration: underline;
+}
+
+/* START -- BUTTON STYLES */
+input[type="button"] {
+    margin: 10px 3px;
+    padding: 6px 11px;
+
+    background-color: rgb(86, 60, 255);
+    color: white;
+    text-decoration: solid;
+    border: 2px solid darkslategrey;
+    border-radius: 8px;
+    font-size: 15px;
+}
+input[type="button"]:hover {
+    background-color: rgb(10, 0, 77);
+    border-color: lightgray;
+}
+input[type=button]:active{
+    border: 4px solid slategray;
+    background: rgb(10, 0, 77);
+}
+input[type=button]:focus{
+    border: 4px solid slategray;
+    background: rgb(10, 0, 77);
+}
+input[type="button"]:disabled {
+    background-color: lightsteelblue;
+    border: slategray;
+    text-decoration: line-through;
+}
+
+#load-input, #random {
+    padding: 5px 8px;
+    margin: 5px 0;
+
+    border: 2px solid slategray;
+}
+#load-input:hover, #random:hover {
+    background-color: rgb(10, 0, 77);
+    text-decoration: underline;
+}
+
+#textfield {
+    padding: 5px 8px;
+    margin-left: 5px;
+}
+/* #random, #textfield {
+    margin-bottom: 30px;
+} */
+#bottom-container {
+    margin-top: 25px;
+}
+
+
+/* END -- BUTTON STYLES */
+
+
+/* START -- TABLE STYLES */
+.tableA {
+    border-collapse: collapse;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border: 2px solid black;
+}
+#processTable tbody tr th {
+    border: 2px solid black;
+    font-size: 17px;
+    text-decoration: solid;
+    padding: 5px;
+}
+#processTable td {
+    border: 2px solid black;
+    font-size: 15px;
+    padding: 5px;
+    color: black;
+}
+/* td {
+    border: 1px solid black;
+    font-size: 15px;
+    padding: 5px;
+    color: black;
+} */
+#gantt th {
+    background: linear-gradient(lightgray, gray);
+    border: 2px solid black;
+    text-align: left;
+    height: 400px;
+}
+#gantt td {
+    border: 1px solid black;
+    height: 20px;
+    text-align: left;
+}
+.numerator {
+    border-bottom: 1px solid black;
+}
+.numerator, .denominator {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    font-size: 14px;
+}
+.leftEquation {
+    font-size: 14px;
+}
+p, caption, span {
+    font-size: 14px;
+}
+/* END -- TABLE STYLES */
+
+
+/* START -- CENTER AND ALIGN CONTENT */
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#processInformation, #waitingTime, #responseTime {
+    margin: 0 30px;
+}
+
+.selection {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -8px;
+}
+
+.selection-spacing {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.animation-control {
+    margin-bottom: 7px;
+}
+
+#gantt div {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#gantt {
+    width: 90%;
+
+    margin: auto;
+}
+
+#waitTimeAverage, #responseTimeAverage {
+    margin-top: 15px;
+}
+
+.averageInformation {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: center;
+
+    margin-bottom: 15px;
+}
+/*
+.refresh-control {
+    padding-bottom: 10px;
+}
+*/
+/* END -- CENTER AND ALIGN CONTENT */
+
+
+/* Working with bootstrap buttons */
+
+#scheduling-method-buttons button[type="button"] {
+    margin: 0 3px;
+}
+#scheduling-method-buttons button[type="button"]:hover {
+    background: rgb(10, 0, 77);
+}
+#scheduling-method-buttons button[type="button"]:active {
+    background: rgb(33, 0, 201);
+}
+#scheduling-method-buttons button[type="button"]:focus {
+    background: rgb(28, 0, 170);
+}
+#scheduling-method-buttons button[type="button"]:disabled {
+    background: rgb(161, 161, 161);
+}
+
+
+#animation-control button[type="button"] {
+    margin: 15px 3px;
+}
+#animation-control button[type="button"]:hover {
+    background: rgb(10, 0, 77);
+}
+#animation-control button[type="button"]:active {
+    background: rgb(33, 0, 201);
+}
+#animation-control button[type="button"]:focus {
+    background: rgb(28, 0, 170);
+}
+#animation-control button[type="button"]:disabled {
+    background: rgb(202, 202, 202);
+    border-color: slategray;
+    color: dimgray;
+    text-decoration: line-through;
+}
+
+
+.refresh-control button[type="button"]:hover {
+    background: rgb(10, 0, 77);
+}
+
+
+/* Overlay and loader/spinner styles */
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.75);
+    z-index: 1;
+    cursor: pointer;
+  }
+  
+  #text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    text-align: center;
+  }

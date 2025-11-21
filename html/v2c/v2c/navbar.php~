@@ -1,0 +1,193 @@
+<?php
+error_reporting(error_reporting() & ~E_NOTICE);
+ob_start();
+session_start();
+
+include_once(__DIR__ . '/system.php');
+
+$coretype = 'core';
+$subdirectory = '';
+
+if (isset($_SESSION['coremode'])) {
+  $coretype = $_SESSION['coremode'];
+} else {
+  $_SESSION['coremode'] = "core";
+  $coretype = "core";
+}
+
+//$path = $SITE_ROOT . $version_path;
+
+if (!isset($_SESSION['logged_in'])) {
+  //if you're not logged in, show defaults
+  $account = '<a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  Account
+  </a>';
+
+  $login = '<li><a class="dropdown-item" href="' . $SITE_ROOT . $version_path . '/login.php">Login</a></li>';
+  $settings = '<li><a class="dropdown-item" href="' . $SITE_ROOT . $version_path . '/register.php">Sign up here.</a></li>'; //this will be the sign up button
+
+  $adminbutton = "";
+  $logout = "";
+} else {
+  // if the admin is logged in display the button to access the admin panel
+  if ($_SESSION['mode'] == 4 || $_SESSION['mode'] == 5) {
+    //activates admin button
+    $adminbutton = '<li class="nav-item">
+    <a class="nav-link active" href="' . $SITE_ROOT . $version_path . '/adminPanel/index.php">Admin</a>
+    </li>';
+  }
+  $login = "";
+
+  //settings button
+  $settings = '<li class="nav-item">
+  <a class="nav-link active" href="' . $SITE_ROOT . $version_path . '/myPage.php"> Settings</a>
+  </li>';
+
+  //logout button
+  $logout = '<li class="nav-item">
+  <a class="nav-link active" href="' . $SITE_ROOT . $version_path . '/logout.php"> Logout</a>
+  </li>';
+
+  //Account button/message
+  $email = $_SESSION['email']; //don't want to show this email! there should be an actual account username.
+  $username = substr($email, 0, strpos($email, "@"));
+  $account = '<a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  Welcome, ' . $username . '
+  </a>';
+}
+
+
+$infobutton = "";
+$url = $_SERVER['REQUEST_URI']; //get server url
+if (strpos($url, 'info')) { //if we're in the core folder, on the info page, hide button
+  $infobutton = "";
+} else if (strpos($url, 'core/m-')) { //if we're in the core folder at a mechanism 'm-', display ? button
+  $infobutton = "<a href='./info'><img class='topcorner' style='height: 40px; width: 40px' src='" . $SITE_ROOT . $version_path . "/questionicon.png'></a>";
+  //echo "<script>window.alert('hi')</script>"; //a simple test to see if this wokrs
+}
+
+?>
+
+<style>
+  @font-face {
+    font-family: 'Titan One';
+    src: url('../fonts/TitanOne-Regular.ttf') format('truetype');
+  }
+
+  .navbar-brand {
+    font-family: 'Titan One';
+    font-size: 1.25rem;
+  }
+
+  .navbar-brand img {
+    width: 30px;
+    height: 24px;
+  }
+
+  .dimension {
+    height: 60px;
+    width: 130px;
+    ;
+  }
+
+  .logodimension {
+    height: 70px;
+    width: 200px;
+  }
+
+  .topcorner {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+  }
+</style>
+
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- bootstraps css, js, etc. ill eventually want to learn node and react or vue -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <script>
+    const SITE_VERSION = `<?php echo $SITE_ROOT . $version_path ?>`;
+  </script>
+
+  <!-- navbar 1 from boostrap -->
+  <nav class="navbar navbar-dark fixed-top" style="background-color:#FF8400;">
+    <div class="container-fluid">
+      <div style="display: inline-grid">
+        <a style="margin-bottom: 0px; font-size: 20px; font-weight: bold; color: white; text-decoration: none; display: grid; grid-template-columns: auto auto auto auto;" href="<?= $SITE_ROOT . $version_path ?>/index.php">
+          <img src="<?= $SITE_ROOT . $version_path ?>/pic/OSVisualsIcon.ico" width="30" height="30" class="d-inline-block align-text-top" style="margin-right: 7px; display: flex">
+          OS Visuals
+        </a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end text-dark font-weight-bold" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel" style="background-color: #FF8400;">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel" style="text-decoration: none; color: #4B0082">OS Visuals</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body text-dark font-weight-bold">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="<?= $SITE_ROOT . $version_path ?>/index.php">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/core">Select Mechanism </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/submission.php">Submission</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="<?= $SITE_ROOT . $version_path ?>/guide.php">About</a>
+            </li>
+
+            <li class="nav-item dropdown text-dark">
+              <?= $account ?>
+              <ul class="dropdown-menu dropdown-menu-dark" style="background-image: url(<?= $SITE_ROOT . $version_path ?>/pic/newTabBackground.jpg)">
+                <li><a class="dropdown-item text-dark" href="<?= $SITE_ROOT . $version_path ?>/index">Mode: View</a></li>
+                <li><a class="dropdown-item text-dark" href="<?= $SITE_ROOT . $version_path ?>/index-a">Mode: Advanced</a></li>
+                <li>
+                  <hr class="dropdown-divider text-dark">
+                </li>
+                <?= $adminbutton ?>
+                <?= $login ?>
+                <?= $settings ?>
+                <?= $logout ?>
+
+              </ul>
+            </li>
+          </ul>
+          <form id="midForm" method="post" enctype="multipart/form-data" action="" class="d-flex mt-3" role="search" class="input-group">
+            <input class="form-control me-2 text-dark" type="search" placeholder="Search" aria-label="Search" name="mechanismid" id="mechanismid" required>
+            <button id="formBtn" class="btn btn-dark" type="submit" style="background-color: #4B0082">Search</button>
+          </form>
+
+        </div>
+      </div>
+  </nav>
+  <?= $infobutton ?>
+
+  <!-- fix inline web pic with txt -->
+
+
+  <br>
+  <br>
+  <br>
+</head>
+
+<body>
+</body>
+
+</html>
