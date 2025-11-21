@@ -26,13 +26,20 @@ if (!isset($_SESSION['log_messages'])) {
 $_SESSION['log_messages'][] = "DEBUG edit.php - MID: $mid, MID_PADDED: $mid_padded, USER: $user, SESSION_KEY: $session_key";
 
 // Get submission_id from session (should already exist from homepage)
-$submission_id = $_SESSION[$session_key] ?? null;
+
+// Always use session variable for submission_id
+if (!isset($_SESSION[$session_key])) {
+    $_SESSION[$session_key] = null;
+}
+
+// Use session variable directly
+$submission_id = &$_SESSION[$session_key];
 
 $_SESSION['log_messages'][] = "DEBUG edit.php - Retrieved submission_id: " . ($submission_id ?? 'NULL');
 
 // Verify and load submission
 $submission = null;
-if ($submission_id) {
+if ($_SESSION[$session_key]) {
     $submission_query = "SELECT input_path, output_path FROM submissions WHERE submission_id = ? AND user_id = ?";
     $stmt = mysqli_prepare($link, $submission_query);
     mysqli_stmt_bind_param($stmt, "ii", $submission_id, $user);
@@ -44,8 +51,7 @@ if ($submission_id) {
     
     if (!$submission) {
         // Submission doesn't exist, clear session
-        $submission_id = null;
-        unset($_SESSION[$session_key]);
+        $_SESSION[$session_key] = null;
         $_SESSION['log_messages'][] = "DEBUG edit.php - Submission not found in database, cleared session";
     } else {
         // Fix incomplete paths if they don't start with /
@@ -76,20 +82,15 @@ if ($submission) {
     $subDir = dirname($submission['input_path']) . '/';
     $_SESSION['log_messages'][] = "DEBUG edit.php - Using submission folder: $subDir";
 
-    $in1Path   = $subDir . "in-$mid.dat";
     $inPadPath = $subDir . "in-$mid_padded.dat";
-    $out1Path  = $subDir . "out-$mid.dat";
     $outPadPath= $subDir . "out-$mid_padded.dat";
 
     // Track sources for debug
     $inputSource = 'UNKNOWN';
     $outputSource = 'UNKNOWN';
 
-    // Prefer UNPADDED; fallback to PADDED (read-only legacy)
-    if (file_exists($in1Path) && filesize($in1Path) > 0) {
-        $input = file_get_contents($in1Path);
-        $inputSource = $in1Path;
-    } elseif (file_exists($inPadPath) && filesize($inPadPath) > 0) {
+    // Use only PADDED file names (e.g., 001)
+    if (file_exists($inPadPath) && filesize($inPadPath) > 0) {
         $input = file_get_contents($inPadPath);
         $inputSource = $inPadPath;
     } else {
@@ -97,10 +98,7 @@ if ($submission) {
         $inputSource = 'MISSING';
     }
 
-    if (file_exists($out1Path) && filesize($out1Path) > 0) {
-        $output = file_get_contents($out1Path);
-        $outputSource = $out1Path;
-    } elseif (file_exists($outPadPath) && filesize($outPadPath) > 0) {
+    if (file_exists($outPadPath) && filesize($outPadPath) > 0) {
         $output = file_get_contents($outPadPath);
         $outputSource = $outPadPath;
     } else {
@@ -108,15 +106,15 @@ if ($submission) {
         $outputSource = 'MISSING';
     }
 
-    // Ensure input has data; WRITE UNPADDED ONLY
+    // Ensure input has data; WRITE PADDED ONLY
     if (empty(trim($input))) {
         $input = "1 0 7 1\n2 2 4 2\n3 4 1 3";
-        @file_put_contents($in1Path, $input);
+        @file_put_contents($inPadPath, $input);
         $inputSource = 'DEFAULT_SEEDED';
-        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded default INPUT to $in1Path";
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded default INPUT to $inPadPath";
     }
 
-    // Ensure output has data; seed from core default; WRITE UNPADDED ONLY
+    // Ensure output has data; seed from core default; WRITE PADDED ONLY
     if (empty(trim($output))) {
         $coreDefaultDir = realpath("../../../files/core-s/m-$mid_padded");
         $coreOut = $coreDefaultDir ? ($coreDefaultDir . "/out-$mid_padded.dat") : null;
@@ -127,8 +125,8 @@ if ($submission) {
             $output = "Type of Scheduler: First Come First Serve(Non-Preemptive)\nNumber of Processes: 0";
             $outputSource = 'STUB_SEEDED';
         }
-        @file_put_contents($out1Path, $output);
-        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded OUTPUT from {$outputSource} to $out1Path";
+        @file_put_contents($outPadPath, $output);
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded OUTPUT from {$outputSource} to $outPadPath";
     }
 
     // Final concise source summary + previews
@@ -140,8 +138,8 @@ if ($submission) {
     $outPreview = addslashes(substr($output, 0, 120));
     $_SESSION['log_messages'][] = "DEBUG edit.php - INPUT size: {$inSize}, preview: {$inPreview}";
     $_SESSION['log_messages'][] = "DEBUG edit.php - OUTPUT size: {$outSize}, preview: {$outPreview}";
-    $_SESSION['log_messages'][] = "DEBUG edit.php - Input(1) exists: " . (file_exists($in1Path) ? 'YES' : 'NO');
-    $_SESSION['log_messages'][] = "DEBUG edit.php - Output(1) exists: " . (file_exists($out1Path) ? 'YES' : 'NO');
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Input(padded) exists: " . (file_exists($inPadPath) ? 'YES' : 'NO');
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Output(padded) exists: " . (file_exists($outPadPath) ? 'YES' : 'NO');
     $_SESSION['log_messages'][] = "DEBUG edit.php - Input content length: " . strlen($input);
     $_SESSION['log_messages'][] = "DEBUG edit.php - Output content length: " . strlen($output);
 } else {
@@ -229,12 +227,12 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
         $javaCode = $_POST['java_code'] ?? '';
         if (!$javaCode) throw new Exception("No Java code provided");
         
-        if (!$submission_id) throw new Exception("No active submission. Please use 'Make a Submission' button.");
+        if (!$_SESSION[$session_key]) throw new Exception("No active submission. Please use 'Make a Submission' button.");
         
         // Get submission folder
         $submission_query = "SELECT input_path FROM submissions WHERE submission_id = ? AND user_id = ?";
         $stmt = mysqli_prepare($link, $submission_query);
-        mysqli_stmt_bind_param($stmt, "ii", $submission_id, $user);
+        mysqli_stmt_bind_param($stmt, "ii", $_SESSION[$session_key], $user);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $sub_data = mysqli_fetch_assoc($result);
@@ -242,15 +240,15 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
         if (!$sub_data) throw new Exception("Submission not found");
         
         $subDir   = dirname($sub_data['input_path']) . '/';
-        $in1Path  = $subDir . "in-$mid.dat";
-        $out1Path = $subDir . "out-$mid.dat";
+        $inPadPath  = $subDir . "in-$mid_padded.dat";
+        $outPadPath = $subDir . "out-$mid_padded.dat";
 
-        // Write current textarea input to UNPADDED only
+        // Write current textarea input to PADDED only
         $inputContent = $_POST['input_content'] ?? '';
         if (empty(trim($inputContent))) {
             $inputContent = "1 0 7 1\n2 2 4 2\n3 4 1 3";
         }
-        @file_put_contents($in1Path, $inputContent);
+        @file_put_contents($inPadPath, $inputContent);
 
         // Compile in submission dir
         $javaCode = $_POST['java_code'] ?? '';
@@ -262,20 +260,20 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
 
         $response = [];
         if (empty($compileOutput) || strpos($compileOutput, 'error') === false) {
-            // Run with UNPADDED input
-            $inputArg = escapeshellarg("in-$mid.dat");
+            // Run with PADDED input
+            $inputArg = escapeshellarg("in-$mid_padded.dat");
             $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java Main " . $inputArg . " 2>&1";
             $runOutput = shell_exec($runCmd);
 
             // Append input preview
-            $inputFileBasename = basename($in1Path);
-            $inputFileContentsEcho = file_exists($in1Path) ? file_get_contents($in1Path) : '(input file not found)';
+            $inputFileBasename = basename($inPadPath);
+            $inputFileContentsEcho = file_exists($inPadPath) ? file_get_contents($inPadPath) : '(input file not found)';
             $runOutput .= "\n\n--- Input File Used: $inputFileBasename ---\n" . $inputFileContentsEcho;
 
-            // Read output back from UNPADDED only
+            // Read output back from PADDED only
             $fileOutput = '';
-            if (file_exists($out1Path) && filesize($out1Path) > 0) {
-                $fileOutput = file_get_contents($out1Path);
+            if (file_exists($outPadPath) && filesize($outPadPath) > 0) {
+                $fileOutput = file_get_contents($outPadPath);
                 $runOutput .= "\n\n--- Output File Contents ---\n" . $fileOutput;
             }
 
@@ -290,15 +288,13 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
 
             if ($coreDir) {
                 // Mirror INPUT used
-                if (file_exists($in1Path)) {
-                    $coreInputText = file_get_contents($in1Path);
-                    @file_put_contents($coreDir . "/in-$mid.dat",        $coreInputText);
+                if (file_exists($inPadPath)) {
+                    $coreInputText = file_get_contents($inPadPath);
                     @file_put_contents($coreDir . "/in-$mid_padded.dat", $coreInputText);
                 }
 
                 // Mirror OUTPUT produced (if any)
                 if ($fileOutput !== '') {
-                    @file_put_contents($coreDir . "/out-$mid.dat",        $fileOutput);
                     @file_put_contents($coreDir . "/out-$mid_padded.dat", $fileOutput);
                 }
             }
@@ -308,7 +304,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
                 'success' => true,
                 'output' => $runOutput ?: 'Program executed successfully with no output.',
                 'path' => $subDir,
-                'submission_id' => $submission_id
+                'submission_id' => $_SESSION[$session_key]
             ];
         } else {
             $response = ['success' => false, 'output' => $compileOutput];
@@ -341,14 +337,14 @@ if (isset($_POST['submit'])) {
 
     // ?? 2) Otherwise (e.g. "save"), do the normal save logic
     try {
-        if (!$submission_id) {
-            throw new Exception("No active submission. Please use 'Make a Submission' button on the homepage.");
+            if (!$_SESSION[$session_key]) {
+                throw new Exception("No active submission. Please use 'Make a Submission' button on the homepage.");
         }
         
         // Get submission folder
         $submission_query = "SELECT input_path FROM submissions WHERE submission_id = ? AND user_id = ?";
         $stmt = mysqli_prepare($link, $submission_query);
-        mysqli_stmt_bind_param($stmt, "ii", $submission_id, $user);
+        mysqli_stmt_bind_param($stmt, "ii", $_SESSION[$session_key], $user);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $sub_data = mysqli_fetch_assoc($result);
@@ -361,8 +357,8 @@ if (isset($_POST['submit'])) {
         $inputText  = $_POST['input']  ?? '';
         $outputText = $_POST['output'] ?? '';
 
-        @file_put_contents($subDir . "in-$mid.dat",  $inputText);
-        @file_put_contents($subDir . "out-$mid.dat", $outputText);
+        @file_put_contents($subDir . "in-$mid_padded.dat",  $inputText);
+        @file_put_contents($subDir . "out-$mid_padded.dat", $outputText);
 
         // 2) ALSO WRITE TO CORE-S MECHANISM FOLDER (GLOBAL)
         $coreDir = realpath("../../../files/core-s/m-$mid_padded");
@@ -371,17 +367,15 @@ if (isset($_POST['submit'])) {
         }
 
         if ($coreDir) {
-            @file_put_contents($coreDir . "/in-$mid.dat",        $inputText);
-            @file_put_contents($coreDir . "/out-$mid.dat",       $outputText);
             @file_put_contents($coreDir . "/in-$mid_padded.dat", $inputText);
-            @file_put_contents($coreDir . "/out-$mid_padded.dat",$outputText);
+            @file_put_contents($coreDir . "/out-$mid_padded.dat", $outputText);
         }
 
         // Only "save" comes here, so show the success message and stay on page
-        $saveMessage = '<div class="alert alert-success text-center" role="alert">Data saved to submission #' . $submission_id . '!</div>';
+        $saveMessage = '<div class="alert alert-success text-center" role="alert">Data saved to submission #' . $_SESSION[$session_key] . '!<\/div>';
         // Reload from submission folder
-        $input  = file_get_contents($subDir . "in-$mid.dat");
-        $output = file_get_contents($subDir . "out-$mid.dat");
+        $input  = file_get_contents($subDir . "in-$mid_padded.dat");
+        $output = file_get_contents($subDir . "out-$mid_padded.dat");
 
     } catch (Exception $e) {
         $saveMessage = '<div class="alert alert-danger text-center" role="alert">Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
