@@ -1,0 +1,735 @@
+<?php
+/*        if(isset($_POST['inputData'])){
+            $filename="/var/www/p/s24-02/html/v2/p2-deadlock-input.txt";
+            file_put_contents($filename, implode(",",$_POST['inputData']));
+
+            $filename="/var/www/p/s24-02/html/v2/p2-deadlock-output-table.txt";
+            file_put_contents($filename, "");
+
+            $filename="/var/www/p/s24-02/html/v2/p2-deadlock-output-animation.txt";
+            file_put_contents($filename, "");
+
+            $filename="/var/www/p/s24-02/html/v2/p2-deadlock-output-instance.txt";
+            file_put_contents($filename, "");
+
+            header('Location: ../edit/editDeadlock.php');
+        }
+        $sourcedata = file_get_contents("/var/www/p/s24-02/html/v2/p2-deadlock-input.txt");
+        $table = file_get_contents("/var/www/p/s24-02/html/v2/p2-deadlock-output-table.txt");
+*/
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Deadlock</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+    <style>
+        .flowchart {
+            background-color: rgb(133, 193, 233);
+            border-style: solid;
+            border-width: 1px;
+            width: 30px;
+        }
+        
+        .dot {
+            content: "\00B7";
+            display: flex;
+            justify-content: center;
+        }
+        
+        .circle {
+            border: 1px solid black;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            background-color: rgb(36, 148, 195);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .range {
+            width: 40% !important;
+        }
+        
+        .specific {
+            width: 120px !important;
+            margin-right: 2em;
+        }
+
+        label {
+            width: 230px;
+        }
+        
+        .submitButton {
+            margin-left: 200px;
+        }
+        
+        .saveData {
+            display: none;
+            margin-left: 2em;
+        }
+
+        .form-group {
+            padding-bottom: 30px;
+        }
+
+        #correct {
+            border: green;
+            border-style: double;
+            display:none;
+            text-align: center;
+        }
+
+        #incorrect {
+            border: red;
+            border-style: double;
+            display:none;
+            text-align: center;
+        }
+
+        .ab {
+           color: white;
+           background-color: lightskyblue;
+           padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 2em;
+       }
+
+       a:hover, a:active {
+            background-color: lightskyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <?php include '../navbar.php'; ?>  
+    <div class="text-right">
+    <a class="btn btn-primary" href="index.php">Go Back</a>&nbsp;&nbsp;
+    <br>
+    </div>
+    <br>
+    <div class="d-flex align-items-center justify-content-center">
+        <h1 class="title">Deadlock</h1><br>
+    </div>
+    <hr>
+    <!--generate data-->
+    
+    <div class="d-flex align-items-center justify-content-center" style="flex-direction: column;">
+        <h4 class="is-size-5 has-text-link has-text-weight-semibold">Generate Data </h4>
+        <br><br>
+        <form style="flex-direction: column;" id="dataForm" method="post">
+            <div class="form-group" style="display: flex;">
+                <label>Number of Processes</label>
+                <input type="text" name="inputData[]" class="form-control specific" value = 2>
+                <input type="range" class="range" min="2" max="4" value="0" oninput="this.previousElementSibling.value = this.value">
+            </div>
+            <div class="form-group" style="display: flex;">
+                <label>Number of Resources</label>
+                <input type="text" name="inputData[]" class="form-control specific" value = 2>
+                <input type="range" class="range" min="2" max="6" value="0" oninput="this.previousElementSibling.value = this.value">
+            </div>
+            <div class="form-group" style="display: flex;">
+                <label>Number of Instances</label>
+                <input type="text" name="inputData[]" class="form-control specific" value = 2>
+                <input type="range" class="range" min="2" max="12" value="0" oninput="this.previousElementSibling.value = this.value">
+            </div>
+            <button type="submit" class="btn btn-primary submitButton">Submit Data</button>
+        </form>
+        <iframe name="form" id="form" style="display:none"></iframe>
+    </div>
+    <hr> 
+
+
+    <!--table-->
+
+    <div class="d-flex align-items-center justify-content-center flex-column" style="width:70%; margin:auto">
+        <table class="table" id="dataTable">
+            <caption>T0 means instance number.
+            <br> 
+            <br>
+            0: Nothing &nbsp; 1: holding &nbsp; 2: request</caption>
+            <thead id="thead">
+            </thead>
+
+            <tbody id="tbody">
+            </tbody>
+        </table>
+        <div>
+            <button type="button" class="btn btn-primary" onclick="editTable()">Edit</button>
+        </div>
+    </div>
+    <hr>
+ 
+    <!--Animation Control Type Form-->
+    <div class="d-flex align-items-center justify-content-center">
+        <h5 class="pr-3 font-weight-bold">Select Animation Type: </h5>
+        <form id="animationType">
+            <input type="radio" name="animationType" value="StepByStep" checked/> Step By Step<br/>
+            <input type="radio" name="animationType" value="Automatic" /> Automatic<br/>
+        </form>
+    </div>
+    <hr>
+
+    <div class="d-flex align-items-center justify-content-center">
+        <input  class="btn btn-primary" type="button" value="Start" id="start" onclick="startAnim();">
+        &nbsp;        
+        <input  class="btn btn-primary" type="button" value="Next" id="next" onclick="nextAnim();">
+        &nbsp;
+        <input  class="btn btn-primary" type="button" value="Back" id="back" onclick="backAnim();">
+        &nbsp;
+        <input  class="btn btn-primary" disabled type="button" value="Play" id="play" onclick="playAnim()">
+        &nbsp;
+        <input  class="btn btn-primary" disabled type="button" value="Pause" id="pause" onclick="pauseAnim()">
+        &nbsp;
+        <input  class="btn btn-primary" type="button" value="End" id="end" onclick="endAnim();">
+    </div>
+    <br> <br>
+
+    <!--Diagram-->
+    <div id ="test" style="max-width: 500px; margin: auto;">
+        <canvas width="500" height="500" style="position:absolute;"></canvas>
+        <div class="container-fluid">
+            <div class="row" id="resource1row">
+            </div>
+
+            <br>
+            <br>
+
+            <div class="row" id="processrow">
+            </div>
+
+            <br>
+            <br>
+
+            <div class="row" id="resource2row">
+            </div>
+            <br>
+            <br>
+            <div class="has-text-grey"><span>&#128308;</span> holding &nbsp; <span>&#128309;</span> request</div>
+        </div>
+    </div>
+    <hr>
+
+    <!--Answer-->
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="control">
+            <br>
+            <h5 class="is-size-5 font-weight-bold" style="text-align: center;"><span>&#10003;</span> Is this deadlock situation? </h5>
+            <br>
+            <form>
+            <label class="checkbox" style="text-align: center;">
+                <input type="radio" name="checkbox" value="1" id="yes">
+                Yes
+            </label>
+            <label class="checkbox" style="text-align: center;">
+                <input type="radio" name="checkbox" value="0" id="no">
+                No
+            </label>
+            <div id="correct">
+                Your answer is correct!
+            </div>
+            <div id="incorrect">
+                Your answer is incorrect!
+            </div>
+            </form>
+        </div>
+        
+    </div>
+    <br><br><br><br>
+
+</body>
+
+<script>
+    function editTable() {
+        location.replace("../edit/editDeadlock.php")
+    }
+
+    var cvs = document.getElementsByTagName("canvas")[0];
+    var ctx = cvs.getContext("2d");
+    ctx.strokeStyle = "black";
+    ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+
+    //read input text file
+    var InputFile = [];
+    var TableFile = [];
+    var procLoad = [];
+
+    function readInputTextFile(file)
+    {
+        var rawFile = new XMLHttpRequest(); 
+        rawFile.open("POST", file, false);
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    // allText.split('\n').forEach(function(line, index) {
+                    //     if(index == 0) {
+                    //         numberString = line;
+                    //         numberString.split(',').forEach(function(number) {
+                    //             nextNum = Number(number);
+                    //             InputFile.push(nextNum);
+                    //         });
+                    //     }else {
+                    //         numberString = line;
+                    //         numberString.split(',').forEach(function(number) {
+                    //             nextNum = Number(number);
+                    //             procLoad.push(nextNum);
+                    //             if(procLoad.length == InputFile[1]) {
+                    //                 TableFile.push(procLoad);
+                    //                 procLoad = [];
+                    //             }
+                    //         });
+                    //     }
+                    // });
+                    allText.split(',').forEach(function(number) {
+                        InputFile.push(number);
+                    });
+                }
+            }
+        }
+        rawFile.send();
+    }
+    readInputTextFile("../../files/p2/p2-deadlock-input.txt");
+
+    //read table text file
+    var TableFile = [];
+    var procLoad = [];
+
+    function readOutputTextFile(file)
+    {
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("POST", file, false);
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    allText.split('\n').forEach(function(line) {
+                        numberString = line;
+                        numberString.split(',').forEach(function(number){
+                            nextNum = Number(number);
+                            procLoad.push(nextNum);
+                            if(procLoad.length == InputFile[1]) {
+                                TableFile.push(procLoad);
+                                procLoad = [];
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        rawFile.send();
+    }
+    readOutputTextFile("../../files/p2/p2-deadlock-output-table.txt");
+
+    //read instance text file
+    var InstanceFile = [];
+    var procLoad4 = [];
+
+    function readOutputITextFile(file)
+    {
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("POST", file, false);
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    allText.split('\n').forEach(function(line) {
+                        numberString = line;
+                        numberString.split(',').forEach(function(number){
+                            nextNum = Number(number);
+                            procLoad4.push(nextNum);
+                            if(procLoad4.length == 2) {
+                                InstanceFile.push(procLoad4);
+                                procLoad4 = [];
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        rawFile.send();
+    }
+    readOutputITextFile("../../files/p2/p2-deadlock-output-instance.txt");
+
+    //create table
+    var thead = document.getElementById("thead");
+    var rows = document.createElement("tr");
+    var cell = document.createElement("th");
+    var cellText = document.createTextNode("P/R");
+
+    cell.appendChild(cellText);
+    rows.appendChild(cell);
+    thead.appendChild(rows);
+    for (var i = 0; i < InputFile[1]; i++) { 
+        cell = document.createElement("th");
+        cellText = document.createTextNode("R" + (i+1));
+        cell.appendChild(cellText);
+        rows.appendChild(cell);
+        thead.appendChild(rows);
+    }
+
+    var tbody = document.getElementById("tbody");
+    for (var i = 0; i <= InputFile[0]; i++) { 
+            var row = document.createElement("tr");
+
+            for (var j = 0; j <= InputFile[1]; j++) {
+                if(j == 0) {
+                    var cell = document.createElement("th");
+                    var cellText = document.createTextNode("T" + i);
+                }else {
+                    if(i == 0) {
+                        cell = document.createElement("td");
+                        cellText = document.createTextNode(InstanceFile[j - 1][1]);
+                    }else{
+                        cell = document.createElement("td");
+                        cellText = document.createTextNode(TableFile[i - 1][j - 1]);
+                    }
+                    
+                }
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+            }
+            tbody.appendChild(row);
+    }     
+
+    //animation type
+    $('input[type=radio][name=animationType]').change(function () {
+        if (this.value == 'StepByStep') {
+            document.getElementById('play').setAttribute('disabled','disabled')
+            document.getElementById('pause').setAttribute('disabled','disabled')
+            document.getElementById('next').removeAttribute("disabled");
+            document.getElementById('back').removeAttribute("disabled");
+        }
+        else if (this.value == 'Automatic'){
+            document.getElementById('next').setAttribute('disabled','disabled')
+            document.getElementById('back').setAttribute('disabled','disabled')
+            document.getElementById('play').removeAttribute("disabled");
+            document.getElementById('pause').removeAttribute("disabled");
+        }
+    });
+
+    //animation figure
+    for(var i = 1; i <= InputFile[0]; i++) {
+        var html = '<div class="col d-flex justify-content-center">' + 
+                    '<div class="circle"  id = "process' + i + '">' +
+                    'T' + i + 
+                    '</div> </div>';
+        $("#processrow").append(html);
+    }
+
+    var dot;
+    for(var i = 1; i <= InputFile[1]; i++) {
+        if(i%2 != 0) {
+            if(InstanceFile[i-1][0] == i) {
+                dot = '';
+                for(var j = 0; j < InstanceFile[i-1][1]; j++) {
+                    dot = dot + '<span class="dot">&#9679;</span>';
+                }
+            } 
+            var html = '<div class="col d-flex justify-content-center">' +
+                    'R' + i + 
+                    ' <div class="flowchart" id = "resource' + i + '">' +
+                    dot
+                    +
+                    '</div> </div>';
+            $("#resource1row").append(html);
+        }else{
+            if(InstanceFile[i-1][0] == i) {
+                dot = '';
+                for(var j = 0; j < InstanceFile[i-1][1]; j++) {
+                    dot = dot + '<span class="dot">&#9679;</span>';
+                }
+            }
+            var html = '<div class="col d-flex justify-content-center">' +
+                    'R' + i + 
+                    ' <div class="flowchart" id = "resource' + i + '">' +
+                    dot
+                    +
+                    '</div> </div>';
+            $("#resource2row").append(html);
+        }
+    }
+
+    //animation figure position
+    var r1rowTop = ($('#resource1row').position().top) - ($('#resource1row').parent().position().top - ($('#resource1row').outerHeight()/2));
+    var r2rowTop = ($('#resource2row').position().top) - ($('#resource2row').parent().position().top - ($('#resource2row').outerHeight()/2));
+    var prowTop = ($('#processrow').position().top) - ($('#processrow').parent().position().top - ($('#processrow').outerHeight()/2));
+
+    var prowLeft = $('#processrow').offset().left;
+    var r1rowLeft = $('#resource1row').offset().left;
+    var r2rowLeft = $('#resource2row').offset().left;
+
+    var prowD = [];
+    var prowP = [];
+    var rrowD = [];
+    var rrowP = [];
+    for(var i = 1; i <= InputFile[0]; i++) {
+        var leftValue = $('#' + 'process' + i).offset().left - prowLeft + ($('#' + 'process' + i).outerWidth()/2);
+        prowD.push(leftValue);
+        prowD.push(prowTop);
+        if(prowD.length == 2) {
+            prowP.push(prowD);
+            prowD = [];
+        }
+    }
+
+    for(var i = 1; i <= InputFile[1]; i++) {
+        if(i % 2 != 0) {
+            var leftValue = $('#' + 'resource' + i).offset().left - r1rowLeft + ($('#' + 'resource' + i).outerWidth()/2);
+            rrowD.push(leftValue);
+            rrowD.push(r1rowTop);
+            if(rrowD.length == 2) {
+                rrowP.push(rrowD);
+                rrowD = [];
+            }
+        }else{
+            var leftValue = $('#' + 'resource' + i).offset().left - r2rowLeft + ($('#' + 'resource' + i).outerWidth()/2);
+            rrowD.push(leftValue);
+            rrowD.push(r2rowTop);
+            if(rrowD.length == 2) {
+                rrowP.push(rrowD);
+                rrowD = [];
+            }
+        } 
+    }
+
+    //read animation text file
+    var AnimationFile = [];
+    var procLoad3 = [];
+
+    function readOutputATextFile(file)
+    {
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("POST", file, false);
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    allText.split('\n').forEach(function(line) {
+                        numberString = line;
+                        numberString.split(',').forEach(function(text){
+                            if(isNaN(text) == false) {
+                                nextText = Number(text);
+                            }else{
+                                text = text.replace(/(\r\n|\n|\r)/gm, "");
+                                nextText = String(text);
+                            }
+                            procLoad3.push(nextText);
+                            if(procLoad3.length == 3) {
+                                AnimationFile.push(procLoad3);
+                                procLoad3 = [];
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        rawFile.send();
+    }
+    readOutputATextFile("../../files/p2/p2-deadlock-output-animation.txt");
+
+    //draw animation
+    function drawLine(x1, y1, x2, y2, type, ratio) {
+        ctx.beginPath(); 
+        ctx.moveTo(x1, y1);
+        x2 = x1 + ratio * (x2 - x1);
+        y2 = y1 + ratio * (y2 - y1);
+        ctx.lineTo(x2, y2);
+        if(type == "holding") {
+            ctx.strokeStyle = "red";
+        }else if(type == "request"){
+            ctx.strokeStyle = "blue";
+        }
+        ctx.stroke();
+    }
+
+    function animate(x1, y1, x2, y2, type, ratio) {
+        ratio = ratio || 0;
+        drawLine(x1, y1, x2, y2, type, ratio);
+        if (ratio < 1) {
+                requestAnimationFrame(function() {
+                animate(x1, y1, x2, y2, type, ratio + 0.01);
+            });
+        }
+    }
+
+    cvs.width = cvs.width;
+    ctx = cvs.getContext("2d");
+    ctx.strokeStyle = "black";
+    ctx.fillStyle = "white";
+    ctx.lineWidth = 1;
+
+    var index = 0;
+    var count = 0;
+    var intervalID;
+
+    //animation function
+    function startAnim() {
+        count = 0;
+        clearInterval(intervalID);
+        ctx.clearRect(0, 0, cvs.width, cvs.height);
+        index = 0;
+    }
+
+    function nextAnim() {
+        ctx.lineWidth = 1;
+        let IndexOfstartP = AnimationFile[index][0];
+        let StartPX = prowP[IndexOfstartP][0];
+        let StartPY = prowP[IndexOfstartP][1];
+        
+        let IndexOfendP = AnimationFile[index][1];
+        let EndPX = rrowP[IndexOfendP][0];
+        let EndPY = rrowP[IndexOfendP][1];
+
+        animate(StartPX, StartPY, EndPX, EndPY, AnimationFile[index][2], 0);
+        index++;
+    }
+
+    function backAnim() {
+        index--;
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 3;
+        let IndexOfstartP = AnimationFile[index][0];
+        let StartPX = prowP[IndexOfstartP][0];
+        let StartPY = prowP[IndexOfstartP][1];
+        
+        let IndexOfendP = AnimationFile[index][1];
+        let EndPX = rrowP[IndexOfendP][0];
+        let EndPY = rrowP[IndexOfendP][1];
+        
+        drawLine(StartPX, StartPY, EndPX, EndPY, null, 1);
+    }
+
+    function playAnim() {
+        ctx.lineWidth = 1;
+        intervalID = setInterval(function(){
+            if(count < AnimationFile.length)
+            {
+                let IndexOfstartP = AnimationFile[count][0];
+                let StartPX = prowP[IndexOfstartP][0];
+                let StartPY = prowP[IndexOfstartP][1];
+                
+                let IndexOfendP = AnimationFile[count][1];
+                let EndPX = rrowP[IndexOfendP][0];
+                let EndPY = rrowP[IndexOfendP][1];
+                animate(StartPX, StartPY, EndPX, EndPY, AnimationFile[count][2], 0);
+                count += 1;
+            }
+        },1000);
+    }
+
+    function pauseAnim() {
+        clearInterval(intervalID);
+    }
+
+    function endAnim() {
+        ctx.lineWidth = 1;
+        for(var i = 0; i < AnimationFile.length; i++) {
+            let IndexOfstartP = AnimationFile[i][0];
+            let StartPX = prowP[IndexOfstartP][0];
+            let StartPY = prowP[IndexOfstartP][1];
+            
+            let IndexOfendP = AnimationFile[i][1];
+            let EndPX = rrowP[IndexOfendP][0];
+            let EndPY = rrowP[IndexOfendP][1];
+            drawLine(StartPX, StartPY, EndPX, EndPY, AnimationFile[i][2], 1);
+        }
+    }
+
+    //answer section
+    var array = [];
+    $("#dataTable tr").each(function() {
+        var rowDataArray = [];
+        var actualData = $(this).find('td');
+        if (actualData.length > 0) {
+            actualData.each(function() {
+                rowDataArray.push($(this).text());
+            });
+            array.push(rowDataArray);
+        }
+    });
+
+    var requestNumber = 0;
+    var holdingNumber = 0;
+    var dAnswer = 0;
+    function checkAnswer() {
+        for(var i = 0; i < InputFile[1]; i++) {
+            for(var j = 1; j <= InputFile[0]; j++) {
+                let instanceNumber = array[0][i];
+                if(array[j][i] == 2) {
+                    requestNumber += 1;
+                }else if(array[j][i] == 1) {
+                    holdingNumber += 1;
+                }
+                if(requestNumber > instanceNumber) {
+                    dAnswer = 1;
+                }else if(requestNumber == holdingNumber && requestNumber > instanceNumber){
+                    dAnswer = 1;
+                }
+            }
+            requestNumber = 0;
+            holdingNumber = 0;
+        }
+    }
+    
+
+    $("#yes").click(function() {
+        checkAnswer();
+        if($('#yes').is(':checked') == true && $('#yes').val() == dAnswer)
+        {
+            $('#correct').show();
+            $('#incorrect').hide();
+        }else if($('#yes').is(':checked') == true && $('#yes').val() != dAnswer){
+            $('#incorrect').show();
+            $('#correct').hide();
+        }else{
+            $('#correct').hide();
+            $('#incorrect').hide();
+        }
+    })
+
+    $("#no").click(function() {
+        checkAnswer();
+        if($('#no').is(':checked') == true && $('#no').val() == dAnswer)
+        {
+            $('#correct').show();
+            $('#incorrect').hide();
+        }else if($('#no').is(':checked') == true && $('#no').val() != dAnswer){
+            $('#incorrect').show();
+            $('#correct').hide();
+        }else{
+            $('#correct').hide();
+            $('#incorrect').hide();
+        }
+    })
+</script>
+
+</html>

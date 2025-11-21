@@ -1,0 +1,41 @@
+<?php 
+
+    $response = $_POST['text'];
+    $schedulerType = $response . "";
+    // Updates the in.dat dile's first character, setting a new scheduler type
+    shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3 Write " . $schedulerType . " /var/www/projects/s22-02/html/files/p3/in.dat");
+
+    // Recalculates the output for the new scheduler type and writes the output to out.dat
+    switch ($schedulerType){
+        case 0:
+            shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3/CORE/m-001 FCFS");
+            break;
+        case 1:
+            shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3/CORE/m-002 SJF");
+            break;
+        case 2:
+            shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3/CORE/m-003 Priority");
+            break;
+        case 3:
+            shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3/CORE/m-004 Priority");
+            break;
+        case 4:
+            shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3/CORE/m-005 RR");
+            break;
+        case 5:
+            shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3/CORE/m-006 SRTF");
+            break;
+        case 6:
+            shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3/CORE/m-007 Priority");
+            break;
+        case 7:
+            shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3/CORE/m-008 Priority");
+            break;
+        default:
+            echo "Error with Scheduler Type";
+    }
+    
+    //shell_exec("java -classpath /var/www/projects/f22-02/html/cgi-bin/cpu-v3 Scheduler");
+    echo $schedulerType;
+   
+?>

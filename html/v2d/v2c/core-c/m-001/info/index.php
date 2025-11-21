@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <?php include '../../../navbar.php'; ?>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+        .lst-kix_8efkc7bh4ncz-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_8efkc7bh4ncz-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_1mwk4k99dx39-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_1mwk4k99dx39-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_8efkc7bh4ncz-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_8efkc7bh4ncz-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_8efkc7bh4ncz-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_8efkc7bh4ncz-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_1mwk4k99dx39-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_8efkc7bh4ncz-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_8efkc7bh4ncz-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_1mwk4k99dx39-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_1mwk4k99dx39-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_m8r7g8ary2a-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_m8r7g8ary2a-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_m8r7g8ary2a-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_m8r7g8ary2a-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_m8r7g8ary2a-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_m8r7g8ary2a-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_m8r7g8ary2a-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_m8r7g8ary2a-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_m8r7g8ary2a-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_9mi3ovjlmao5-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_m8r7g8ary2a-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_m8r7g8ary2a-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_m8r7g8ary2a-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_8efkc7bh4ncz-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_q9q2j86xvah1-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_1mwk4k99dx39-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_9mi3ovjlmao5-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_1mwk4k99dx39-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_1mwk4k99dx39-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_1mwk4k99dx39-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_1mwk4k99dx39-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_9mi3ovjlmao5-7>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_1mwk4k99dx39-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_1mwk4k99dx39-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_1mwk4k99dx39-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_1mwk4k99dx39-4 {
+            list-style-type: none
+        }
+
+        .lst-kix_9mi3ovjlmao5-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_9mi3ovjlmao5-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_9mi3ovjlmao5-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_9mi3ovjlmao5-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_9mi3ovjlmao5-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_9mi3ovjlmao5-4>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9mi3ovjlmao5-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_46wp0rr0b01b-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_46wp0rr0b01b-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_46wp0rr0b01b-8>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_46wp0rr0b01b-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_46wp0rr0b01b-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_8efkc7bh4ncz-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_46wp0rr0b01b-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_46wp0rr0b01b-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_46wp0rr0b01b-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_46wp0rr0b01b-4 {
+            list-style-type: none
+        }
+
+        .lst-kix_46wp0rr0b01b-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_46wp0rr0b01b-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_46wp0rr0b01b-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_46wp0rr0b01b-5 {
+            list-style-type: none
+        }
+
+        .lst-kix_46wp0rr0b01b-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_46wp0rr0b01b-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_46wp0rr0b01b-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_46wp0rr0b01b-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_46wp0rr0b01b-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_q9q2j86xvah1-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_q9q2j86xvah1-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_q9q2j86xvah1-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_q9q2j86xvah1-4>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_m8r7g8ary2a-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_m8r7g8ary2a-7 {
+            list-style-type: none
+        }
+
+        .lst-kix_q9q2j86xvah1-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_m8r7g8ary2a-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_m8r7g8ary2a-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_m8r7g8ary2a-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_m8r7g8ary2a-3 {
+            list-style-type: none
+        }
+
+        .lst-kix_q9q2j86xvah1-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_q9q2j86xvah1-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_q9q2j86xvah1-8>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_q9q2j86xvah1-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_q9q2j86xvah1-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_q9q2j86xvah1-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_q9q2j86xvah1-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_q9q2j86xvah1-5 {
+            list-style-type: none
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        .lst-kix_1mwk4k99dx39-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_1mwk4k99dx39-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_1mwk4k99dx39-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_1mwk4k99dx39-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_q9q2j86xvah1-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_q9q2j86xvah1-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_q9q2j86xvah1-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_q9q2j86xvah1-1 {
+            list-style-type: none
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c16 {
+            margin-left: 36pt;
+            padding-top: 0pt;
+            padding-left: 0pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c6 {
+            color: #0000ff;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c1 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c18 {
+            color: #ff00ff;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c9 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 16pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c19 {
+            color: #000000;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c5 {
+            color: #1155cc;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c10 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c0 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left;
+            height: 11pt
+        }
+
+        .c2 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c3 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.07;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c12 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c14 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        .c8 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c13 {
+            text-decoration-skip-ink: none;
+            -webkit-text-decoration-skip: none;
+            text-decoration: underline
+        }
+
+        .c15 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c17 {
+            font-size: 7pt
+        }
+
+        .c20 {
+            margin-left: 72pt
+        }
+
+        .c22 {
+            color: #ff00ff
+        }
+
+        .c7 {
+            page-break-after: avoid
+        }
+
+        .c23 {
+            font-weight: 700
+        }
+
+        .c4 {
+            font-style: italic
+        }
+
+        .c11 {
+            vertical-align: sub
+        }
+
+        .c21 {
+            height: 11pt
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #666666;
+            font-size: 15pt;
+            padding-bottom: 16pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; width: 100%; padding: 0; box-sizing: border-box; padding-top: 50px;">
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; margin-top: 50px; border: 2px solid #000000; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); padding: 25px;  max-width: 80%;">
+        <a class="btn btn-dark" href="javascript:history.back()" role="button">Go Back</a>
+        <div>
+            <p class="c12 c21"><span class="c1"></span></p>
+        </div>
+        <p class="c2 c7 title" id="h.xolczaxrdvja"><span class="c18"
+                style="color: green; text-decoration: underline; font-weight: bold;">A Quick Abstract:</span></p>
+        <h1 class="c2 c7" id="h.i4e569czfmn6"><span class="c10" style="font-weight: bold; font-size: 26px;>1. Introduction to FCFS:</span></h1>
+        <h2 class=" c2 c7" id="h.16tpp6k290py"><span class="c9" style="font-weight: bold; font-size: 26px;">1.
+                    Definition:</span></h2>
+                <p class="c2"><span class="c5">FCFS is a simple CPU scheduling algorithm where processes are executed in
+                        the
+                        order
+                        they arrive in the ready queue.</span></p>
+                <p class="c0"><span class="c5"></span></p>
+                <h1 class="c2 c7" id="h.7xqpsxsoh2u5"><span class="c10" style="font-weight: bold; font-size: 26px;">2.
+                        Process Arrival and Ready Queue:</span></h1>
+                <h2 class="c2 c7" id="h.abikcbpasuk6"><span class="c9" style="text-decoration: underline;">Arrival of
+                        Processes:</span></h2>
+                <p class="c2"><span class="c5">Processes are added to the ready queue as they arrive.</span></p>
+                <p class="c2"><span class="c5">The ready queue maintains the chronological order of process
+                        entry.</span></p>
+                <h1 class="c2 c7" id="h.befa6qoh4k0m"><span class="c10" style="font-weight: bold; font-size: 26px;">3.
+                        Execution and Process Selection:</span></h1>
+                <h2 class="c2 c7" id="h.n0u7tjjugox0"><span class="c9"
+                        style="text-decoration: underline;">Execution:</span></h2>
+                <p class="c0"><span class="c5"></span></p>
+                <p class="c2"><span class="c5">The CPU executes the process at the front of the ready queue.</span></p>
+                <p class="c2"><span class="c5">The selected process runs until it completes its CPU burst or is blocked
+                        by an
+                        I/O
+                        operation.</span></p>
+                <h2 class="c2 c7" id="h.7vccu07huuem"><span class="c9" style="text-decoration: underline;">Completion or
+                        Blocking:</span></h2>
+                <p class="c0"><span class="c5"></span></p>
+                <p class="c2"><span class="c5">Upon completion or blocking, the next process in the ready queue is
+                        selected for
+                        execution.</span></p>
+                <h1 class="c2 c7" id="h.zf1fzvp9yewi"><span class="c10" style="font-weight: bold; font-size: 26px;">4.
+                        Waiting Time and Turnaround Time:</span></h1>
+                <h2 class="c2 c7" id="h.adnmph3i9k29"><span class="c9" style="text-decoration: underline;">Waiting
+                        Time:</span></h2>
+                <p class="c0"><span class="c5"></span></p>
+                <p class="c2"><span class="c5">Waiting time is the total time a process spends in the ready queue before
+                        obtaining
+                        CPU time.</span></p>
+                <h2 class="c2 c7" id="h.rgb01m3nbbij"><span class="c9" style="text-decoration: underline;">Turnaround
+                        Time:</span></h2>
+                <p class="c0"><span class="c5"></span></p>
+                <p class="c2"><span class="c5">Turnaround time is the overall time taken by a process from submission to
+                        completion.</span></p>
+                <h1 class="c2 c7" id="h.b9ylt3mulqm9"><span class="c10" style="font-weight: bold; font-size: 26px;">5.
+                        Pros and Cons:</span></h1>
+                <h2 class="c2 c7" id="h.y1oqq2czmp76"><span class="c9" style="text-decoration: underline;">Pros:</span>
+                </h2>
+                <p class="c0"><span class="c5"></span></p>
+                <p class="c2"><span class="c5">FCFS is simple and easy to understand.</span></p>
+                <p class="c2"><span class="c5">It avoids starvation, ensuring every process eventually gets CPU
+                        time.</span></p>
+                <h2 class="c2 c7" id="h.3ydaafb6l4kt"><span class="c9" style="text-decoration: underline;">Cons:</span>
+                </h2>
+                <p class="c0"><span class="c5"></span></p>
+                <p class="c2"><span class="c5">The &quot;convoy effect&quot; may occur, where shorter processes are
+                        delayed
+                        behind
+                        longer ones.</span></p>
+                <h1 class="c2 c7" id="h.9l4an99gvsrd"><span class="c10" style="font-weight: bold; font-size: 26px;">6.
+                        Starvation:</span></h1>
+                <p class="c2"><span class="c5">While FCFS prevents starvation, it lacks prioritization based on process
+                        characteristics. Long processes can dominate the CPU, causing shorter processes to wait.</span>
+                </p>
+                <h1 class="c2 c7" id="h.jhqhfngrdyb"><span class="c10" style="font-weight: bold; font-size: 26px;">7.
+                        Example Scenario:</span></h1>
+                <p class="c2"><span class="c5">Consider three processes, A, B, and C, arriving in that order. If A
+                        starts
+                        execution
+                        first, B and C will have to wait until A completes.</span></p>
+                <h1 class="c2 c7" id="h.1fh2fjxem4xv"><span class="c10" style="font-weight: bold; font-size: 26px;">8.
+                        Conclusion:</span></h1>
+                <p class="c2"><span class="c5">In conclusion, FCFS is a foundational scheduling algorithm, offering
+                        simplicity
+                        and
+                        fairness. However, its straightforward nature may not always be optimal for minimizing waiting
+                        times or
+                        maximizing system throughput.</span></p>
+                <p class="c0"><span class="c6"></span></p>
+                <p class="c2 c7 title" id="h.k9yx1qn2abhs"><span class="c22"
+                        style="color: maroon; text-decoration: underline; font-weight: bold; text-align: left;">Notes
+                        From The Slides</span><span class="c18">:</span>
+                    <br>
+                    <br>
+                </p>
+                <p class="c0"><span class="c19"></span></p>
+                <p class="c2"><span class="c19">First- Come, First-Served (FCFS) Scheduling</span></p>
+                <p class="c2"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp;
+                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                        class="c13">Process</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                        class="c13">Burst Time</span><span class="c1">&nbsp; &nbsp; &nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                <p class="c2"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp;
+                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>P</span><span
+                        class="c11">1</span><span class="c1">&nbsp; &nbsp; &nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24</span>
+                </p>
+                <p class="c2"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp;
+                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P</span><span
+                        class="c11">2</span><span class="c1">&nbsp; &nbsp; &nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3</span>
+                </p>
+                <p class="c2"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp;
+                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P</span><span
+                        class="c11">3</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3</span>
+                </p>
+                <p class="c3"><span>Suppose that the processes arrive in the order: </span><span
+                        class="c4">P</span><span class="c4 c11">1</span><span>&nbsp;, </span><span
+                        class="c4">P</span><span class="c4 c11">2</span><span>&nbsp;, </span><span
+                        class="c4">P</span><span class="c4 c11 c14">3 </span>
+                </p>
+                <p class="c12"><span class="c1">The Gantt Chart for the schedule is:</span></p>
+                <p class="c12"><span
+                        style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 72.00px;"><img
+                            alt="" src="images/image2.png"
+                            style="width: 624.00px; height: 72.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title=""></span></p>
+                <ul class="c15 lst-kix_46wp0rr0b01b-0 start">
+                    <li class="c16 li-bullet-0"><span>Waiting time for </span><span class="c4">P</span><span
+                            class="c4 c11">1</span><span>&nbsp; = 0; </span><span class="c4">P</span><span
+                            class="c4 c11">2</span><span>&nbsp; = 24; </span><span class="c4">P</span><span
+                            class="c4 c11">3
+                        </span><span class="c1">= 27</span></li>
+                    <li class="c16 li-bullet-0"><span class="c1">Average waiting time: &nbsp;(0 + 24 + 27)/3 = 17</span>
+                    </li>
+                </ul>
+                <p class="c2"><span class="c1">&nbsp;</span></p>
+                <p class="c2"><span class="c1">Suppose that the processes arrive in the order:</span></p>
+                <p class="c2"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp;
+                        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                        class="c4">P</span><span class="c4 c11">2</span><span>&nbsp;, </span><span
+                        class="c4">P</span><span class="c4 c11">3</span><span>&nbsp;, </span><span
+                        class="c4">P</span><span class="c14 c4 c11">1</span>
+                </p>
+                <ul class="c15 lst-kix_m8r7g8ary2a-0 start">
+                    <li class="c16 li-bullet-0"><span class="c1">The Gantt chart for the schedule is:</span></li>
+                </ul>
+                <p class="c12"><span
+                        style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 70.67px;"><img
+                            alt="" src="images/image1.png"
+                            style="width: 624.00px; height: 70.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                            title=""></span></p>
+                <ul class="c15 lst-kix_1mwk4k99dx39-0 start">
+                    <li class="c16 li-bullet-0"><span>Waiting time for </span><span class="c4">P</span><span
+                            class="c4 c11">1
+                        </span><span class="c4">=</span><span>&nbsp;6</span><span class="c4">;</span><span
+                            class="c4 c11">&nbsp;</span><span class="c4">P</span><span
+                            class="c4 c11">2</span><span>&nbsp;=
+                            0</span><span class="c4 c11">; </span><span class="c4">P</span><span class="c4 c11">3
+                        </span><span class="c4">= </span><span class="c1">3</span></li>
+                    <li class="c16 li-bullet-0"><span class="c1">Average waiting time: &nbsp; (6 + 0 + 3)/3 = 3</span>
+                    </li>
+                    <li class="c16 li-bullet-0"><span class="c1">Much better than previous case</span></li>
+                    <li class="c16 li-bullet-0"><span class="c23">Convoy effect </span><span class="c1">- short process
+                            behind
+                            long
+                            process</span></li>
+                </ul>
+                <p class="c2 c20"><span>&bull;</span><span class="c17">&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c1">Consider one
+                        CPU-bound and
+                        many I/O-bound processes</span></p>
+                <p class="c2"><span class="c1">&nbsp;</span></p>
+</body>
+
+<footer style="background-color: #f2f2f2; padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+    <p style="color: green;">Most of the content on this page is based on the OS Book 10. It can be found at 
+        <a href="https://www.os-book.com/" target="_blank" style="color: green;">www.os-book.com</a>.
+    </p>
+</footer>
+
+</html>

@@ -1,0 +1,24 @@
+
+
+.fraction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+/* START -- BUTTON STYLES */
+input[type="button"] {
+    margin: 10px 3px;
+    padding: 6px 11px;
+
+    text-decoration: solid;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.secondarycontrols input[type="button"] {
+    color: #fff;
+    background-color: orange;
+    border-color: orange;
+}
