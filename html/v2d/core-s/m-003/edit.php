@@ -4,9 +4,10 @@
 $mid = '003';
 $path = realpath("../../../files/core-s/m-$mid");
 
-$output = file_get_contents("$path/out-$mid.dat");
-$input = file_get_contents("$path/in-$mid.dat");
-$format = file_get_contents("$path/format-$mid.txt");
+$mid_padded = str_pad($mid, 3, '0', STR_PAD_LEFT);
+$output = file_get_contents("$path/out-$mid_padded.dat");
+$input = file_get_contents("$path/in-$mid_padded.dat");
+$format = file_get_contents("$path/format-$mid_padded.txt");
 
 $saveMessage = '';
 
@@ -15,12 +16,12 @@ if (isset($_POST['submit'])) {
     //When we write the user's input and output data, we also declare variables to be used in the SQL query below
 
     //write user's input data to the input file
-    $filenameIN = "$path/in-$mid.dat";
+    $filenameIN = "$path/in-$mid_padded.dat";
     $newDataIN = $_POST['input'];
     file_put_contents($filenameIN, $newDataIN);
 
     //write user's output data to the output file
-    $filenameOUT = "$path/out-$mid.dat";
+    $filenameOUT = "$path/out-$mid_padded.dat";
     $newDataOUT = $_POST['output'];
     file_put_contents($filenameOUT, $newDataOUT);
 
@@ -52,12 +53,12 @@ if (isset($_POST['submit'])) {
         chown($submission_path, 'nobody');
 
         // Copy the user's input and output to the new folder
-        copy($filenameIN, "$submission_path/in-$mid.dat");
-        copy($filenameOUT, "$submission_path/out-$mid.dat");
+        copy($filenameIN, "$submission_path/in-$mid_padded.dat");
+        copy($filenameOUT, "$submission_path/out-$mid_padded.dat");
 
         // update the filenameIN and filenameOUT to the new paths
-        $filenameIN = "$submission_path/in-$mid.dat";
-        $filenameOUT = "$submission_path/out-$mid.dat";
+        $filenameIN = "$submission_path/in-$mid_padded.dat";
+        $filenameOUT = "$submission_path/out-$mid_padded.dat";
 
         // Create a submission query to edit the submission with the new paths
         $submission_update = "UPDATE submissions SET input_path='$filenameIN', output_path='$filenameOUT' WHERE submission_id=$submission_id;";

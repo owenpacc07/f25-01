@@ -4,9 +4,10 @@
 $mid = '013';
 $path = realpath("../../../files/core-s/m-$mid");
 
-$output = file_get_contents("$path/out-$mid.dat");
-$input = file_get_contents("$path/in-$mid.dat");
-$format = file_get_contents("$path/format-$mid.txt");
+$mid_padded = str_pad($mid, 3, '0', STR_PAD_LEFT);
+$output = file_get_contents("$path/out-$mid_padded.dat");
+$input = file_get_contents("$path/in-$mid_padded.dat");
+$format = file_get_contents("$path/format-$mid_padded.txt");
 
 $saveMessage = '';
 
@@ -72,12 +73,12 @@ if (isset($_POST['submit'])) {
     //When we write the user's input and output data, we also declare variables to be used in the SQL query below
 
     //write user's input data to the input file
-    $filenameIN = "$path/in-$mid.dat";
+    $filenameIN = "$path/in-$mid_padded.dat";
     $newDataIN = $_POST['input'];
     file_put_contents($filenameIN, $newDataIN);
 
     //write user's output data to the output file
-    $filenameOUT = "$path/out-$mid.dat";
+    $filenameOUT = "$path/out-$mid_padded.dat";
     $newDataOUT = $_POST['output'];
     file_put_contents($filenameOUT, $newDataOUT);
 
