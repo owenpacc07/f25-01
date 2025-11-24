@@ -25,7 +25,6 @@ if (!isset($_SESSION['log_messages'])) {
 
 $_SESSION['log_messages'][] = "DEBUG edit.php - MID: $mid, MID_PADDED: $mid_padded, USER: $user, SESSION_KEY: $session_key";
 
-// Get submission_id from session (should already exist from homepage)
 
 // Always use session variable for submission_id
 if (!isset($_SESSION[$session_key])) {
@@ -66,10 +65,12 @@ if ($_SESSION[$session_key]) {
             }
             $_SESSION['log_messages'][] = "DEBUG edit.php - Fixed incomplete paths with base: $base";
         }
+        // Store the full submission array in session for this user and mechanism
+        $_SESSION["submission_data_m{$mid_padded}_uid{$user}"] = $submission;
     }
 }
 
-// Load data ONLY from submission files (don't fall back to v2 defaults)
+// Load data from submission files
 $input = '';
 $output = '';
 $format = '';
@@ -89,7 +90,7 @@ if ($submission) {
     $inputSource = 'UNKNOWN';
     $outputSource = 'UNKNOWN';
 
-    // Use only PADDED file names (e.g., 001)
+    // Use PADDED file names (e.g., 001)
     if (file_exists($inPadPath) && filesize($inPadPath) > 0) {
         $input = file_get_contents($inPadPath);
         $inputSource = $inPadPath;
@@ -106,15 +107,24 @@ if ($submission) {
         $outputSource = 'MISSING';
     }
 
-    // Ensure input has data; WRITE PADDED ONLY
+    // Ensure input has data;
     if (empty(trim($input))) {
-        $input = "1 0 7 1\n2 2 4 2\n3 4 1 3";
-        @file_put_contents($inPadPath, $input);
-        $inputSource = 'DEFAULT_SEEDED';
-        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded default INPUT to $inPadPath";
+        $coreDefaultDir = realpath("../../../files/core-s/m-$mid_padded");
+        $coreIn = $coreDefaultDir ? ($coreDefaultDir . "/in-$mid_padded.dat") : null;
+        if ($coreIn && file_exists($coreIn) && filesize($coreIn) > 0) {
+            $input = file_get_contents($coreIn);
+            $inputSource = "CORE_DEFAULT:$coreIn";
+            @file_put_contents($inPadPath, $input);
+            $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded INPUT from {$inputSource} to $inPadPath";
+        } else {
+            $input = '';
+            $inputSource = 'STUB_EMPTY';
+            @file_put_contents($inPadPath, $input);
+            $_SESSION['log_messages'][] = "DEBUG edit.php - No core default input found, seeded empty INPUT to $inPadPath";
+        }
     }
 
-    // Ensure output has data; seed from core default; WRITE PADDED ONLY
+    // Ensure output has data; seed from core default if missing
     if (empty(trim($output))) {
         $coreDefaultDir = realpath("../../../files/core-s/m-$mid_padded");
         $coreOut = $coreDefaultDir ? ($coreDefaultDir . "/out-$mid_padded.dat") : null;
@@ -144,10 +154,9 @@ if ($submission) {
     $_SESSION['log_messages'][] = "DEBUG edit.php - Output content length: " . strlen($output);
 } else {
     $_SESSION['log_messages'][] = "DEBUG edit.php - NO SUBMISSION FOUND - Please create a submission first";
-    // Don't load any default data - force user to create submission
 }
 
-// Load format from v2c format files (these are read-only reference files)
+// Load format from format files (these are read-only reference files)
 $format_path = realpath("../../../files/core-s/m-$mid_padded");
 if (!$format_path) {
     $format_path = realpath("../../files/core-s/m-$mid_padded");
@@ -157,55 +166,11 @@ if ($format_path) {
     $format_file = $format_path . "/format-$mid_padded.txt";
     if (file_exists($format_file)) {
         $format = file_get_contents($format_file);
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Format loaded from: $format_file";
     } else {
-        // Detailed default FCFS format fallback
-        $format = "Mechanism = FCFS (Non-Preemptive) CPU Scheduling
-
-INPUT data in \"in.dat\"
-------------------------------------------------------------------------
-1 0 7 1//       ID: 1    Arrival: 0     Burst: 10  Priority: 1
-2 1 2 1//       ID: 2    Arrival: 2     Burst: 6   Priority: 1
-3 2 5 0//       ID: 3    Arrival: 1     Burst: 2   Priority: 0
-4 3 4 3//       ID: 4    Arrival: 7     Burst: 1   Priority: 3
-------------------------------------------------------------------------
-
-OUTPUT data in \"out.dat\"
-THE DETAILED TABLE IS LIMITED TO 4 PROCESSES ONLY
------------------------
-1,0,7       // ID: 1   Start: 0   End: 7
-2,7,9       // ID: 2   Start: 7   End: 9
-3,9,14      // ID: 3   Start: 9   End: 14
-4,14,18     // ID: 4   Start: 14  End: 18
-
-
-CURRENT_TIME, P1_BURST_TIME_REMAINING, P2_BURST_TIME_REMAINING, P3_BURST_TIME_REMAINING, P4_BURST_TIME_REMAINING, CURRENT_PROCESS_HELD_BY_CPU, P1_WAITING_TIME,P2_WAITING_TIME, P3_WAITING_TIME,P4_WAITING_TIME,QUEUE (space separated)
-- : indicates the process has not yet arrived
-0,10,-,-,-,1,0,-,-,-,1 
-1,9,2,-,-,1,0,0,-,-,2 
-2,8,2,5,-,1,0,1,0,-,2 3 
-3,7,2,5,4,1,0,2,1,0,2 3 4 
-4,6,2,5,4,1,0,3,2,1,2 3 4 
-5,5,2,5,4,1,0,4,3,2,2 3 4 
-6,4,2,5,4,1,0,5,4,3,2 3 4 
-7,3,2,5,4,1,0,6,5,4,2 3 4 
-8,2,2,5,4,1,0,7,6,5,2 3 4 
-9,1,2,5,4,1,0,8,7,6,2 3 4 
-10,0,2,5,4,1,0,9,8,7,2 3 4 
-11,0,1,5,4,2,0,9,9,8,3 4 
-12,0,0,5,4,2,0,9,10,9,3 4 
-13,0,0,4,4,3,0,9,10,10,4 
-14,0,0,3,4,3,0,9,10,11,4 
-15,0,0,2,4,3,0,9,10,12,4 
-16,0,0,1,4,3,0,9,10,13,4 
-17,0,0,0,4,3,0,9,10,14,4 
-18,0,0,0,3,4,0,9,10,14,
-19,0,0,0,2,4,0,9,10,14,
-20,0,0,0,1,4,0,9,10,14,
-21,0,0,0,0,4,0,9,10,14,
-
-------------------------";
+        $format = '';
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Format file missing: $format_file (no fallback used)";
     }
-    $_SESSION['log_messages'][] = "DEBUG edit.php - Format loaded from: " . ($format_file ?? 'fallback');
 } else {
     $format = 'Format directory not found';
     $_SESSION['log_messages'][] = "DEBUG edit.php - Format directory not found: ../../../files/core-s/m-' . $mid_padded";
@@ -722,7 +687,7 @@ class Result {
 
         function executeJavaCode() {
             const javaCode = document.getElementById('javaCode').value;
-            // Remove the input content sending - just like v2
+            // Remove the input content sending
             const outputDiv = document.getElementById('javaOutput');
             
             if (!javaCode.trim()) {
@@ -739,7 +704,7 @@ class Result {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                // Only send Java code, not input content - just like v2
+                // Only send Java code, not input content
                 body: 'action=execute_java&java_code=' + encodeURIComponent(javaCode)
             })
             .then(response => {

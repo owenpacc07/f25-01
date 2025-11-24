@@ -1,142 +1,349 @@
 <?php
 
-// the path to the in/out directory
-
-$mid = '033';
+$mid = basename(dirname(__FILE__));
+$mid = str_replace('m-', '', $mid);
+$mid = (int)$mid;
 $mid_padded = str_pad($mid, 3, '0', STR_PAD_LEFT);
-$path = realpath("../../../files/core-s/m-$mid_padded");
 
-$output = file_get_contents("$path/out-$mid_padded.dat");
-$input = file_get_contents("$path/in-$mid_padded.dat");
-$format = file_get_contents("$path/format-$mid_padded.txt");
+require_once './../../config.php';
+session_start();
+
+if (!isset($_SESSION['userid'])) {
+    header('Location: ./../../login.php');
+    exit();
+}
+
+$user = $_SESSION['userid'];
+
+// Session key for persistent submission tracking
+$session_key = "submission_m{$mid_padded}_uid{$user}";
+
+// Debug logging
+if (!isset($_SESSION['log_messages'])) {
+    $_SESSION['log_messages'] = [];
+}
+
+$_SESSION['log_messages'][] = "DEBUG edit.php - MID: $mid, MID_PADDED: $mid_padded, USER: $user, SESSION_KEY: $session_key";
+
+
+// Always use session variable for submission_id
+if (!isset($_SESSION[$session_key])) {
+    $_SESSION[$session_key] = null;
+}
+
+// Use session variable directly
+$submission_id = &$_SESSION[$session_key];
+
+$_SESSION['log_messages'][] = "DEBUG edit.php - Retrieved submission_id: " . ($submission_id ?? 'NULL');
+
+// Verify and load submission
+$submission = null;
+if ($_SESSION[$session_key]) {
+    $submission_query = "SELECT input_path, output_path FROM submissions WHERE submission_id = ? AND user_id = ?";
+    $stmt = mysqli_prepare($link, $submission_query);
+    mysqli_stmt_bind_param($stmt, "ii", $submission_id, $user);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $submission = mysqli_fetch_assoc($result);
+    
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Submission query result: " . json_encode($submission);
+    
+    if (!$submission) {
+        // Submission doesn't exist, clear session
+        $_SESSION[$session_key] = null;
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Submission not found in database, cleared session";
+    } else {
+        // Fix incomplete paths if they don't start with /
+        if ($submission['input_path'] && strpos($submission['input_path'], '/') !== 0) {
+            $submissions_base = realpath("../../../files/submissions/") ?: "../../../files/submissions";
+            $base = rtrim($submissions_base, '/\\');
+            $inpRel = ltrim($submission['input_path'], '/\\');
+            $outRel = ltrim($submission['output_path'] ?? '', '/\\');
+            $submission['input_path'] = $base . DIRECTORY_SEPARATOR . $inpRel;
+            if ($outRel !== '') {
+                $submission['output_path'] = $base . DIRECTORY_SEPARATOR . $outRel;
+            }
+            $_SESSION['log_messages'][] = "DEBUG edit.php - Fixed incomplete paths with base: $base";
+        }
+        // Store the full submission array in session for this user and mechanism
+        $_SESSION["submission_data_m{$mid_padded}_uid{$user}"] = $submission;
+    }
+}
+
+// Load data from submission files
+$input = '';
+$output = '';
+$format = '';
+
+if ($submission) {
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Loading from submission paths:";
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Input path: " . $submission['input_path'];
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Output path: " . $submission['output_path'];
+
+    $subDir = dirname($submission['input_path']) . '/';
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Using submission folder: $subDir";
+
+    $inPadPath = $subDir . "in-$mid_padded.dat";
+    $outPadPath= $subDir . "out-$mid_padded.dat";
+
+    // Track sources for debug
+    $inputSource = 'UNKNOWN';
+    $outputSource = 'UNKNOWN';
+
+    // Use PADDED file names (e.g., 001)
+    if (file_exists($inPadPath) && filesize($inPadPath) > 0) {
+        $input = file_get_contents($inPadPath);
+        $inputSource = $inPadPath;
+    } else {
+        $input = '';
+        $inputSource = 'MISSING';
+    }
+
+    if (file_exists($outPadPath) && filesize($outPadPath) > 0) {
+        $output = file_get_contents($outPadPath);
+        $outputSource = $outPadPath;
+    } else {
+        $output = '';
+        $outputSource = 'MISSING';
+    }
+
+    // Ensure input has data;
+    if (empty(trim($input))) {
+        $coreDefaultDir = realpath("../../../files/core-s/m-$mid_padded");
+        $coreIn = $coreDefaultDir ? ($coreDefaultDir . "/in-$mid_padded.dat") : null;
+        if ($coreIn && file_exists($coreIn) && filesize($coreIn) > 0) {
+            $input = file_get_contents($coreIn);
+            $inputSource = "CORE_DEFAULT:$coreIn";
+            @file_put_contents($inPadPath, $input);
+            $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded INPUT from {$inputSource} to $inPadPath";
+        } else {
+            $input = '';
+            $inputSource = 'STUB_EMPTY';
+            @file_put_contents($inPadPath, $input);
+            $_SESSION['log_messages'][] = "DEBUG edit.php - No core default input found, seeded empty INPUT to $inPadPath";
+        }
+    }
+
+    // Ensure output has data; seed from core default if missing
+    if (empty(trim($output))) {
+        $coreDefaultDir = realpath("../../../files/core-s/m-$mid_padded");
+        $coreOut = $coreDefaultDir ? ($coreDefaultDir . "/out-$mid_padded.dat") : null;
+        if ($coreOut && file_exists($coreOut) && filesize($coreOut) > 0) {
+            $output = file_get_contents($coreOut);
+            $outputSource = "CORE_DEFAULT:$coreOut";
+        } else {
+            $output = "Type of Scheduler: First Come First Serve(Non-Preemptive)\nNumber of Processes: 0";
+            $outputSource = 'STUB_SEEDED';
+        }
+        @file_put_contents($outPadPath, $output);
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Seeded OUTPUT from {$outputSource} to $outPadPath";
+    }
+
+    // Final concise source summary + previews
+    $_SESSION['log_messages'][] = "DEBUG edit.php - INPUT source: $inputSource";
+    $_SESSION['log_messages'][] = "DEBUG edit.php - OUTPUT source: $outputSource";
+    $inSize = strlen($input);
+    $outSize = strlen($output);
+    $inPreview  = addslashes(substr($input, 0, 120));
+    $outPreview = addslashes(substr($output, 0, 120));
+    $_SESSION['log_messages'][] = "DEBUG edit.php - INPUT size: {$inSize}, preview: {$inPreview}";
+    $_SESSION['log_messages'][] = "DEBUG edit.php - OUTPUT size: {$outSize}, preview: {$outPreview}";
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Input(padded) exists: " . (file_exists($inPadPath) ? 'YES' : 'NO');
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Output(padded) exists: " . (file_exists($outPadPath) ? 'YES' : 'NO');
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Input content length: " . strlen($input);
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Output content length: " . strlen($output);
+} else {
+    $_SESSION['log_messages'][] = "DEBUG edit.php - NO SUBMISSION FOUND - Please create a submission first";
+}
+
+// Load format from format files (these are read-only reference files)
+$format_path = realpath("../../../files/core-s/m-$mid_padded");
+if (!$format_path) {
+    $format_path = realpath("../../files/core-s/m-$mid_padded");
+}
+if ($format_path) {
+    // Use padded file name, e.g., format-001.txt
+    $format_file = $format_path . "/format-$mid_padded.txt";
+    if (file_exists($format_file)) {
+        $format = file_get_contents($format_file);
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Format loaded from: $format_file";
+    } else {
+        $format = '';
+        $_SESSION['log_messages'][] = "DEBUG edit.php - Format file missing: $format_file (no fallback used)";
+    }
+} else {
+    $format = 'Format directory not found';
+    $_SESSION['log_messages'][] = "DEBUG edit.php - Format directory not found: ../../../files/core-s/m-' . $mid_padded";
+}
 
 $saveMessage = '';
 
-// Handle Java code execution via AJAX
 if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
-    require_once './../../config.php';
-    session_start();
-    $user = $_SESSION['userid'];
-    
-    $javaCode = $_POST['java_code'] ?? '';
-    $fileName = 'Main.java';
-    
-    // Get mechanism_id
-    $mechanism = mysqli_fetch_all(mysqli_query($link, "select mechanism_id from mechanisms where client_code=$mid"))[0][0];
-    
-    // Find the most recent submission for this user and mechanism, or create temp directory
-    $result = mysqli_query($link, "SELECT submission_id FROM submissions WHERE user_id=$user AND mechanism_id=$mechanism ORDER BY submission_id DESC LIMIT 1");
-    
-    if ($result && mysqli_num_rows($result) > 0) {
-        $submission_id = mysqli_fetch_row($result)[0];
-        $subDir = realpath("../../../files/submissions/") . "/{$submission_id}_{$mechanism}_{$user}/";
-    } else {
-        // Create temporary directory if no submission exists yet
-        $subDir = realpath("../../../files/submissions/") . "/temp_{$mechanism}_{$user}/";
-        if (!is_dir($subDir)) {
-            mkdir($subDir, 0770, true);
+    ob_start();
+    try {
+        if (!isset($_SESSION['userid'])) {
+            ob_end_clean();
+            $response = ['success' => false, 'output' => 'Error: User not logged in'];
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
         }
+        
+        $javaCode = $_POST['java_code'] ?? '';
+        if (!$javaCode) throw new Exception("No Java code provided");
+        
+        if (!$_SESSION[$session_key]) throw new Exception("No active submission. Please use 'Make a Submission' button.");
+        
+        // Get submission folder
+        $submission_query = "SELECT input_path FROM submissions WHERE submission_id = ? AND user_id = ?";
+        $stmt = mysqli_prepare($link, $submission_query);
+        mysqli_stmt_bind_param($stmt, "ii", $_SESSION[$session_key], $user);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $sub_data = mysqli_fetch_assoc($result);
+        
+        if (!$sub_data) throw new Exception("Submission not found");
+        
+        $subDir   = dirname($sub_data['input_path']) . '/';
+        $inPadPath  = $subDir . "in-$mid_padded.dat";
+        $outPadPath = $subDir . "out-$mid_padded.dat";
+
+        // Write current textarea input to PADDED only
+        $inputContent = $_POST['input_content'] ?? '';
+        if (empty(trim($inputContent))) {
+            $inputContent = "1 0 7 1\n2 2 4 2\n3 4 1 3";
+        }
+        @file_put_contents($inPadPath, $inputContent);
+
+        // Compile in submission dir
+        $javaCode = $_POST['java_code'] ?? '';
+        if (!$javaCode) throw new Exception("No Java code provided");
+        $fileName = 'Main.java';
+        file_put_contents($subDir . $fileName, $javaCode);
+        $compileCmd = "cd " . escapeshellarg($subDir) . " && javac " . escapeshellarg($fileName) . " 2>&1";
+        $compileOutput = shell_exec($compileCmd);
+
+        $response = [];
+        if (empty($compileOutput) || strpos($compileOutput, 'error') === false) {
+            // Run with PADDED input
+            $inputArg = escapeshellarg("in-$mid_padded.dat");
+            $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java Main " . $inputArg . " 2>&1";
+            $runOutput = shell_exec($runCmd);
+
+            // Append input preview
+            $inputFileBasename = basename($inPadPath);
+            $inputFileContentsEcho = file_exists($inPadPath) ? file_get_contents($inPadPath) : '(input file not found)';
+            $runOutput .= "\n\n--- Input File Used: $inputFileBasename ---\n" . $inputFileContentsEcho;
+
+            // Read output back from PADDED only
+            $fileOutput = '';
+            if (file_exists($outPadPath) && filesize($outPadPath) > 0) {
+                $fileOutput = file_get_contents($outPadPath);
+                $runOutput .= "\n\n--- Output File Contents ---\n" . $fileOutput;
+            }
+
+            // ================================
+            // NEW: Mirror in/out into core-s
+            // ================================
+            $coreDir = realpath("../../../files/core-s/m-$mid_padded");
+            if (!$coreDir) {
+                // fallback in case relative path is different
+                $coreDir = realpath("../../files/core-s/m-$mid_padded");
+            }
+
+            if ($coreDir) {
+                // Mirror INPUT used
+                if (file_exists($inPadPath)) {
+                    $coreInputText = file_get_contents($inPadPath);
+                    @file_put_contents($coreDir . "/in-$mid_padded.dat", $coreInputText);
+                }
+
+                // Mirror OUTPUT produced (if any)
+                if ($fileOutput !== '') {
+                    @file_put_contents($coreDir . "/out-$mid_padded.dat", $fileOutput);
+                }
+            }
+
+            $_SESSION['log_messages'][] = "DEBUG edit.php - Appended input file ($inputFileBasename) contents to run output (length " . strlen($inputFileContentsEcho) . ")";
+            $response = [
+                'success' => true,
+                'output' => $runOutput ?: 'Program executed successfully with no output.',
+                'path' => $subDir,
+                'submission_id' => $_SESSION[$session_key]
+            ];
+        } else {
+            $response = ['success' => false, 'output' => $compileOutput];
+        }
+        
+        ob_end_clean();
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+        
+    } catch (Exception $e) {
+        ob_end_clean();
+        $response = ['success' => false, 'output' => 'Exception: ' . $e->getMessage()];
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
     }
-    
-    // Save Java file
-    $javaFilePath = $subDir . $fileName;
-    file_put_contents($javaFilePath, $javaCode);
-    
-    // Compile Java code
-    $className = pathinfo($fileName, PATHINFO_FILENAME);
-    $compileCmd = "cd " . escapeshellarg($subDir) . " && javac " . escapeshellarg($fileName) . " 2>&1";
-    $compileOutput = shell_exec($compileCmd);
-    
-    $response = [];
-    if (empty($compileOutput) || strpos($compileOutput, 'error') === false) {
-        // Execute Java code with timeout
-        $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java " . escapeshellarg($className) . " 2>&1";
-        $runOutput = shell_exec($runCmd);
-        $response = [
-            'success' => true,
-            'output' => $runOutput ?: 'Program executed successfully with no output.',
-            'path' => $subDir
-        ];
-    } else {
-        $response = [
-            'success' => false,
-            'output' => $compileOutput
-        ];
-    }
-    
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit;
 }
+
+$saveMessage = '';
 
 if (isset($_POST['submit'])) {
 
-    //When we write the user's input and output data, we also declare variables to be used in the SQL query below
+    // ?? 1) If user clicked "Proceed to View", DO NOT SAVE ANYTHING
+    if ($_POST['submit'] === 'proceed') {
+        // Just go back to the mechanism viewer page
+        header("Location: ./");
+        exit();
+    }
 
-    //write user's input data to the input file
-    $filenameIN = "$path/in-$mid_padded.dat";
-    $newDataIN = $_POST['input'];
-    file_put_contents($filenameIN, $newDataIN);
+    // ?? 2) Otherwise (e.g. "save"), do the normal save logic
+    try {
+            if (!$_SESSION[$session_key]) {
+                throw new Exception("No active submission. Please use 'Make a Submission' button on the homepage.");
+        }
+        
+        // Get submission folder
+        $submission_query = "SELECT input_path FROM submissions WHERE submission_id = ? AND user_id = ?";
+        $stmt = mysqli_prepare($link, $submission_query);
+        mysqli_stmt_bind_param($stmt, "ii", $_SESSION[$session_key], $user);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $sub_data = mysqli_fetch_assoc($result);
+        
+        if (!$sub_data) throw new Exception("Submission not found");
+        
+        $subDir = dirname($sub_data['input_path']) . '/';
 
-    //write user's output data to the output file
-    $filenameOUT = "$path/out-$mid_padded.dat";
-    $newDataOUT = $_POST['output'];
-    file_put_contents($filenameOUT, $newDataOUT);
+        // 1) WRITE TO SUBMISSION FOLDER
+        $inputText  = $_POST['input']  ?? '';
+        $outputText = $_POST['output'] ?? '';
 
-    // Include the 'config.php' file to establish a database connection
-    require_once './../../config.php';
-    // Start a new session
-    session_start();
-    // Get the user ID from the session
-    $user = $_SESSION['userid'];
-    
-    //Query the database "mechanisms" table to get the mechanism_id from the client code, which is $mid
-    $mechanism = mysqli_fetch_all(mysqli_query($link, "select mechanism_id from mechanisms where client_code=$mid"))[0][0];
-   
-    // Declare the restrict_view variable
-    $restrict_view = 1;
-    
-    // Get the code file path
-    $codeFilePath = realpath("../../../cgi-bin/core-s/m-$mid/");
-    
-    // Create a submission query to send to the database
-    $submission_insert = "INSERT INTO submissions (mechanism_id, user_id, input_path, output_path, code_path, restrict_view) VALUES ($mechanism, $user,'$filenameIN','$filenameOUT','$codeFilePath', $restrict_view);";
+        @file_put_contents($subDir . "in-$mid_padded.dat",  $inputText);
+        @file_put_contents($subDir . "out-$mid_padded.dat", $outputText);
 
-    // Send the submission query to the database, redirect user to submission page if successful
-    if (mysqli_query($link, $submission_insert)) {
-        // Create a new folder in the submissions directory to store the user's input and output
-        $submission_id = mysqli_insert_id($link);
-        $submission_path = "../../../files/submissions/" . $submission_id . "_" . $mechanism . "_" . $user;
-        mkdir($submission_path, 0770);
-        chown($submission_path, 'nobody');
-
-        // Copy the user's input and output to the new folder
-        copy($filenameIN, "$submission_path/in-$mid_padded.dat");
-        copy($filenameOUT, "$submission_path/out-$mid_padded.dat");
-
-        // update the filenameIN and filenameOUT to the new paths
-        $filenameIN = "$submission_path/in-$mid_padded.dat";
-        $filenameOUT = "$submission_path/out-$mid_padded.dat";
-
-        // Create a submission query to edit the submission with the new paths
-        $submission_update = "UPDATE submissions SET input_path='$filenameIN', output_path='$filenameOUT' WHERE submission_id=$submission_id;";
-        mysqli_query($link, $submission_update);
-
-        // Check which button was clicked
-        if ($_POST['submit'] === 'proceed') {
-            // Redirect the user to view and run page for the mechanism
-            header("Location: ./");
-            exit();
-        } else {
-            // Save Data button - stay on page and show success message
-            $saveMessage = '<div class="alert alert-success text-center" role="alert">Data saved successfully!</div>';
-            // Reload the saved data
-            $output = file_get_contents("$path/out-$mid.dat");
-            $input = file_get_contents("$path/in-$mid.dat");
+        // 2) ALSO WRITE TO CORE-S MECHANISM FOLDER (GLOBAL)
+        $coreDir = realpath("../../../files/core-s/m-$mid_padded");
+        if (!$coreDir) {
+            $coreDir = realpath("../../files/core-s/m-$mid_padded");
         }
 
-    } else {
-        $saveMessage = '<div class="alert alert-danger text-center" role="alert">Error: ' . mysqli_error($link) . '</div>';
+        if ($coreDir) {
+            @file_put_contents($coreDir . "/in-$mid_padded.dat", $inputText);
+            @file_put_contents($coreDir . "/out-$mid_padded.dat", $outputText);
+        }
+
+        // Only "save" comes here, so show the success message and stay on page
+        $saveMessage = '<div class="alert alert-success text-center" role="alert">Data saved to submission #' . $_SESSION[$session_key] . '!<\/div>';
+        // Reload from submission folder
+        $input  = file_get_contents($subDir . "in-$mid_padded.dat");
+        $output = file_get_contents($subDir . "out-$mid_padded.dat");
+
+    } catch (Exception $e) {
+        $saveMessage = '<div class="alert alert-danger text-center" role="alert">Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
     }
 }
 
@@ -147,7 +354,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>001 Edit Data</title>
+    <title>M-<?php echo $mid; ?> Edit Data</title>
     <link rel="icon" href="/p/s23-01/files/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -322,13 +529,6 @@ if (isset($_POST['submit'])) {
             color: #51cf66;
         }
         
-        .java-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            justify-content: center;
-        }
-        
         /* Alert message styling */
         .alert {
             margin: 20px auto;
@@ -353,13 +553,9 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <?php 
-        include '../../navbar.php'; 
-    ?>
+    <?php include '../../navbar.php'; ?>
     
-    <br>
-    <br>
-    <br>
+    <br><br><br>
     
     <?php echo $saveMessage; ?>
     
@@ -367,7 +563,7 @@ if (isset($_POST['submit'])) {
         <div class="container">
             <div class="field is-grouped">
                 <div class="control" style="width: 100%;">
-                    <h4 id="description">CPU Scheduling - Edit Data</h4>
+                    <h4 id="description">Mechanism <?php echo $mid; ?> - Edit Data<?php if ($submission_id) echo " (Submission #$submission_id)"; ?></h4>
                 </div>
             </div>
             <div class="row">
@@ -394,17 +590,13 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
             
-            <!-- Custom Java Code Submission Section -->
             <div id="codeSubmissionSection">
                 <h5>Custom Java Code Submission</h5>
-                <label for="javaCode">Enter your custom Java code here:</label>
-                <textarea class="form-control" name="javaCode" id="javaCode" rows="15" placeholder="// Enter your Java code here...
-public class Main {
-    public static void main(String[] args) {
-        System.out.println(&quot;Hello, World!&quot;);
-        // Your code implementation
-    }
-}"></textarea>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <label for="javaCode" style="margin: 0;">Enter your custom Java code here:</label>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="loadTemplate()">Use Template</button>
+                </div>
+                <textarea class="form-control" name="javaCode" id="javaCode" rows="15"></textarea>
                 
                 <div id="javaOutputSection">
                     <h6>Output:</h6>
@@ -415,8 +607,87 @@ public class Main {
     </form>
 
     <script>
+        const templateCode = `import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        String inputFile = args.length > 0 ? args[0] : "in-1.dat";
+        
+        // Read processes
+        ArrayList<Process> processes = new ArrayList<>();
+        Scanner scan = new Scanner(new File(inputFile));
+        
+        while (scan.hasNextLine()) {
+            String[] parts = scan.nextLine().trim().split("\\\\s+");
+            if (parts.length >= 4) {
+                int id = Integer.parseInt(parts[0]);
+                int arrival = Integer.parseInt(parts[1]); 
+                int burst = Integer.parseInt(parts[2]);
+                int priority = Integer.parseInt(parts[3]);
+                processes.add(new Process(id, arrival, burst, priority));
+            }
+        }
+        scan.close();
+        
+        // Sort by arrival time (FCFS)
+        processes.sort((a, b) -> Integer.compare(a.arrival, b.arrival));
+        
+        // Simulate FCFS scheduling
+        int currentTime = 0;
+        ArrayList<Result> results = new ArrayList<>();
+        
+        for (Process p : processes) {
+            if (currentTime < p.arrival) {
+                currentTime = p.arrival;
+            }
+            int startTime = currentTime;
+            int endTime = currentTime + p.burst;
+            results.add(new Result(p.id, startTime, endTime));
+            currentTime = endTime;
+        }
+        
+        // Write output
+        PrintWriter out = new PrintWriter("out-1.dat");
+        out.println("Type of Scheduler: First Come First Serve(Non-Preemptive)");
+        out.println("Number of Processes: " + processes.size());
+        out.println();
+        
+        for (Result r : results) {
+            out.println(r.id + "," + r.start + "," + r.end);
+        }
+        out.close();
+    }
+}
+
+class Process {
+    int id, arrival, burst, priority;
+    
+    Process(int id, int arrival, int burst, int priority) {
+        this.id = id;
+        this.arrival = arrival; 
+        this.burst = burst;
+        this.priority = priority;
+    }
+}
+
+class Result {
+    int id, start, end;
+    
+    Result(int id, int start, int end) {
+        this.id = id;
+        this.start = start;
+        this.end = end;
+    }
+}`;
+
+        function loadTemplate() {
+            document.getElementById('javaCode').value = templateCode;
+        }
+
         function executeJavaCode() {
             const javaCode = document.getElementById('javaCode').value;
+            // Remove the input content sending
             const outputDiv = document.getElementById('javaOutput');
             
             if (!javaCode.trim()) {
@@ -433,20 +704,36 @@ public class Main {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
+                // Only send Java code, not input content
                 body: 'action=execute_java&java_code=' + encodeURIComponent(javaCode)
             })
-            .then(response => response.json())
-            .then(data => {
-                outputDiv.className = data.success ? 'success' : 'error';
-                outputDiv.textContent = data.output;
-                if (data.path) {
-                    outputDiv.textContent += '\n\n[Executed in: ' + data.path + ']';
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('HTTP error ' + response.status);
+                }
+                return response.text();
+            })
+            .then(text => {
+                try {
+                    const data = JSON.parse(text);
+                    outputDiv.className = data.success ? 'success' : 'error';
+                    outputDiv.textContent = data.output;
+                    if (data.path) {
+                        outputDiv.textContent += '\n\n[Executed in: ' + data.path + ']';
+                    }
+                    if (data.submission_id) {
+                        outputDiv.textContent += '\n[Submission ID: ' + data.submission_id + ']';
+                    }
+                } catch (e) {
+                    outputDiv.className = 'error';
+                    outputDiv.textContent = 'Error parsing response:\n' + text;
+                    console.error('Parse error:', e);
                 }
             })
             .catch(error => {
                 outputDiv.className = 'error';
-                outputDiv.textContent = 'Error: Failed to execute Java code.';
-                console.error('Error:', error);
+                outputDiv.textContent = 'Error: ' + error.message;
+                console.error('Fetch error:', error);
             });
         }
         
@@ -458,4 +745,12 @@ public class Main {
 </body>
 
 </html>
-<body>
+
+<?php
+if (!empty($_SESSION['log_messages'])) {
+    // Use JSON to safely escape newlines/quotes in console logs
+    $msgsJson = json_encode($_SESSION['log_messages']);
+    echo "<script>(function(){var msgs={$msgsJson};for(var i=0;i<msgs.length;i++){console.log(msgs[i]);}})();</script>";
+}
+unset($_SESSION['log_messages']);
+?>
