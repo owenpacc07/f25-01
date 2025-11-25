@@ -16,7 +16,7 @@ $prefix = "/var/www/p/f25-01/html";
 $navbar = __DIR__ . "./navbar.php";
 
 //change this var to match current version
-$version_path = "/v5";
+$version_path = "/v4";
 
 //java code location
 $cgibin_core = $ROOT_DIR . "/cgi-bin/core";
