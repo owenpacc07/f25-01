@@ -116,63 +116,33 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
         
         if (!$_SESSION[$session_key]) throw new Exception("No active submission. Please use 'Make a Submission' button.");
         
-        // Resolve the actual submission folder from DB (ensure we use the real/current path)
-        $submissionIdForRun = $_SESSION[$session_key];
-        $submission_query = "SELECT input_path FROM submissions WHERE submission_id = ? AND user_id = ?";
-        $stmt = mysqli_prepare($link, $submission_query);
-        mysqli_stmt_bind_param($stmt, "ii", $submissionIdForRun, $user);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $sub_data = mysqli_fetch_assoc($result);
-        if (!$sub_data) throw new Exception("Submission not found in database for execution.");
-        
-        $subDir = rtrim(dirname($sub_data['input_path']), '/\\') . DIRECTORY_SEPARATOR;
-        // Ensure directory exists
-        if (!is_dir($subDir)) {
-            if (!mkdir($subDir, 0755, true)) {
-                throw new Exception("Failed to create submission directory: $subDir");
-            }
-        }
-
         $inPadPath  = $subDir . "in-$mid_padded.dat";
         $outPadPath = $subDir . "out-$mid_padded.dat";
 
-        $_SESSION['log_messages'][] = "DEBUG edit.php - execute_java: using subDir: $subDir, inPadPath: $inPadPath, outPadPath: $outPadPath";
+$_SESSION['log_messages'][] = "DEBUG edit.php - subDIR: $subDir, inPadPath: $inPadPath ";
 
-        // Write current textarea input to PADDED
+
+        // Write current textarea input to PADDED only
         $inputContent = $_POST['input_content'] ?? '';
         if (empty(trim($inputContent))) {
-            // If client didn't submit input, try to reuse existing submission input file.
-            if (file_exists($inPadPath)) {
-                $inputContent = file_get_contents($inPadPath);
-                $_SESSION['log_messages'][] = "DEBUG edit.php - execute_java: loaded existing input from $inPadPath (len=" . strlen($inputContent) . ")";
-            } else {
-                // No input provided and no existing file — write an empty input
-                $inputContent = '';
-                $_SESSION['log_messages'][] = "DEBUG edit.php - execute_java: no input provided and no existing input file found; using empty input.";
-            }
+            $inputContent = "1 0 7 1\n2 2 4 2\n3 4 1 3";
         }
-        if (false === @file_put_contents($inPadPath, $inputContent)) {
-            throw new Exception("Failed to write input file: $inPadPath");
-        }
+        @file_put_contents($inPadPath, $inputContent);
 
-        // Write Java source to submission folder
-        $fileName = 'Main.java';
-        if (false === @file_put_contents($subDir . $fileName, $javaCode)) {
-            throw new Exception("Failed to write Java source file in: $subDir");
-        }
 
         // Compile in submission dir
+        $javaCode = $_POST['java_code'] ?? '';
+        if (!$javaCode) throw new Exception("No Java code provided");
+        $fileName = 'Main.java';
+        file_put_contents($subDir . $fileName, $javaCode);
         $compileCmd = "cd " . escapeshellarg($subDir) . " && javac " . escapeshellarg($fileName) . " 2>&1";
-        $_SESSION['log_messages'][] = "DEBUG edit.php - compileCmd: $compileCmd";
         $compileOutput = shell_exec($compileCmd);
 
         $response = [];
-        if (empty($compileOutput) || stripos($compileOutput, 'error') === false) {
-            // Run with PADDED input inside submission folder; use -cp . so classpath is current dir
+        if (empty($compileOutput) || strpos($compileOutput, 'error') === false) {
+            // Run with PADDED input
             $inputArg = escapeshellarg("in-$mid_padded.dat");
-            $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java -cp . Main " . $inputArg . " 2>&1";
-            $_SESSION['log_messages'][] = "DEBUG edit.php - runCmd: $runCmd";
+            $runCmd = "cd " . escapeshellarg($subDir) . " && timeout 5 java Main " . $inputArg . " 2>&1";
             $runOutput = shell_exec($runCmd);
 
             // Append input preview
@@ -180,13 +150,11 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
             $inputFileContentsEcho = file_exists($inPadPath) ? file_get_contents($inPadPath) : '(input file not found)';
             $runOutput .= "\n\n--- Input File Used: $inputFileBasename ---\n" . $inputFileContentsEcho;
 
-            // Read output back from PADDED only (same folder)
+            // Read output back from PADDED only
             $fileOutput = '';
             if (file_exists($outPadPath) && filesize($outPadPath) > 0) {
                 $fileOutput = file_get_contents($outPadPath);
                 $runOutput .= "\n\n--- Output File Contents ---\n" . $fileOutput;
-            } else {
-                $_SESSION['log_messages'][] = "DEBUG edit.php - output file not found or empty: $outPadPath";
             }
 
             $_SESSION['log_messages'][] = "DEBUG edit.php - Appended input file ($inputFileBasename) contents to run output (length " . strlen($inputFileContentsEcho) . ")";
@@ -194,7 +162,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'execute_java') {
                 'success' => true,
                 'output' => $runOutput ?: 'Program executed successfully with no output.',
                 'path' => $subDir,
-                'submission_id' => $submissionIdForRun
+                'submission_id' => $_SESSION[$session_key]
             ];
         } else {
             $response = ['success' => false, 'output' => $compileOutput];
