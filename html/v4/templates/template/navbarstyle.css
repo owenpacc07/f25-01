@@ -1,0 +1,99 @@
+    /* Use Titan One font for brand button */
+    @font-face {
+        font-family: 'Titan One';
+        src: url('../fonts/TitanOne-Regular.ttf') format('truetype');
+    }
+
+    .navbar-brand {
+        font-family: 'Trebuchet MS';
+        font-size: 1.35rem;
+    }
+
+    .navbar-brand img {
+        width: 26px;
+        height: 26px;
+    }
+
+    .vr {
+        opacity: 8%;
+    }
+
+    .signlog {
+        width: 150px;
+    }
+
+    .opacity {
+        opacity: 0%;
+        padding: 5px;
+    }
+
+    .margin {
+        margin-right: 0%;
+    }
+
+    #navbarNav {
+        justify-content: flex-end;
+    }
+
+    /* Navbar */
+
+    .navbar-dark .navbar-nav .nav-link {
+        color: #fff;
+    }
+
+    .navbar-dark .navbar-nav .nav-link:hover,
+    .navbar-dark .navbar-nav .nav-link:focus {
+        color: #fff;
+    }
+
+    .navbar-dark .navbar-nav .nav-link.active {
+        color: #fff;
+    }
+
+    .navbar-dark .navbar-toggler {
+        border-color: #fff;
+    }
+
+    .navbar-dark .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* Buttons */
+
+    .btn-primary {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    .bg-primary {
+        background-color: #28a745 !important;
+    }
+
+    .btn-primary:focus,
+    .btn-primary.focus {
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+        color: #fff;
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+    .btn-primary.disabled,
+    .btn-primary:disabled {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-primary:not(:disabled):not(.disabled).active,
+    .btn-primary:not(:disabled):not(.disabled):active {
+        color: #fff;
+        background-color: #1e7e34;
+        border-color: #1c7430;
+    }

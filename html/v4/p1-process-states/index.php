@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Process States</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/konva@8.3.3/konva.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+         <?php include '../navbar.php'; ?> 
+         <br>
+         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="./editProcessStateData.php" class="btn btn-primary btn-md" tabindex="-1" role="button">Edit</a> 
+            <br> 
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <h1 style="font-size:45px;" id="title"> <b> Process States </b> </h1>
+        </div>
+        <br>
+        <div class="d-flex align-items-center justify-content-center">
+            <form id="processStateTypeOption">
+                <button class="btn btn-primary" type="button" onclick="displayNewPS()" id="New">New</button> 
+                <button class="btn btn-primary" type="button" onclick="displayReadyPS()" disabled id="Ready">Ready</button> 
+                <button class="btn btn-primary" type="button" onclick="displayRunningPS()" disabled id="Running">Running</button> 
+                <button class="btn btn-primary" type="button" onclick="displayWaitingPS()" disabled id="Waiting">Waiting</button> 
+                <button class="btn btn-primary" type="button" onclick="displayTerminatedPS()" disabled id="Terminated">Terminated</button> 
+                <button class="btn btn-primary" id="end" type="button" onclick="endVisual()">Display Full Diagram</button>
+                <button class="btn btn-primary" id="displayPS" type="button" hidden="hidden" onclick="displayAllPS()">Display Full Diagram</button>
+            </form>
+        </div>
+        <br>
+        <div class="d-flex align-items-center justify-content-center">
+            <div id="container">
+            </div>
+            <div id="container2">
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <p>Tap on image or hover mouse over image for a description of step.</p>
+        </div>
+        <br>
+        <div class="d-flex align-items-center justify-content-center">
+            <form id="userOptions">
+            <button class="btn btn-primary" type="button" id="postpone" hidden="hidden" onclick="setToPostponed()">Postpone</button> 
+            <button class="btn btn-primary" type="button" id="ioRequest" hidden="hidden" onclick="setToIORequest()">I/O Request</button> 
+            <button class="btn btn-primary" type="button" id="terminateProg" hidden="hidden" onclick="setToTerminate()">Terminate Program</button> 
+            </form>
+        </div>
+        <br>
+         <div class="d-flex align-items-center justify-content-center">
+            <form id="processStateTypeSteps">
+                <button class="btn btn-primary" id="nextPS" type="button" hidden="hidden" onclick="nextPSStep()">Next</button>
+                <button class="btn btn-primary" id="backPS" type="button" hidden="hidden" onclick="previousPSStep()">Back</button>
+                <button class="btn btn-primary" id="resetPS" type="button" hidden="hidden" onclick="resetPSButton()">Reset</button>
+                <button class="btn btn-primary" id="endPS" type="button" hidden="hidden" onclick="endPSVisual()">End Current State</button>
+            </form>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <form id=steps>
+                <button class="btn btn-primary" id="next" type="button" onclick="nextStep()">Next</button>
+                <button class="btn btn-primary" id="back" type="button" disabled onclick="previousStep()">Back</button>
+                <button class="btn btn-primary" id="endCurrentDiagram" type="button" hidden="hidden" onclick="endCurrentProcess()">End Current Process</button>
+                <button class="btn btn-primary" id="reset" type="button" disabled onclick="resetButton()">Reset</button>
+            </form>
+        </div>
+        <br>
+        <br>
+        <script src="./animations.js?version=1.0.0"></script>
+    </body>
+</html>

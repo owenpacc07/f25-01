@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <?php include '../../../navbar.php'; ?>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+        ul.lst-kix_jxoody1cf7ip-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_jxoody1cf7ip-3>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_jxoody1cf7ip-3 {
+            list-style-type: none
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        ul.lst-kix_jxoody1cf7ip-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_jxoody1cf7ip-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_jxoody1cf7ip-6 {
+            list-style-type: none
+        }
+
+        .lst-kix_jxoody1cf7ip-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_jxoody1cf7ip-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_jxoody1cf7ip-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_jxoody1cf7ip-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_jxoody1cf7ip-5 {
+            list-style-type: none
+        }
+
+        .lst-kix_jxoody1cf7ip-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_jxoody1cf7ip-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_jxoody1cf7ip-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_jxoody1cf7ip-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_jxoody1cf7ip-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_jxoody1cf7ip-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_jxoody1cf7ip-7>li:before {
+            content: "\0025cb   "
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c16 {
+            padding-top: 0pt;
+            padding-bottom: 3pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c10 {
+            padding-top: 20pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c2 {
+            padding-top: 18pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c5 style="font-weight: bold; font-size: 26px;" {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c11 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c0 {
+            color: #ff00ff;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c6 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c9 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c7 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 16pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c4 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c1 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c12 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c3 {
+            margin-left: 36pt;
+            padding-left: 0pt
+        }
+
+        .c14 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c8 {
+            height: 11pt
+        }
+
+        .c13 {
+            color: #ff00ff
+        }
+
+        .c15 {
+            margin-left: 36pt
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #666666;
+            font-size: 15pt;
+            padding-bottom: 16pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; width: 100%; padding: 0; box-sizing: border-box; padding-top: 50px;">
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; margin-top: 50px; border: 2px solid #000000; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); padding: 25px;  max-width: 80%;">
+        <a class="btn btn-warning" href="javascript:history.back()" role="button">Go Back</a>
+        <br>
+        <p class="c11 title" id="h.96drq47lg7n6"><span class="c0"
+                style="color: green; text-decoration: underline; font-weight: bold;">A Quick Abstract:</span></p>
+        <h1 class="c10" id="h.l3x3sr8amjy3"><span class="c5" style="font-weight: bold; font-size: 26px;">1. Introduction
+                to Disk Scheduling:</span></h1>
+        <p class="c1"><span class="c9">Disk scheduling is crucial for optimizing the order in which read and write
+                requests
+                are serviced from a disk. SSTF is an advanced disk scheduling algorithm designed to minimize the seek
+                time
+                by selecting the request with the shortest seek time first.</span></p>
+        <p class="c1 c8"><span class="c9"></span></p>
+        <h1 class="c10" id="h.2nac7xv3lpir"><span class="c5" style="font-weight: bold; font-size: 26px;">2. SSTF Disk
+                Scheduling Algorithm:</span></h1>
+        <h2 class="c2" id="h.4wqe9qnisopb"><span class="c7" style="text-decoration: underline;">Working:</span></h2>
+        <p class="c1 c8"><span class="c9"></span></p>
+        <p class="c1"><span class="c9">Maintain a queue of disk requests.</span></p>
+        <p class="c1"><span class="c9">Choose the request with the shortest seek time from the current head
+                position.</span>
+        </p>
+        <p class="c1"><span class="c9">Service the selected request.</span></p>
+        <p class="c1"><span class="c9">Update the current head position.</span></p>
+        <p class="c1"><span class="c9">Repeat the process until all requests are serviced.</span></p>
+        <h2 class="c2" id="h.73s46bs01eyx"><span class="c7" style="text-decoration: underline;">Advantages:</span></h2>
+        <p class="c1 c8"><span class="c9"></span></p>
+        <p class="c1"><span class="c9">Minimizes seek times, improving overall disk performance.</span></p>
+        <p class="c1"><span class="c9">Reduces the effect of the &quot;elevator&quot; problem seen in FCFS.</span></p>
+        <h2 class="c2" id="h.kxn1au8qbzrw"><span class="c7" style="text-decoration: underline;">Disadvantages:</span>
+        </h2>
+        <p class="c1 c8"><span class="c9"></span></p>
+        <p class="c1"><span class="c9">May lead to starvation for requests at the outer or inner tracks.</span></p>
+        <h1 class="c10" id="h.cgl88546uc77"><span class="c5" style="font-weight: bold; font-size: 26px;">3. Example
+                Scenario:</span></h1>
+        <p class="c1"><span class="c9">Consider disk requests for sectors 30, 25, 35, 20, and 40, and the disk head
+                initially positioned at sector 30.</span></p>
+        <p class="c1 c8"><span class="c9"></span></p>
+        <h2 class="c2" id="h.4wvl6z8q3czu"><span class="c7" style="text-decoration: underline;">SSTF:</span></h2>
+        <p class="c1"><span class="c9">Initial position: 30</span></p>
+        <p class="c1"><span class="c9">Service order: 30 &rarr; 35 &rarr; 40 &rarr; 25 &rarr; 20</span></p>
+        <h1 class="c10" id="h.qqvixrn2up"><span class="c5" style="font-weight: bold; font-size: 26px;">4.
+                Conclusion:</span></h1>
+        <p class="c1"><span class="c9">SSTF is a sophisticated disk scheduling algorithm that minimizes seek times by
+                selecting the request with the shortest seek time first. While it significantly improves disk
+                performance,
+                it may still suffer from potential starvation for requests at certain tracks.</span></p>
+        <br>
+        <p class="c11 title" id="h.k9yx1qn2abhs"><span class="c13"
+                style="color: maroon; text-decoration: underline; font-weight: bold; text-align: left;">Notes From The
+                Slides:</span></p>
+        <br>
+        <p class="c1 c8"><span class="c6"></span></p>
+        <p class="c16 title" id="h.y0at9iwbvbij"><span class="c4">SSTF</span></p>
+        <ul class="c14 lst-kix_jxoody1cf7ip-0 start">
+            <li class="c1 c3 li-bullet-0"><span class="c6">Shortest Seek Time First selects the request with the minimum
+                    seek time from the current head position</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c6">SSTF scheduling is a form of SJF scheduling; may cause
+                    starvation
+                    of some requests</span></li>
+            <li class="c1 c3 li-bullet-0"><span class="c6">Illustration shows total head movement of 236
+                    cylinders</span>
+            </li>
+        </ul>
+        <p class="c1 c8 c15"><span class="c6"></span></p>
+        <p class="c1"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 421.33px;"><img
+                    alt="" src="images/image1.png"
+                    style="width: 624.00px; height: 421.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c1 c8"><span class="c6"></span></p>
+        <p class="c1 c8"><span class="c6"></span></p>
+</body>
+<footer style="background-color: #f2f2f2; padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+    <p style="color: green;">Most of the content on this page is based on the OS Book 10. It can be found at
+        <a href="https://www.os-book.com/" target="_blank" style="color: green;">www.os-book.com</a>.
+    </p>
+</footer>
+
+</html>

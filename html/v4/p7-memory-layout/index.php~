@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Memory Layout</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/konva@8.3.3/konva.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+         <?php include '../navbar.php'; ?>
+         
+         <br>
+         <h1 class="text-center">Memory Layout</h1> 
+         <hr>
+         <br>
+         <br>
+         <h2 class="text-center">Step 1: Write a prgraom in a PL(Java), store a file saved in a disk 'A.java'</h2>
+         <br>
+         
+         <div class="form-check text-center">
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+           <label class="form-check-label" for="flexRadioDefault1">
+          Step-by-Step
+           </label>
+         </div>
+         
+         <div class="form-check text-center">
+           <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+           <label class="form-check-label" for="flexRadioDefault2">
+           Automatic
+           </label>
+         </div>
+         <br>
+         <br>
+         <div class="text-center">
+            <img src="image.png"  style="width:1000px; height:550px;">
+            <br>
+            <br>
+            <br>
+         <button type="button" class="btn btn-primary">Start</button>
+          <button type="button" class="btn btn-primary">Back</button>
+          <button type="button" class="btn btn-primary">Pause</button>
+         <button type="button" class="btn btn-primary">Next</button>
+         <button type="button" class="btn btn-primary">End</button>
+         </div>         
+    </body>
+</html>
+
