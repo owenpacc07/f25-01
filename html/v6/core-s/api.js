@@ -1,0 +1,34 @@
+// calls php file which manages flag file
+// type: 0 = read value of flag file, 1 = reset flag file to 0
+// Wrapper of fetch api
+// Returns true if flagFileValue is 1, false if 0.
+
+const api_url = SITE_VERSION + "/api";
+
+export async function fetchPHP(type, mid) {
+    //const response = await fetch(`{$httpcore_s}/manage-flag-file-s.php`, {
+    const response = await fetch(`../manage-flag-file-s.php`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        // enter mid and flag file action 
+        body: JSON.stringify({
+            'type': type,
+            'mechanism': mid,
+        })
+    })
+    const flagFileValue = await response.text(response);
+
+    console.log("Flag file value is: " + flagFileValue)
+    return flagFileValue && true || false;   
+}
+
+export async function fetchIO(mechanismID){
+    const response = await fetch(api_url + "/get-io-advanced-s.php?" + new URLSearchParams({
+        'mechanism': mechanismID
+    }));
+
+    // return resolved promise of json
+    return await response.json();
+}

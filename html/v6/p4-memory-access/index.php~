@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Memory Access</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- <input file> -->
+    <?php include '../navbar.php'; ?>
+    <div class="d-flex align-items-center justify-content-center">
+        <h1 id="title">Memory Access</h1>
+        <br>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+        <form id="animationTopic">
+            <input type="radio" name="animationTopic" id="paging" name="animationTopic" value="Paging" /> Paging</input>
+            <input type="radio" name="animationTopic" id="segmentation" name="animationTopic" value="Segmentation" />
+            Segmentation</input>
+        </form>
+    </div>
+
+    <hr>
+    <div class="text-center align-items-center justify-content-center">
+        <input id="strtbtn" class="btn btn-primary" type="button" onclick="animationSegmentation()" disabled
+            value="Start" id="start"></input>
+        <input class="btn btn-primary" type="button" disabled value="Play" id="play">
+      <!--  <button type="button" class="btn btn-primary" onclick="editTable()">Edit Data</button>--
+    </div>
+
+    <div id="animarea" class="d-flex flex-row" class="container-fluid"
+        style="height: 540px; width: 95%; margin-left: 2.5%; margin-top: 1%; background-color: #F9F9F9; position: absolute">
+        <!-- This div will hold the visual elements for the Logical Memory -->
+        <div id="leftspan" class="border border-secondary" class="p-2" style=" width: 33%">
+            <p class="text-center" style="font-weight: bold">Logical Memory</p>
+            <div id="innerLeft" style="width: 70%; margin-left: 15%; height: 90%"> 
+            </div>    
+        </div>
+        <!-- This div will hold the visual elements for the Segment Table -->
+        <div id="centerspan" class="p-2" style=" width: 34%; background-color: white">
+            <p id="tableText" class="text-center" style="font-weight: bold"> </p>
+            <div class="d-flex flex-column" style="height: 98%;">
+           <!-- <div class="container-fluid" style="background-color: #e3faff; border:solid black 2px;">-->
+                    <p id="info-text" style="color: black; background-color: #e3faff;"></p>
+                
+                <div>
+                    <table id="table" class="p-2 " class="table table-bordered"
+                        style="width: 50%; height: 40%; margin: auto; margin-top: 5%; display: none">
+                        <thead id="thead">
+                            <tr>
+                                <th scope="col" id="col0" class="text-center"></th>
+                                <th scope="col" id="col1" class="text-center"></th>
+                                <th scope="col" id="col2" class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- This div will hold the visual elements for the Physical Memory -->
+        <div id="rightspan" class="border border-secondary" class="p-2" style=" width: 33%">
+            <p class="text-center" style="font-weight: bold">Physical Memory</p>
+            <div id="inner-module" class="border border-secondary"
+                style=" border: 10px; width: 70%; margin-left: 15%; height: 90% ">
+                <div id="cell0" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+                <div id="cell1" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+                <div id="cell2" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+                <div id="cell3" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+                <div id="cell4" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+                <div id="cell5" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+                <div id="cell6" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+                <div id="cell7" class="border border-secondary" style=" width: 100%;; height: 10%;"
+                    value="100"> </div>
+                <div id="cell8" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+                <div id="cell9" class="border border-secondary" style=" width: 100%; height: 10%;"
+                    value="100"> </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var slot0 = document.getElementById("cell0");
+        var slot1 = document.getElementById("cell1");
+        var slot2 = document.getElementById("cell2");
+        var slot3 = document.getElementById("cell3");
+        var slot4 = document.getElementById("cell4");
+        var slot5 = document.getElementById("cell5");
+        var slot6 = document.getElementById("cell6");
+        var slot7 = document.getElementById("cell7");
+        var slot8 = document.getElementById("cell8");
+        var slot9 = document.getElementById("cell9");
+
+        var outputArraySeg = [];
+        var outputArrayPage = [];
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function getSelection() {
+            if (document.getElementById('segmentation').checked) {
+                document.getElementById('strtbtn').setAttribute('onclick', 'animationSegmentation()');
+            } else if (document.getElementById('paging').checked) {
+                document.getElementById('strtbtn').setAttribute('onclick', 'animationPaging()');
+            }
+        }
+
+        function animationSegmentation() {
+            //Enable the play button
+            document.getElementById('play').removeAttribute("disabled");
+            var infoText = document.getElementById("info-text");
+            infoText.innerHTML = ("Each job is divided into several segments of different sizes, one for each module that contains pieces that perform related functions. Each segment is actually a different logical address space of the program.");
+            window.k = [];
+
+            for (var i = 0, j = 2, v = 1, y = 3, t = 0; i < itemS[0]; i++, j += 3, v += 3, y += 3, t += parseInt(itemS[j])) {
+                c = getRandomColor();
+                createDivSeg(i, c, itemS[j], itemS[v]);
+                alterCells(i, document.getElementById("cell" + itemS[y] / 100), itemS[j]);
+                movDivSeg(i, document.getElementById("cell" + itemS[y] / 100), c, itemS[j]);
+                k.push(document.getElementById("seg" + i));
+                createRowSegmentation(itemS[v], itemS[j], itemS[y], i);
+
+                outputArraySeg.push(itemS[v]);
+                outputArraySeg.push(itemS[y]);
+            }
+            console.log("This is whats in the seg output array: " + outputArraySeg)
+        }
+
+        function animationPaging() {
+            //Enable the play button
+            document.getElementById('play').removeAttribute("disabled");
+            var infoText = document.getElementById("info-text");
+            infoText.innerHTML = ("The OS reads data from blocks called pages, all of which have identical size. The OS first needs to consult the page table which is used by virtual memory to store the mapping between virtual addresses and physical addresses. The physical part of the memory containing a single page is called a frame. When paging is used, a frame does not have to comprise a single physically contiguous region in storage. ")
+            window.k = [];
+
+            for (var i = 0, j = 2, v = 1, t = 0; i < itemP[0]; i++, j += 2, v += 2, t += parseInt(itemP[j])) {
+                c = getRandomColor();
+                createDivPage(i, c, itemP[j], "page " + itemP[v]);
+                movDiv(i,document.getElementById("cell" + itemP[j]));
+                k.push(document.getElementById("seg" + itemP[v]));
+                createRowPaging(itemP[v], itemP[j], i);
+
+                outputArrayPage.push("page " + itemP[v]);
+                outputArrayPage.push(itemP[j]);
+            }
+            console.log("This is the output contents for the Paging: " + outputArrayPage)
+        }
+
+        function editTable() {
+            location.replace("../edit/editMemoryAccess.php")
+        }
+
+        //This function is used to create the logical memory process representation objects
+        /**
+         * @param id: this takes in a number that 
+         * @param color: this takes in a random color that will determine the color of the created div(process)
+         * @param value: this takes in the value(size) of the process set in the input file
+         * 
+         * */
+        function createDivPage(id, color, value, title) {
+            
+            //create container that will hold page in logical memory
+            var container = document.createElement("div");
+            container.style.height = "14%"; //5% space between pages
+            container.setAttribute("id", "container" + id);
+
+            var div = document.createElement("div");
+
+            div.style.width = "22.9%";
+            div.style.height = "9%";  
+            div.style.background = color;
+            div.style.color = "white";
+
+            div.style.margin = "auto"; 
+            div.style.marginBottom = "10px";
+            div.style.position = "absolute";
+            div.innerHTML = title;
+            div.style.fontSize = "20px";
+
+            div.setAttribute("id", "seg" + id);
+            div.setAttribute("title", title);
+            div.setAttribute("value", value);
+            
+            /*append container first, then page to container
+            or else pages will stack up on each other */
+            document.getElementById("innerLeft").appendChild(container);    
+            document.getElementById("container"+id).appendChild(div);
+        }
+
+        function createDivSeg(id, color, value, title) {
+
+            //create container that will hold segment in logical memory
+            var container = document.createElement("div");
+            container.style.height = Number(value)*0.06 + 5 + "%"; //5% space between segments
+            container.setAttribute("id", "container" + id);
+            
+            var div = document.createElement("div");
+
+            div.style.width = "22.9%";
+            div.style.height = Number(value) * 0.06 + "%";
+            div.style.background = color;
+            div.style.color = "white";
+            div.style.margin = "auto";
+            div.style.position = "absolute"; //must be in order to animate to correct position
+            div.innerHTML = title;
+            div.style.fontSize = "20px";
+
+            div.setAttribute("id", "seg" + id);
+            div.setAttribute("title", title);
+            div.setAttribute("value", value);
+
+            /*append container first, then segment to container 
+            or else segments will stack up on each other */   
+            document.getElementById("innerLeft").appendChild(container);
+            document.getElementById("container"+id).appendChild(div);
+        }
+
+        function showTable() {
+            var table = document.getElementById("table");
+            $(table).show();
+        }
+
+        function output(data) {
+            let string = data.toString();
+            console.log("before output stage " + string);
+
+            var formData = new FormData();
+            formData.append('file', string);
+
+            $.ajax({
+                async: true,
+                type: "POST",
+                url: "../../files/p4/MA-Output.txt",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (string) {
+
+                    console.log("We passed the output stage" + string);
+                }
+            });
+        }
+
+        // Create each row that enters the table for the segmentation calculations
+        /**@abstract
+         * @param name: this is the name of that particular process given by the input file.
+         * @param lim: this is the limit/size of the process given by the input file.
+         * @param add: this is the address of the process when moved into the physical memory.
+         * @param pos: This is the counter that decide which row will be created next.
+         */
+        function createRowSegmentation(name, lim, add, pos, color) {
+            var tbody = document.getElementById("tbody")
+
+            var row = tbody.insertRow(pos);
+            var cell0 = row.insertCell(0)
+            var cell1 = row.insertCell(1);
+            var cell2 = row.insertCell(2);
+            table.style.border = "3px solid #87CEFA";
+            cell0.style.textAlign = "center";
+            cell1.style.textAlign = "center";
+            cell2.style.textAlign = "center";
+            cell0.innerHTML = name;
+            cell1.innerHTML = lim;
+            cell2.innerHTML = add;
+            //row.style.backgroundColor = color, "0.5";
+            row.style.color = "black";
+            row.fontSize = "2em";
+            row.style.border = "2px solid black"
+            //row.style.backgroundColor.opacity = "0.5" ;
+
+        }
+
+        // Create each row that enters the table for the paging animations
+        /**
+         * @param name: this is the name of that particular process given by the input file.
+         * @param add: this is the address(frame Number) of the process when moved into the physical memory.
+         * @param pos: This is the counter that decide which row will be created next.
+         */
+        function createRowPaging(name, add, pos) {
+            //remove col 2 the first time this function is called
+            if(document.getElementById("col2")) {
+                var unused = document.getElementById("col2");
+                unused.remove();
+            }
+            
+            var tbody = document.getElementById("tbody");
+            var row = tbody.insertRow(pos);
+            var cell0 = row.insertCell(0)
+            var cell1 = row.insertCell(1);
+
+            table.style.border = "3px solid #87CEFA";
+
+            cell0.style.textAlign = "center";
+            cell1.style.textAlign = "center";
+            cell0.innerHTML = name;
+            cell1.innerHTML = add;
+            //to create lines between the rows
+            row.style.color = "black";
+            row.fontSize = "2em";
+            row.style.border = "2px solid black";
+        }
+
+        // This function calculates how the processes move(animate) from the logical memory to the physical memory
+        /**
+         * @param div: takes in a number that will determine which div gets moved.
+         * @param st: takes in the id of the element(physical memory cell) that we want to move the process to.
+         * @param c: This takes in a random color and gives it to the process. This way we can distinguish between the different processes easier.
+         * */
+        function movDivSeg(div, st, c, value) {
+            var mem_module = document.getElementById("inner-module");
+            var infoText = document.getElementById("info-text");
+
+            $(document.getElementById("play")).click(function () {
+               // $(mem_module).show();
+               // document.getElementById('play').setAttribute("disabled");                                
+                $(k[div]).delay(div*500).animate({
+                    left: $(st).position().left,
+                    top: $(st).position().top,             
+                },1000); 
+                infoText.innerHTML = "Each segment occupies a different space on the physical memory."
+                showTable();
+            });
+        }
+        //alter the target cells to the correct size for segment
+        function alterCells(div, st, value) {
+            st.style.height = value * 0.3 + "px";
+        }
+
+
+        
+        function movDiv(div, st) {
+            $(document.getElementById("play")).click(function () {
+                 var infoText = document.getElementById("info-text");
+                 $(k[div]).delay(div*500).animate(
+                 {
+                     left: $(st).position().left,
+                     top: $(st).position().top,
+                 },1000); 
+                 infoText.innerHTML = ("One page will be stored into one of the frames. The pages can be stored at different locations of memory but the priority is always to find contiguous frames or holes.");
+                 showTable();
+            });
+        }
+
+        $(document).ready(function () {
+
+            $.ajax({
+                async: true,
+                type: "GET",
+                url: "../../files/p4/MA-Seg-Input.txt",
+                dataType: "text",
+                success: function (res) {
+                    itemS = res.split(', ');
+                }
+            });
+
+            $.ajax({
+                async: true,
+                type: "GET",
+                url: "../../files/p4/MA-Paging-Input.txt",
+                dataType: "text",
+                success: function (res) {
+                    itemP = res.split(', ');
+                }
+            });
+
+            $(document.getElementById("strtbtn")).click(function () {
+                var strtbtn = document.getElementById("strtbtn");
+                strtbtn.value = "Reset";
+                strtbtn.id = "resetbtn";
+                document.getElementById('resetbtn').setAttribute('onclick', 'window.location.reload()');
+            });
+
+        });
+
+        $('input[type=radio][name=animationTopic]').change(function () {
+            if (this.value == 'Segmentation') {
+                document.getElementById('cell0').style.height = "7%";
+                document.getElementById('cell1').style.height = "3%";
+                document.getElementById('cell2').style.height = "5%";
+                document.getElementById('cell3').style.height = "6%";
+                document.getElementById('cell4').style.height = "4%";
+                document.getElementById('cell5').style.height = "7%";
+                document.getElementById('cell6').style.height = "8%";
+                document.getElementById('cell7').style.height = "3%";
+                document.getElementById('cell8').style.height = "5%";
+                document.getElementById('cell9').style.height = "4%";
+              
+                document.getElementById('strtbtn').removeAttribute("disabled");
+                document.getElementById('strtbtn').setAttribute('onclick', 'animationSegmentation()');
+                document.getElementById('cell0').innerHTML = "";
+                document.getElementById('cell1').innerHTML = "";
+                document.getElementById('cell2').innerHTML = "";
+                document.getElementById('cell3').innerHTML = "";
+                document.getElementById('cell4').innerHTML = "";
+                document.getElementById('cell5').innerHTML = "";
+                document.getElementById('cell6').innerHTML = "";
+                document.getElementById('cell7').innerHTML = "";
+                document.getElementById('cell8').innerHTML = "";
+                document.getElementById('cell9').innerHTML = "";
+                
+                document.getElementById('tableText').innerHTML = " Segment Table ";
+                document.getElementById('col0').innerHTML = "Process";
+                document.getElementById('col1').innerHTML = "Limits";
+                document.getElementById('col2').innerHTML = "Base @";
+                
+
+            } else if (this.value == 'Paging') {
+                document.getElementById('strtbtn').removeAttribute("disabled");
+                document.getElementById('strtbtn').setAttribute('onclick', 'animationPaging()');
+                
+                document.getElementById('cell0').innerHTML = "0";
+                document.getElementById('cell1').innerHTML = "1";
+                document.getElementById('cell2').innerHTML = "2";
+                document.getElementById('cell3').innerHTML = "3";
+                document.getElementById('cell4').innerHTML = "4";
+                document.getElementById('cell5').innerHTML = "5";
+                document.getElementById('cell6').innerHTML = "6";
+                document.getElementById('cell7').innerHTML = "7";
+                document.getElementById('cell8').innerHTML = "8";
+                document.getElementById('cell9').innerHTML = "9";
+                
+                document.getElementById('cell0').style.height = "10%";
+                document.getElementById('cell1').style.height = "10%";
+                document.getElementById('cell2').style.height = "10%";
+                document.getElementById('cell3').style.height = "10%";
+                document.getElementById('cell4').style.height = "10%";
+                document.getElementById('cell5').style.height = "10%";
+                document.getElementById('cell6').style.height = "10%";
+                document.getElementById('cell7').style.height = "10%";
+                document.getElementById('cell8').style.height = "10%";
+                document.getElementById('cell9').style.height = "10%";
+                                
+                document.getElementById('tableText').innerHTML = " Page Table ";
+                document.getElementById('col0').innerHTML = "Page";
+                document.getElementById('col1').innerHTML = "Frame #";
+                //var unusedCol = document.getElementById("col2");
+                //unusedCol.remove();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+#title {
+    font-size: 50px;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+table.table-bordered {
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid black!important;
+}
+
+th, td {
+    border: 1px solid black!important;
+    height: 100px;
+    width: 100px;
+}
+
