@@ -545,7 +545,7 @@ if (isset($_POST['submit'])) {
                     <button class="btn btn-primary" type="submit" name="submit" value="full">View I/System</button>
                     <button type="button" class="btn btn-info" onclick="executeJavaCode()">Run Codes</button>
                     <button type="button" class="btn btn-danger" onclick="clearJavaOutput()">Clear Output</button>
-                    <a class="btn btn-secondary" href="../../core-s">Make NEW</a>
+                    <a class="btn btn-secondary" href="../core-s">Make NEW</a>
                 </div>
             </div>
             

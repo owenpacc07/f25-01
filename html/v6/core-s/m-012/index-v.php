@@ -5,17 +5,44 @@ require_once "../../system.php";
 
 global $link;
 session_start();
-$mid = '012';
+$mid = '011';
 $mtitle = '';
-// get mechanism title
-if ($mid) {
-    $sql = "SELECT algorithm FROM mechanisms WHERE client_code = {$mid}";
-    $result = mysqli_query($link, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $mtitle = $row['algorithm'];
+
+if (!isset($_SESSION['userid'])) {
+    header('Location: ./../../login.php');
+    exit();
 }
 
-//shell_exec("java -classpath {$cgibin_core}/m-{$mid} m{$mid}");
+if (!isset($_SESSION['submissionID'])) {
+    header('Location: ./../index.php');
+    exit();
+}
+
+
+//-----------------------------------------------------------------------
+// Get SUB folder (submission ID, mechanism CODE and ID from SESSION variables)
+//-----------------------------------------------------------------
+$user = $_SESSION['userid'];
+$submissionID = $_SESSION['submissionID'];
+$mechanismID = $_SESSION['mechanismID'];
+$mechanismCode = $_SESSION['mechanismCode'];
+$mechanismTitle = $_SESSION['mechanismTitle'];
+$submissionFolder= $_SESSION['submissionFolder'];
+//-----------------------------------------------------------------
+$submission_id = $submissionID;
+$mid_padded = str_pad($mechanismCode, 3, '0', STR_PAD_LEFT);
+
+//SUB FOLDER
+//$sub_base = "/files/submissions/";
+$subDir = $submissionID . "_" . $mid_padded . "_" .$user ;
+//-----------------------------------------------------------------------
+
+$mid = $mechanismCode;
+$mtitle = $mechanismTitle;
+
+// run java code
+// shell_exec("java -classpath {$cgibin_core_a}/m-{$mid} m{$mid}");
+
 ?>
 
 <!DOCTYPE html>
@@ -24,10 +51,10 @@ if ($mid) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Memory Allocation</title>
+    <title>RUN: Memory Allocation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/p/f21-13/files/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/p/f25-01/files/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
@@ -39,9 +66,17 @@ if ($mid) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- allows mid to be accessible to all js files -->
     <script>
-        var mid = `<?php echo $mid; ?>`;
-        var httpcore_a_IO = `<?php echo $httpcore_a_IO; ?>`;
-        var httpcore_a = `<?php echo $httpcore_a; ?>`;
+        var mid = '<?php echo $mid; ?>';
+
+        // For hrefs in the site (i.e. navigation).
+        <?php
+          $SITE_ROOT=$env['SITE_ROOT'];
+          $httpcore_s_IO = $SITE_ROOT . "files/submissions/" . $subDir;
+          $httpcore_s = $httpcore_s_IO;
+        ?>
+
+        var httpcore_s_IO = '<?php echo $httpcore_s_IO; ?>';
+        var httpcore_s = '<?php echo $httpcore_s; ?>';
     </script>
     <script type="module" src="main.js" defer></script>
 </head>
@@ -49,11 +84,9 @@ if ($mid) {
 <body>
 
     <?php include '../../navbar.php'; ?>
-    
-    <br>
+
     <div class="center text-center">
-        <h1 id="title">VISUALIZE: Memory Allocation - <?= $mtitle ?></h1>
-        <h4>Only 1 process can be allocated per memory slot</h4>
+        <h1 id="title">Visualize: Memory Allocation - <?= $mtitle ?> (SubID=<?= $submissionID ?>) </h1>
     </div>
 
     <div id="overlay">
@@ -66,7 +99,7 @@ if ($mid) {
     </div>
 
     <div id="animNavBtns" class="text-center align-items-center justify-content-center">
-        <button type="button" class="btn btn-primary" id="exit" onclick="location.href='index.php';">Exit</button>
+        <button type="button" class="btn btn-primary" id="exit" onclick="location.href='../edit.php';">Exit</button>
         <button type="button" class="btn btn-primary" id="skipBack">Reset</button>
         <button type="button" class="btn btn-primary" id="stepBack">
             < Step</button>
