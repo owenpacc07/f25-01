@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <?php include '../../../navbar.php'; ?>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+        .lst-kix_9ooivjdsrlwc-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_9ooivjdsrlwc-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_9ooivjdsrlwc-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_9ooivjdsrlwc-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-3 {
+            list-style-type: none
+        }
+
+        .lst-kix_9ooivjdsrlwc-3>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-5 {
+            list-style-type: none
+        }
+
+        .lst-kix_9ooivjdsrlwc-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_9ooivjdsrlwc-4>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-5 {
+            list-style-type: none
+        }
+
+        .lst-kix_qw5ru2h2ixlq-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_qw5ru2h2ixlq-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_qw5ru2h2ixlq-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_qw5ru2h2ixlq-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_9ooivjdsrlwc-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_qw5ru2h2ixlq-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_qw5ru2h2ixlq-8>li:before {
+            content: "\0025a0   "
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        .lst-kix_qw5ru2h2ixlq-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_9ooivjdsrlwc-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_9ooivjdsrlwc-1>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_qw5ru2h2ixlq-2 {
+            list-style-type: none
+        }
+
+        .lst-kix_qw5ru2h2ixlq-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_qw5ru2h2ixlq-3>li:before {
+            content: "\0025cf   "
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c3 {
+            margin-left: 36pt;
+            padding-top: 0pt;
+            padding-left: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c0 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c9 style="font-weight: bold; font-size: 26px;" {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c7 {
+            padding-top: 0pt;
+            padding-bottom: 3pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c12 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c1 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c13 {
+            padding-top: 20pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c2 {
+            padding-top: 18pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c15 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c11 style="text-decoration: underline;" {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 16pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c16 {
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c4 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c10 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c8 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c5 {
+            margin-left: 72pt;
+            padding-left: 0pt
+        }
+
+        .c6 {
+            color: #ff00ff
+        }
+
+        .c17 {
+            color: #0000ff
+        }
+
+        .c14 {
+            height: 11pt
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #666666;
+            font-size: 15pt;
+            padding-bottom: 16pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; width: 100%; padding: 0; box-sizing: border-box; padding-top: 50px;">
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; margin-top: 50px; border: 2px solid #000000; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); padding: 25px;  max-width: 80%;">
+        <a class="btn btn-dark" href="javascript:history.back()" role="button">Go Back</a>
+	<br>
+        <p class="c12 title" id="h.96drq47lg7n6"><span class="c6 c16"
+                style="color: green; text-decoration: underline; font-weight: bold;">A Quick Abstract:</span></p>
+        <h1 class="c13" id="h.8qikzlvj9x3g"><span class="c9" style="font-weight: bold; font-size: 26px;">1. Introduction
+                to Page Replacement:</span></h1>
+        <p class="c4"><span class="c1">In virtual memory systems, page replacement algorithms are crucial for efficient
+                memory management. The Optimal algorithm is an idealized strategy that, at each page fault, replaces the
+                page that will not be used for the longest period in the future.</span></p>
+        <p class="c4 c14"><span class="c1"></span></p>
+        <h1 class="c13" id="h.dtw5buaqxwy"><span class="c9" style="font-weight: bold; font-size: 26px;">2. Optimal Page
+                Replacement Algorithm:</span></h1>
+        <h2 class="c2" id="h.vaqsd473yqi0"><span class="c11" style="text-decoration: underline;">Working:</span></h2>
+        <p class="c4 c14"><span class="c1"></span></p>
+        <p class="c4"><span class="c1">Predict the future page references for each page in memory.</span></p>
+        <h2 class="c2" id="h.eupijyhkfe9b"><span class="c11" style="text-decoration: underline;">When a page fault
+                occurs:</span></h2>
+        <p class="c4"><span class="c1">Select the page that will not be used for the longest period in the future for
+                replacement.</span></p>
+        <h2 class="c2" id="h.spsa8cplvyj7"><span class="c11" style="text-decoration: underline;">Advantages:</span></h2>
+        <p class="c4 c14"><span class="c1"></span></p>
+        <p class="c4"><span class="c1">Provides the lowest possible page-fault rate (optimal solution).</span></p>
+        <p class="c4"><span class="c1">Serves as a benchmark for comparing other page replacement algorithms.</span></p>
+        <h2 class="c2" id="h.3l3hznb5vmbr"><span class="c11" style="text-decoration: underline;">Disadvantages:</span>
+        </h2>
+        <p class="c4 c14"><span class="c1"></span></p>
+        <p class="c4"><span class="c1">Requires knowledge of future page references, which is typically not
+                available.</span></p>
+        <h1 class="c13" id="h.br2pp48ndk0y"><span class="c9" style="font-weight: bold; font-size: 26px;">3. Example
+                Scenario:</span></h1>
+        <p class="c4"><span class="c1">Consider a memory system with three frames (A, B, C) and a sequence of page
+                requests:
+                1, 2, 3, 4, 1, 2, 5, 1, 2, 3.</span></p>
+        <p class="c4 c14"><span class="c1"></span></p>
+        <p class="c4"><span class="c1">Initial state: | - | - | - |</span></p>
+        <p class="c4"><span class="c1">Page 1 is requested: | 1 | - | - |</span></p>
+        <p class="c4"><span class="c1">Page 2 is requested: | 1 | 2 | - |</span></p>
+        <p class="c4"><span class="c1">Page 3 is requested: | 1 | 2 | 3 |</span></p>
+        <p class="c4"><span class="c1">Page 4 is requested: | 4 | 2 | 3 | (Page 1 will not be used for the longest
+                period,
+                so it is replaced)</span></p>
+        <p class="c4"><span class="c1">Page 1 is requested: | 4 | 2 | 1 | (Page 3 will not be used for the longest
+                period,
+                so it is replaced)</span></p>
+        <p class="c4"><span class="c1">... and so on.</span></p>
+        <h1 class="c13" id="h.sjypost5y4ki"><span class="c9" style="font-weight: bold; font-size: 26px;">4.
+                Conclusion:</span></h1>
+        <p class="c4"><span class="c1">The Optimal algorithm represents the optimal solution for page replacement, as it
+                selects pages based on future references to minimize page faults. However, its theoretical nature is
+                limited
+                by the impracticality of predicting future page references in real-world scenarios. Nonetheless, the
+                Optimal
+                algorithm serves as a benchmark for evaluating the performance of other page replacement
+                algorithms.</span>
+        </p>
+        <br>
+        <p class="c12 title" id="h.k9yx1qn2abhs"><span class="c6"
+                style="color: maroon; text-decoration: underline; font-weight: bold; text-align: left;">Notes From The
+                Slides:</span></p>
+        <br>
+        <p class="c7 title" id="h.wppnz3tp72gu"><span><br></span><span class="c16 c17">Algorithms Based on
+                Timestamps<br><br>+ Optimal Method (future: when it&rsquo;ll be needed)<br>+ LRU (past: when it was LAST
+                used)</span></p>
+        <p class="c4 c14"><span class="c0"></span></p>
+        <p class="c7 title" id="h.p9e75ku0ulct"><span class="c15">Optimal Algorithm</span></p>
+        <p class="c4 c14"><span class="c0"></span></p>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-0 start">
+            <li class="c3 li-bullet-0"><span class="c0">Replace page that will not be used for longest period of
+                    time</span>
+            </li>
+        </ul>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-1 start">
+            <li class="c4 c5 li-bullet-0"><span class="c0">9 is optimal for the example</span></li>
+        </ul>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-0">
+            <li class="c3 li-bullet-0"><span class="c0">How do you know this?</span></li>
+        </ul>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-1 start">
+            <li class="c4 c5 li-bullet-0"><span class="c0">Can&rsquo;t read the future</span></li>
+        </ul>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-0">
+            <li class="c3 li-bullet-0"><span class="c0">Used for measuring how well your algorithm performs</span></li>
+        </ul>
+        <br>
+        <p class="c4"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 300.33px;"><img
+                    alt="" src="images/optimal-page-replacement.png"
+                    style="width: 624.00px; height: 350.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c4 c14"><span class="c0"></span></p>
+        <p class="c7 title" id="h.m9g9a3qrovx0"><span class="c15">Optimal Algorithm</span></p>
+        <p class="c4 c14"><span class="c0"></span></p>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-0">
+            <li class="c3 li-bullet-0"><span class="c0">Replace page that will not be used for longest period of
+                    time</span>
+            </li>
+        </ul>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-1 start">
+            <li class="c4 c5 li-bullet-0"><span class="c0">9 is optimal for the example</span></li>
+        </ul>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-0">
+            <li class="c3 li-bullet-0"><span class="c0">How do you know this?</span></li>
+        </ul>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-1 start">
+            <li class="c4 c5 li-bullet-0"><span class="c0">Can&rsquo;t read the future</span></li>
+        </ul>
+        <ul class="c8 lst-kix_9ooivjdsrlwc-0">
+            <li class="c3 li-bullet-0"><span class="c0">Used for measuring how well your algorithm performs</span></li>
+        </ul>
+        <p class="c4 c14"><span class="c0"></span></p>
+        <p class="c4"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 210.67px;"><img
+                    alt="" src="images/image2.png"
+                    style="width: 624.00px; height: 210.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+</body>
+<footer style="background-color: #f2f2f2; padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+    <p style="color: green;">Most of the content on this page is based on the OS Book 10. It can be found at
+        <a href="https://www.os-book.com/" target="_blank" style="color: green;">www.os-book.com</a>.
+    </p>
+</footer>
+
+</html>

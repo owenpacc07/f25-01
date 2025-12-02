@@ -1,0 +1,662 @@
+/* 
+**  FIRST COME FIRST SERVE
+*/
+
+// Imports functions created in a seperate file to help with waiting for data to load on the backend
+import { toggleOverlay, loadingData } from "./loading_data_backend.js";
+
+// NOTE:  The sorted array is used to know which output data to use from the readOutputTextFile() function.  The animation is displayed based off of this array.
+
+if (typeof window !== 'undefined') {
+    console.log('You are on the browser');
+} else {
+    console.log('You are on the server');
+}
+
+var table = document.getElementById("processTable");
+
+var procHandler = [];
+var procLoad = [];
+var numberString = '';
+var nextNum;
+var processCount = 0;
+var sortedLine = [];
+var sorted = [];
+var otherOutputInformation = [];
+var outputLine = [];
+let waitingInformation = [];
+let responseTimes = [];
+let schedulingMethod = "fcfs";
+
+// address to the other CPU Scheduling pages
+// Non-preemptive locations
+let first_come_first_serve = 'https://cs.newpaltz.edu/p/f22-02/v3/p3-os-main/core/m-001.php';
+let shortest_job_first_np = 'https://cs.newpaltz.edu/p/f22-02/v3/p3-os-main/core/m-002.php';
+let priority_high_to_low_np = 'https://cs.newpaltz.edu/p/f22-02/v3/p3-os-main/core/m-003.php';
+let priority_low_to_high_np = 'https://cs.newpaltz.edu/p/f22-02/v3/p3-os-main/core/m-004.php';
+
+// Preemptive Locations
+let round_robin = 'https://cs.newpaltz.edu/p/f22-02/v3/p3-os-main/core/m-005.php';
+let shortest_job_first_p = 'https://cs.newpaltz.edu/p/f22-02/v3/p3-os-main/core/m-006.php';
+let priority_high_to_low_p = 'https://cs.newpaltz.edu/p/f22-02/v3/p3-os-main/core/m-007.php';
+let priority_low_to_high_p = 'https://cs.newpaltz.edu/p/f22-02/v3/p3-os-main/core/m-008.php';
+
+// Input and output file paths
+let input_file_path = 'https://cs.newpaltz.edu/p/f22-02/files/p3/in.dat';
+let output_file_path = 'https://cs.newpaltz.edu/p/f22-02/files/p3/out.dat';
+
+
+//function to use php file data as input to animations
+function usePHPinputData(data) {
+    data.split('\n').forEach(function (line) {
+        numberString = line;
+        // // for loop, on each newline for each comma
+        numberString.split(',').forEach(function (number) {
+            nextNum = Number(number);
+            procLoad.push(nextNum);
+            // <ProcessID, Arrival, Burst, Priority>
+            if (procLoad.length == 4) {
+                procHandler.push(procLoad);
+                procLoad = [];
+            }
+        });
+    });
+}
+
+// New function to read in.dat file as input
+function readInputDataFile(file) {
+    procHandler = [];
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                var allText = rawFile.responseText;
+                let count = 0;
+
+                // for loop, on each newline
+                allText.split('\n').forEach(function (line) {
+                    numberString = line;
+
+                    let endIndex;
+                    let arrNumbers = numberString.split(' ');
+                    for (let i = 0; i < arrNumbers.length; i++) {
+                        if (arrNumbers[i].includes('/')) {
+                            endIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (count === 0) {
+
+                        // Add code to check type of scheduling method
+
+                    } else {
+                        arrNumbers.slice(0, endIndex + 1).forEach(function (number) {
+
+                            if (number.includes('/')) {
+                                let slashIndex = number.indexOf('/');
+                                number = number.substring(0, slashIndex);
+                            }
+
+                            nextNum = Number(number);
+                            procLoad.push(nextNum);
+                            // <ProcessID, Arrival, Burst, Priority>
+                            if (procLoad.length == 4) {
+                                procHandler.push(procLoad);
+                                procLoad = [];
+                            }
+                        });
+                    }
+
+                    count++;
+                });
+            }
+        }
+    }
+    rawFile.send(null);
+    return procHandler;
+}
+
+// New function to read out.dat file as input
+function readOutputDataFile(file) {
+    // reset data arrays to blank so they will contain only the current output information
+    sorted = [];
+    otherOutputInformation = [];
+    waitingInformation = [];
+
+    var rawFile = new XMLHttpRequest();
+    let nextOutputNum = 0;
+    let count = 0;
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
+                var allText = rawFile.responseText;
+                let outputTableInfo = true;
+
+                console.log(allText);
+
+                let arrOutput = allText.slice(3, allText.length);
+                arrOutput.split('\n').forEach(function (line) {
+                    if (count > 2) {
+                        if (line === "") {
+                            outputTableInfo = false;
+                        }
+                        if (outputTableInfo) {
+                            let outputString = line;
+
+                            outputString.split(',').forEach(function (number) {
+                                nextNum = Number(number);
+                                sortedLine.push(nextNum);
+                                // <ProcessID, Start Time, End Time>
+                                if (sortedLine.length == 3) {
+                                    sorted.push(sortedLine);
+                                    sortedLine = [];
+                                }
+                            });
+                        } else {
+
+                            if (line != "") {
+                                let outputString = line;
+
+                                if (outputString.includes(",")) {
+                                    outputString.split(',').forEach(function (outputData) {
+                                        nextNum = Number(outputData);
+                                        outputLine.push(nextNum);
+
+                                        if (outputLine.length == 7) {
+                                            otherOutputInformation.push(outputLine);
+                                            outputLine = [];
+                                        }
+                                    });
+                                } else {
+                                    nextNum = Number(outputString);
+                                    outputLine.push(nextNum);
+
+                                    if (outputLine.length == 4) {
+                                        waitingInformation.push(outputLine);
+                                        outputLine = [];
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    count++;
+                });
+            }
+        }
+    }
+    rawFile.send(null);
+    console.log(sorted);
+    console.log(waitingInformation);
+    console.log(otherOutputInformation);
+}
+
+readInputDataFile(input_file_path);
+
+var numberOfProcesses = procHandler.length;
+const processInfo = 4;
+
+var preemptive = false;
+$('input[type=radio][name=preType]').change(function () {
+    if (this.value == 'nonpre') {
+        preemptive = false;
+    }
+    else if (this.value == 'pre') {
+        preemptive = true;
+    }
+    changePreemptiveness();
+});
+
+let stepByStep = true;
+//animation type 
+$('input[type=radio][name=animationType]').change(function () {
+    if (this.value == 'StepByStep') {
+        stepByStep = true;
+        //disable play/pause
+        document.getElementById('play').setAttribute('disabled', 'disabled');
+        document.getElementById('pause').setAttribute('disabled', 'disabled');
+        document.getElementById('start').removeAttribute('disabled');
+    }
+    else if (this.value == 'Automatic') {
+        stepByStep = false;
+        //disable next/back
+        document.getElementById('start').setAttribute('disabled', 'disabled');
+        document.getElementById('next').setAttribute('disabled', 'disabled');
+        document.getElementById('back').setAttribute('disabled', 'disabled');
+        document.getElementById('play').removeAttribute("disabled");
+    }
+});
+
+
+// function disableRadioButtons() {
+//     document.getElementById('preemptive').disabled = true;
+//     document.getElementById('non-preemptive').disabled = true;
+// }
+
+// // User should not be able to check a button until they select a scheduling method
+// disableRadioButtons();
+
+// First Come First Serve
+var fcfs_np = document.getElementById('fcfs_np');
+fcfs_np.addEventListener("click", fcfsClick);
+function fcfsClick(e) {
+    location.replace(first_come_first_serve);
+}
+
+// Shortest Job First
+var sjf_np = document.getElementById('sjf_np');
+sjf_np.addEventListener("click", sjfClickNP);
+function sjfClickNP(e) {
+    location.replace(shortest_job_first_np);
+}
+
+var sjf_p = document.getElementById('sjf_p');
+sjf_p.addEventListener("click", sjfClickP);
+function sjfClickP(e) {
+    location.replace(shortest_job_first_p);
+}
+
+
+
+// Priority High
+var prioHigh_np = document.getElementById('prioHigh_np');
+prioHigh_np.addEventListener("click", prioHighClickNP);
+function prioHighClickNP(e) {
+    location.replace(priority_high_to_low_np);
+}
+
+var prioHigh_p = document.getElementById('prioHigh_p');
+prioHigh_p.addEventListener("click", prioHighClickP);
+function prioHighClickP(e) {
+    location.replace(priority_high_to_low_p);
+}
+
+
+// Priority Low
+var prioLowNP = document.getElementById('prioLow_np');
+prioLowNP.addEventListener("click", prioLowClickNP);
+function prioLowClickNP(e) {
+    location.replace(priority_low_to_high_np);
+}
+
+var prioLowP = document.getElementById('prioLow_p');
+prioLowP.addEventListener("click", prioLowClickP);
+function prioLowClickP(e) {
+    location.replace(priority_low_to_high_p);
+}
+
+
+// Round Robin
+var rr = document.getElementById('rr_p');
+rr.addEventListener("click", rrClick);
+function rrClick(e) {
+    location.replace(round_robin);
+}
+
+
+
+
+var procIndex = 0;
+const proc = 0;
+const arrive = 1;
+const burst = 2;
+
+var table = document.getElementById("animationResult");
+var head = document.getElementById("head");
+var body = document.getElementById("body");
+
+// Refreshes the waiting and response calculations
+function refreshWaitAndResponse() {
+    for (let i = 0; i < otherOutputInformation.length; i++) {
+        // resets Waiting Time <p> tags
+        let waitCalculations = document.getElementById('wait_' + (i));
+        if (waitCalculations != null) {
+            waitCalculations.innerHTML = "P" + (otherOutputInformation[i][0]) + ":  ";
+        }
+
+        // resets Response Time <p> tags
+        let responseCalculations = document.getElementById('response_' + (i));
+        if (responseCalculations != null) {
+            responseCalculations.innerHTML = "P" + (otherOutputInformation[i][0]) + ":  ";
+        }
+    }
+
+    refreshAverages();
+}
+
+function refreshAverages() {
+    // Waiting Time reset
+    var waitAverageTimeResult = document.getElementById('waitAverageResult');
+    waitAverageTimeResult.innerHTML = "";
+
+    var averageWaitTimeText = document.getElementById('averageWaitTimeText');
+    averageWaitTimeText.innerHTML = "";
+
+    var numeratorWait = document.getElementById('numeratorWait');
+    numeratorWait.innerHTML = "";
+
+    var denominatorWait = document.getElementById('denominatorWait');
+    denominatorWait.innerHTML = "";
+
+    // Response Time reset
+    var responseAverageTimeResult = document.getElementById('responseAverageResult');
+    responseAverageTimeResult.innerHTML = "";
+
+    var averageResponseTimeText = document.getElementById('averageResponseTimeText');
+    averageResponseTimeText.innerHTML = "";
+
+    var numeratorResponse = document.getElementById('numeratorResponse');
+    numeratorResponse.innerHTML = "";
+
+    var denominatorResponse = document.getElementById('denominatorResponse');
+    denominatorResponse.innerHTML = "";
+}
+
+// function refreshAnim() {
+//     // Clears the time internal on refresh animation to stop the automatic animation from constantly looping
+//     // if (animationPlaying)
+//     //     clearInterval(timeInterval);
+
+//     var count = document.getElementById('animationResult').rows[1].cells.length;
+//     for (var i = 0; i < count; i++) {
+//         $("#animationResult").find("td:last-child").remove();
+//         $("#animationResult").find("th:last-child").remove();
+//     }
+
+//     var row = document.getElementById("row" + i);
+//     for (var i = 0; i < numberOfProcesses; i++) {
+//         var row = document.getElementById("row" + i);
+//         row.style.cssText = 'background-color: rgb(255, 255, 240);';
+//     }
+
+//     // Refreshes the waiting and response calculations
+//     // refreshWaitAndResponse();
+//     removeWaitInfo();
+//     createWaitInfo();
+//     refreshAverages();
+    
+
+//     procIndex = 0;
+//     procNum = -1;
+
+//     if (stepByStep) {
+//         document.getElementById('start').disabled = false;
+//         document.getElementById('back').disabled = true;
+//         document.getElementById('next').disabled = true;
+//         document.getElementById('end').disabled = true;
+//     } else {
+//         document.getElementById('play').disabled = false;
+//         document.getElementById('pause').disabled = true;
+//     }
+// }
+
+
+//======================================================================================
+console.log("Process Count: " + procHandler.length);
+
+
+function generateResponseTime(proc) {
+
+    // reset Response Times array so it is empty
+    responseTimes = [];
+
+
+    let currentResponseTag;
+    let arrivalTime, processInitialCPUTime, negativeResponseTime;
+    let calculationText = "";
+    let minus = "<span class=\"space\">-</span>";
+    let equals = "<span class=\"space\">=</span>";
+    let arrow = "<span class=\"space\">-></span>";
+
+    if (proc === -1) {
+        for (let i = 0; i < otherOutputInformation.length; i++) {
+            currentResponseTag = document.getElementById('response_' + (i));
+
+            if (currentResponseTag != null) {
+
+                processInitialCPUTime = sorted[i][1];
+                arrivalTime = otherOutputInformation[i][1];
+
+                if ((processInitialCPUTime - arrivalTime) < 0) {
+                    negativeResponseTime = true;
+
+                    // pushes 0 as the response time result to an array holding all response times
+                    responseTimes.push(0);
+                }
+                else {
+                    negativeResponseTime = false;
+
+                    // pushes the response time result to an array holding all response times
+                    responseTimes.push((processInitialCPUTime - arrivalTime));
+                }
+
+                if (negativeResponseTime)
+                    calculationText = `${processInitialCPUTime} ${minus} ${arrivalTime} ${equals} ${(processInitialCPUTime - arrivalTime)} ${arrow} 0`;
+                else
+                    calculationText = `${processInitialCPUTime} ${minus} ${arrivalTime} ${equals} ${(processInitialCPUTime - arrivalTime)}`;
+                currentResponseTag.innerHTML = "P" + (otherOutputInformation[i][0]) + ":<span class=\"space\">" + calculationText + "</span>";
+            }
+        }
+        displayResponseAverage();
+    } else if (proc > -1) {
+        for (let i = 0; i < proc + 1; i++) {
+            currentResponseTag = document.getElementById('response_' + (i));
+
+            if (currentResponseTag != null) {
+
+                processInitialCPUTime = sorted[i][1];
+                arrivalTime = otherOutputInformation[i][1];
+
+                if ((processInitialCPUTime - arrivalTime) < 0) {
+                    negativeResponseTime = true;
+
+                    // pushes 0 as the response time result to an array holding all response times
+                    responseTimes.push(0);
+                }
+                else {
+                    negativeResponseTime = false;
+
+                    // pushes the response time result to an array holding all response times
+                    responseTimes.push((processInitialCPUTime - arrivalTime));
+                }
+
+                if (negativeResponseTime)
+                    calculationText = `${processInitialCPUTime} ${minus} ${arrivalTime} ${equals} ${(processInitialCPUTime - arrivalTime)} ${arrow} ${otherOutputInformation[i][6]}`;
+                else
+                    calculationText = `${processInitialCPUTime} ${minus} ${arrivalTime} ${equals} ${otherOutputInformation[i][6]}`;
+                currentResponseTag.innerHTML = "P" + (otherOutputInformation[i][0]) + ":<span class=\"space\">" + calculationText + "</span>";
+            }
+        }
+        if (proc == sorted.length - 1)
+            displayResponseAverage();
+    }
+}
+
+function displayResponseAverage() {
+
+    // Response Average
+    let numerator = document.getElementById('numeratorResponse');
+    let denominator = document.getElementById('denominatorResponse');
+    let result = document.getElementById('responseAverageResult');
+    let responseText = document.getElementById('averageResponseTimeText');
+    let text = '';
+    let average = 0;
+
+    for (let i = 0; i < responseTimes.length; i++) {
+        if (i === 0)
+            text += otherOutputInformation[i][6];
+        else
+            text += ' + ' + otherOutputInformation[i][6];
+    }
+
+    responseText.innerHTML = "Response Average:<span class=\"space\"> </span>";
+    numerator.innerHTML = text;
+    denominator.innerHTML = numberOfProcesses;
+    result.innerHTML = "<span class=\"space\">=</span>" + waitingInformation[0][3];
+
+}
+
+
+
+
+// Calculate Waiting Time
+// Waiting Time = Exit Time - Arrival Time - Burst Time
+function generateWaitingTime(proc) {
+
+    let currentWaitTag;
+    let exitTime, arrivalTime, burstTime, currentProcessIdIndex, negativeWaitTime;
+    let calculationText = "";
+    let minus = "<span class=\"space\">-</span>";
+    let equals = "<span class=\"space\">=</span>";
+    let arrow = "<span class=\"space\">-></span>";
+
+    if (proc === -1) {
+        console.log("END BUTTON PRESSED");
+        for (let i = 0; i < otherOutputInformation.length; i++) {
+            currentWaitTag = document.getElementById('wait_' + (i));
+
+            if (currentWaitTag != null) {
+
+                exitTime = sorted[i][2];
+                arrivalTime = otherOutputInformation[i][1];
+
+                currentProcessIdIndex = otherOutputInformation[i][0] - 1;
+                burstTime = procHandler[currentProcessIdIndex][2];
+                if ((exitTime - arrivalTime - burstTime) < 0)
+                    negativeWaitTime = true;
+                else
+                    negativeWaitTime = false;
+
+                if (negativeWaitTime)
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${(exitTime - arrivalTime - burstTime)} ${arrow} ${otherOutputInformation[i][5]}`;
+                else
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${otherOutputInformation[i][5]}`;
+                currentWaitTag.innerHTML = "P" + (otherOutputInformation[i][0]) + ":<span class=\"space\">" + calculationText + "</span>";
+            }
+        }
+        displayWaitAverage();
+    } else if (proc > -1) {
+        for (let i = 0; i < proc + 1; i++) {
+            currentWaitTag = document.getElementById('wait_' + (i));
+            if (currentWaitTag != null) {
+                exitTime = sorted[i][2];
+                arrivalTime = otherOutputInformation[i][1];
+
+                currentProcessIdIndex = otherOutputInformation[i][0] - 1;
+                burstTime = procHandler[currentProcessIdIndex][2];
+                if ((exitTime - arrivalTime - burstTime) < 0)
+                    negativeWaitTime = true;
+                else
+                    negativeWaitTime = false;
+
+                if (negativeWaitTime)
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${(exitTime - arrivalTime - burstTime)} ${arrow} ${otherOutputInformation[i][5]}`;
+                else
+                    calculationText = `${exitTime} ${minus} ${arrivalTime} ${minus} ${burstTime} ${equals} ${otherOutputInformation[i][5]}`;
+                currentWaitTag.innerHTML = "P" + (otherOutputInformation[i][0]) + ":<span class=\"space\">" + calculationText + "</span>";
+            }
+        }
+        if (proc == sorted.length - 1)
+            displayWaitAverage();
+    }
+}
+
+function displayWaitAverage() {
+
+    // Waiting Average
+    let numerator = document.getElementById('numeratorWait');
+    let denominator = document.getElementById('denominatorWait');
+    let result = document.getElementById('waitAverageResult');
+    let waitText = document.getElementById('averageWaitTimeText');
+    let text = '';
+
+    for (let i = 0; i < otherOutputInformation.length; i++) {
+        if (i === 0)
+            text += otherOutputInformation[i][5];
+        else
+            text += ' + ' + otherOutputInformation[i][5];
+    }
+
+    waitText.innerHTML = "Wait Average:<span class=\"space\"> </span>";
+    numerator.innerHTML = text;
+    denominator.innerHTML = numberOfProcesses;
+    result.innerHTML = "<span class=\"space\">=</span>" + waitingInformation[0][1];
+}
+
+
+// Function called when the preemptive (or non-preemptive) radio button is pressed
+function changePreemptiveness() {
+    toggleOverlay();
+    if (preemptive) {
+        if (schedulingMethod === "sjf") {
+            console.log("Preemptive SJF");
+            updateSchedulerType(5);
+            loadingData(5);
+        }
+        else if (schedulingMethod === "prioHigh") {
+            console.log("Preemptive Priority High -> Low");
+            updateSchedulerType(6);
+            loadingData(6);
+        }
+        else if (schedulingMethod === "prioLow") {
+            console.log("Preemptive Priority Low -> High");
+            updateSchedulerType(7);
+            loadingData(7);
+        }
+        else if (schedulingMethod === "rr") {
+            console.log("Preemptive Round Robin");
+            updateSchedulerType(4);
+            loadingData(4);
+        }
+        else
+            console.log("Error in changePreemptiveness");
+
+    } else {
+        if (schedulingMethod === "fcfs") {
+            console.log("Non-preemptive FCFS");
+            updateSchedulerType(0);
+            loadingData(0);
+        }
+        else if (schedulingMethod === "sjf") {
+            console.log("Non-preemptive SJF");
+            updateSchedulerType(1);
+            loadingData(1);
+        }
+        else if (schedulingMethod === "prioHigh") {
+            console.log("Non-preemptive Priority High -> Low");
+            updateSchedulerType(2);
+            loadingData(2);
+        }
+        else if (schedulingMethod === "prioLow") {
+            console.log("Non-preemptive Priority Low -> High");
+            updateSchedulerType(3);
+            loadingData(3);
+        }
+        else if (schedulingMethod === "rr") {
+            console.log("Round Robin is not Non-Preemptive");
+        }
+        else
+            console.log("Error in changePreemptiveness");
+    }
+}
+
+// Calls PHP file updateInput.php to execute it's code
+// updateInput.php executes a Java class file that updates the first character of the in.dat file
+function updateSchedulerType(schedulerType) {
+    fetch('updateInput.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        body: "text=" + schedulerType
+      })
+      .then(response => response.text())
+      .then(data => console.log("Successful... " + data + " was added as first character"))
+}
+
+// These exported functions are used in the loading_data_backend.js to guarantee the read 
+// in.dat and out.dat files are read from after the backend code completed
+export { readInputDataFile, readOutputDataFile };

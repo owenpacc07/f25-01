@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <?php include '../../../navbar.php'; ?>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+        .lst-kix_fyi2fmf1vie7-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_fyi2fmf1vie7-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_fyi2fmf1vie7-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_fyi2fmf1vie7-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_fyi2fmf1vie7-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_fyi2fmf1vie7-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_ny5a62x0z8t9-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_ny5a62x0z8t9-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_ny5a62x0z8t9-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_ny5a62x0z8t9-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_ny5a62x0z8t9-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_ny5a62x0z8t9-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_ny5a62x0z8t9-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_cnx7bo4kcso-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_cnx7bo4kcso-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_cnx7bo4kcso-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_cnx7bo4kcso-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_cnx7bo4kcso-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_cnx7bo4kcso-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_cnx7bo4kcso-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_cnx7bo4kcso-1 {
+            list-style-type: none
+        }
+
+        .lst-kix_fyi2fmf1vie7-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_fyi2fmf1vie7-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_fyi2fmf1vie7-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_cnx7bo4kcso-5>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-3 {
+            list-style-type: none
+        }
+
+        .lst-kix_cnx7bo4kcso-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_cnx7bo4kcso-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-3 {
+            list-style-type: none
+        }
+
+        .lst-kix_cnx7bo4kcso-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_cnx7bo4kcso-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_cnx7bo4kcso-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_cnx7bo4kcso-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_cnx7bo4kcso-8>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_cnx7bo4kcso-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_fyi2fmf1vie7-7 {
+            list-style-type: none
+        }
+
+        .lst-kix_cnx7bo4kcso-1>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_ny5a62x0z8t9-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_ny5a62x0z8t9-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_ny5a62x0z8t9-0>li:before {
+            content: "\0025cf   "
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c8 {
+            border-right-style: solid;
+            padding: 5pt 5pt 5pt 5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: top;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 234pt;
+            border-top-color: #000000;
+            border-bottom-style: solid
+        }
+
+        .c1 {
+            padding-top: 20pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c9 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c21 {
+            color: #000000;
+            font-weight: 700;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c17 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c11 {
+            padding-top: 0pt;
+            padding-bottom: 3pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c0 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c6 {
+            padding-top: 18pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c10 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c2 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 16pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c3 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c20 {
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c5 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c13 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.0;
+            text-align: left
+        }
+
+        .c22 {
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin-right: auto
+        }
+
+        .c14 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c12 {
+            margin-left: 36pt;
+            padding-left: 0pt
+        }
+
+        .c4 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c15 {
+            margin-left: 72pt;
+            padding-left: 0pt
+        }
+
+        .c18 {
+            color: #0000ff
+        }
+
+        .c16 {
+            height: 0pt
+        }
+
+        .c19 {
+            color: #ff00ff
+        }
+
+        .c7 {
+            height: 11pt
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #666666;
+            font-size: 15pt;
+            padding-bottom: 16pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; width: 100%; padding: 0; box-sizing: border-box; padding-top: 50px;">
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; margin-top: 50px; border: 2px solid #000000; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); padding: 25px;  max-width: 80%;">
+        <a class="btn btn-dark" href="javascript:history.back()" role="button">Go Back</a>
+        <br>
+        <p class="c17 title" id="h.96drq47lg7n6"><span class="c19 c20"
+                style="color: green; text-decoration: underline; font-weight: bold;">A Quick Abstract:</span></p>
+        <h1 class="c1" id="h.ppxax5lbzw7w"><span class="c10" style="font-weight: bold; font-size: 26px;">1. Introduction
+                to Round Robin Scheduling:</span></h1>
+        <h2 class="c6" id="h.le7zkr45wpbn"><span class="c2" style="text-decoration: underline;">Definition:</span></h2>
+        <p class="c5"><span class="c3">&nbsp;Round Robin is a preemptive CPU scheduling algorithm that assigns a fixed
+                time
+                quantum to each process. Processes are executed in a circular order, with each process receiving CPU
+                time
+                for a specified quantum before moving to the next.</span></p>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <h1 class="c1" id="h.wqfjtjgm281v"><span class="c10" style="font-weight: bold; font-size: 26px;">2. Time
+                Quantum:</span></h1>
+        <h2 class="c6" id="h.vucz8lnit7bk"><span class="c2" style="text-decoration: underline;">Time Quantum:</span>
+        </h2>
+        <p class="c5"><span class="c3">Each process is allocated a fixed time quantum for execution on the CPU.</span>
+        </p>
+        <h1 class="c1" id="h.wvfh2gkapfbz"><span class="c10" style="font-weight: bold; font-size: 26px;">3. Execution
+                and Process Rotation:</span></h1>
+        <h2 class="c6" id="h.bs9ghkui56w"><span class="c2" style="text-decoration: underline;">Execution:</span></h2>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <p class="c5"><span class="c3">A process runs for its allocated time quantum or until it voluntarily releases
+                the
+                CPU.</span></p>
+        <p class="c5"><span class="c3">Process Rotation:</span></p>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <p class="c5"><span class="c3">If a process completes before its time quantum expires, the next process in the
+                queue
+                is selected.</span></p>
+        <p class="c5"><span class="c3">If a process&#39;s time quantum elapses, it is moved to the back of the ready
+                queue,
+                and the next process is chosen.</span></p>
+        <h1 class="c1" id="h.x40srt75dt3l"><span class="c10" style="font-weight: bold; font-size: 26px;">4. Waiting Time
+                and Turnaround Time:</span></h1>
+        <h2 class="c6" id="h.tim419wp6gfx"><span class="c2" style="text-decoration: underline;">Waiting Time:</span>
+        </h2>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <p class="c5"><span class="c3">Waiting time is the cumulative time a process spends waiting in the ready
+                queue.</span></p>
+        <h2 class="c6" id="h.mhi3hxdij683"><span class="c2" style="text-decoration: underline;">Turnaround Time:</span>
+        </h2>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <p class="c5"><span class="c3">Turnaround time is the overall time taken by a process from submission to
+                completion.</span></p>
+        <h1 class="c1" id="h.jtom4uive4a3"><span class="c10" style="font-weight: bold; font-size: 26px;">5. Pros and
+                Cons:</span></h1>
+        <h2 class="c6" id="h.rmmah1di8w26"><span class="c2" style="text-decoration: underline;">Pros:</span></h2>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <p class="c5"><span class="c3">Fair distribution of CPU time among processes.</span></p>
+        <p class="c5"><span class="c3">Suitable for time-sharing systems and environments with varying process burst
+                times.</span></p>
+        <h2 class="c6" id="h.wnwmdnpxi4sz"><span class="c2" style="text-decoration: underline;">Cons:</span></h2>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <p class="c5"><span class="c3">Overheads associated with context switching.</span></p>
+        <p class="c5"><span class="c3">May not be optimal for processes with consistent, long burst times.</span></p>
+        <h1 class="c1" id="h.yaioi6cc7zxt"><span class="c10" style="font-weight: bold; font-size: 26px;">6.
+                Starvation:</span></h1>
+        <p class="c5"><span class="c3">Round Robin is designed to prevent starvation, as each process is guaranteed a
+                time
+                quantum on the CPU.</span></p>
+        <h1 class="c1" id="h.we9z0vdnhokp"><span class="c10" style="font-weight: bold; font-size: 26px;">7. Example
+                Scenario:</span></h1>
+        <p class="c5"><span class="c3">Consider processes A, B, and C with time quantum 4.</span></p>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <p class="c5"><span class="c3">A &rarr; B &rarr; C &rarr; A &rarr; B &rarr; C &rarr; ... (and so on)</span></p>
+        <p class="c5"><span class="c3">Processes rotate in a cyclic manner, each receiving CPU time for the specified
+                time
+                quantum before moving to the next.</span></p>
+        <p class="c5 c7"><span class="c3"></span></p>
+        <h1 class="c1" id="h.pbbc9nm9ezoz"><span class="c10" style="font-weight: bold; font-size: 26px;">8.
+                Conclusion:</span></h1>
+        <p class="c5"><span class="c3">Round Robin scheduling provides a balanced approach to CPU allocation, ensuring
+                fairness among processes. While it may incur context-switching overhead, Round Robin is well-suited for
+                environments with diverse process burst times.</span></p>
+        <p class="c17 title" id="h.k9yx1qn2abhs"><span class="c19"
+                style="color: maroon; text-decoration: underline; font-weight: bold; text-align: left;">Notes From The
+                Slides:</span></p>
+        <br>
+        <br>
+        <p class="c5 c7"><span class="c0"></span></p>
+        <p class="c11 title" id="h.cwtwqr7p2488"><span class="c9">Round Robin (RR)</span></p>
+        <ul class="c4 lst-kix_ny5a62x0z8t9-0 start">
+            <li class="c5 c12 li-bullet-0"><span>Each process gets a small unit of CPU time (</span><span
+                    class="c18">time
+                    quantum</span><span class="c0">&nbsp;q), usually 10-100 milliseconds. &nbsp;After this time has
+                    elapsed,
+                    the process is preempted and added to the end of the ready queue.</span></li>
+            <li class="c5 c12 li-bullet-0"><span class="c0">If there are n processes in the ready queue and the time
+                    quantum
+                    is q, then each process gets 1/n of the CPU time in chunks of at most q time units at once. &nbsp;No
+                    process waits more than (n-1)q time units.</span></li>
+            <li class="c5 c12 li-bullet-0"><span class="c0">Timer interrupts every quantum to schedule next
+                    process</span>
+            </li>
+            <li class="c5 c12 li-bullet-0"><span class="c0">Performance</span></li>
+        </ul>
+        <ul class="c4 lst-kix_ny5a62x0z8t9-1 start">
+            <li class="c5 c15 li-bullet-0"><span class="c0">q large &nbsp;FIFO</span></li>
+            <li class="c5 c15 li-bullet-0"><span class="c0">q small &nbsp;q must be large with respect to context
+                    switch,
+                    otherwise overhead is too high</span></li>
+        </ul>
+        <p class="c11 title" id="h.3rqyqoy2mppd"><span class="c9">Example of RR with Time Quantum = 4</span></p>
+        <p class="c5 c7"><span class="c0"></span></p><a id="t.292022a15eafb6cc9f61d7c867ba8901cb96fa7e"></a><a
+            id="t.0"></a>
+        <table class="c22">
+            <tr class="c16">
+                <td class="c8" colspan="1" rowspan="1">
+                    <p class="c13"><span class="c0">Process</span></p>
+                </td>
+                <td class="c8" colspan="1" rowspan="1">
+                    <p class="c13"><span class="c0">Burst Time</span></p>
+                </td>
+            </tr>
+            <tr class="c16">
+                <td class="c8" colspan="1" rowspan="1">
+                    <p class="c13"><span class="c0">P1</span></p>
+                </td>
+                <td class="c8" colspan="1" rowspan="1">
+                    <p class="c13"><span class="c0">24</span></p>
+                </td>
+            </tr>
+            <tr class="c16">
+                <td class="c8" colspan="1" rowspan="1">
+                    <p class="c13"><span class="c0">P2</span></p>
+                </td>
+                <td class="c8" colspan="1" rowspan="1">
+                    <p class="c13"><span class="c0">3</span></p>
+                </td>
+            </tr>
+            <tr class="c16">
+                <td class="c8" colspan="1" rowspan="1">
+                    <p class="c13"><span class="c0">P3</span></p>
+                </td>
+                <td class="c8" colspan="1" rowspan="1">
+                    <p class="c13"><span class="c0">3</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="c5 c7"><span class="c0"></span></p>
+        <ul class="c4 lst-kix_fyi2fmf1vie7-0 start">
+            <li class="c5 c12 li-bullet-0"><span class="c0">The Gantt chart is:</span></li>
+        </ul>
+        <p class="c5"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 72.00px;"><img
+                    alt="" src="images/image1.png"
+                    style="width: 624.00px; height: 72.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c5 c7"><span class="c0"></span></p>
+        <ul class="c4 lst-kix_cnx7bo4kcso-0 start">
+            <li class="c5 c12 li-bullet-0"><span>Typically, higher average turnaround than SJF, but better </span><span
+                    class="c21">response</span></li>
+            <li class="c5 c12 li-bullet-0"><span class="c0">q should be large compared to context switch time</span>
+            </li>
+        </ul>
+        <ul class="c4 lst-kix_cnx7bo4kcso-1 start">
+            <li class="c5 c15 li-bullet-0"><span class="c0">q usually 10 milliseconds &nbsp;to 100 milliseconds, </span>
+            </li>
+            <li class="c5 c15 li-bullet-0"><span class="c0">Context switch &lt; 10 microseconds</span></li>
+        </ul>
+        <p class="c11 title" id="h.iwopzoi7l2c"><span class="c9">Time Quantum and Context Switch Time</span></p>
+        <p class="c5"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 261.33px;"><img
+                    alt="" src="images/image2.png"
+                    style="width: 624.00px; height: 261.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c11 c7 title" id="h.v7wpj5xektov"><span class="c9"></span></p>
+        <p class="c11 title" id="h.my9geiz5k0e6"><span class="c9">Turnaround Time Varies With The Time Quantum</span>
+        </p>
+        <p class="c5"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 518.67px;"><img
+                    alt="" src="images/image3.png"
+                    style="width: 624.00px; height: 518.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c5"><span class="c0">80% of CPU bursts should be shorter than q</span></p>
+        <p class="c5 c7"><span class="c0"></span></p>
+</body>
+<footer style="background-color: #f2f2f2; padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+    <p style="color: green;">Most of the content on this page is based on the OS Book 10. It can be found at
+        <a href="https://www.os-book.com/" target="_blank" style="color: green;">www.os-book.com</a>.
+    </p>
+</footer>
+
+</html>

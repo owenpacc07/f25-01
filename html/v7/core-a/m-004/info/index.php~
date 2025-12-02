@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <?php include '../../../navbar.php'; ?>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <style type="text/css">
+        .lst-kix_gnlk62sf4a9q-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_gnlk62sf4a9q-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_gnlk62sf4a9q-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_k0ig5gg3j0l1-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_l7gv1xr8017c-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_gnlk62sf4a9q-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_k0ig5gg3j0l1-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_k0ig5gg3j0l1-6>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-7 {
+            list-style-type: none
+        }
+
+        .lst-kix_l7gv1xr8017c-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-5 {
+            list-style-type: none
+        }
+
+        .lst-kix_k0ig5gg3j0l1-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_k0ig5gg3j0l1-8>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_gnlk62sf4a9q-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_b1db0flw69d7-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_b1db0flw69d7-0>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_b1db0flw69d7-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_gnlk62sf4a9q-4>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_b1db0flw69d7-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_b1db0flw69d7-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_b1db0flw69d7-4 {
+            list-style-type: none
+        }
+
+        .lst-kix_gnlk62sf4a9q-3>li:before {
+            content: "\0025cf   "
+        }
+
+        ul.lst-kix_b1db0flw69d7-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_b1db0flw69d7-6 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_b1db0flw69d7-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-0 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_b1db0flw69d7-8 {
+            list-style-type: none
+        }
+
+        .lst-kix_gnlk62sf4a9q-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_gnlk62sf4a9q-2>li:before {
+            content: "\0025a0   "
+        }
+
+        ul.lst-kix_b1db0flw69d7-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_k0ig5gg3j0l1-3 {
+            list-style-type: none
+        }
+
+        .lst-kix_gnlk62sf4a9q-1>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_l7gv1xr8017c-3 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_l7gv1xr8017c-4 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_l7gv1xr8017c-1 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_l7gv1xr8017c-2 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_l7gv1xr8017c-0 {
+            list-style-type: none
+        }
+
+        .lst-kix_b1db0flw69d7-8>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_b1db0flw69d7-7>li:before {
+            content: "\0025cb   "
+        }
+
+        ul.lst-kix_l7gv1xr8017c-7 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_l7gv1xr8017c-8 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_l7gv1xr8017c-5 {
+            list-style-type: none
+        }
+
+        ul.lst-kix_l7gv1xr8017c-6 {
+            list-style-type: none
+        }
+
+        .lst-kix_b1db0flw69d7-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_b1db0flw69d7-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_b1db0flw69d7-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_b1db0flw69d7-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_b1db0flw69d7-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_l7gv1xr8017c-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_l7gv1xr8017c-5>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_l7gv1xr8017c-2>li:before {
+            content: "\0025a0   "
+        }
+
+        .lst-kix_l7gv1xr8017c-6>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_k0ig5gg3j0l1-3>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_k0ig5gg3j0l1-1>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_k0ig5gg3j0l1-2>li:before {
+            content: "\0025a0   "
+        }
+
+        li.li-bullet-0:before {
+            margin-left: -18pt;
+            white-space: nowrap;
+            display: inline-block;
+            min-width: 18pt
+        }
+
+        .lst-kix_l7gv1xr8017c-4>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_k0ig5gg3j0l1-0>li:before {
+            content: "\0025cf   "
+        }
+
+        .lst-kix_l7gv1xr8017c-7>li:before {
+            content: "\0025cb   "
+        }
+
+        .lst-kix_l7gv1xr8017c-8>li:before {
+            content: "\0025a0   "
+        }
+
+        ol {
+            margin: 0;
+            padding: 0
+        }
+
+        table td,
+        table th {
+            padding: 0
+        }
+
+        .c0 {
+            border-right-style: solid;
+            padding: 5pt 5pt 5pt 5pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: top;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            width: 156pt;
+            border-top-color: #000000;
+            border-bottom-style: solid
+        }
+
+        .c1 {
+            margin-left: 36pt;
+            padding-top: 0pt;
+            padding-left: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c13 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 26pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c14 {
+            padding-top: 12pt;
+            padding-bottom: 12pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c5 {
+            color: #000000;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c12 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 11pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c6 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 16pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c11 {
+            padding-top: 20pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c15 {
+            color: #1155cc;
+            font-weight: 400;
+            text-decoration: none;
+            vertical-align: baseline;
+            font-size: 20pt;
+            font-family: "Arial";
+            font-style: normal
+        }
+
+        .c20 {
+            padding-top: 0pt;
+            padding-bottom: 3pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c4 {
+            padding-top: 18pt;
+            padding-bottom: 6pt;
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c3 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.15;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .c17 {
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin-right: auto
+        }
+
+        .c9 {
+            padding-top: 0pt;
+            padding-bottom: 0pt;
+            line-height: 1.0;
+            text-align: left
+        }
+
+        .c21 {
+            background-color: #ffffff;
+            max-width: 468pt;
+            padding: 72pt 72pt 72pt 72pt
+        }
+
+        .c7 {
+            padding: 0;
+            margin: 0
+        }
+
+        .c10 {
+            margin-left: 72pt;
+            padding-left: 0pt
+        }
+
+        .c2 {
+            height: 0pt
+        }
+
+        .c18 {
+            color: #0000ff
+        }
+
+        .c19 {
+            height: 16pt
+        }
+
+        .c8 {
+            height: 11pt
+        }
+
+        .c16 {
+            color: #ff00ff
+        }
+
+        .title {
+            padding-top: 0pt;
+            color: #000000;
+            font-size: 26pt;
+            padding-bottom: 3pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        .subtitle {
+            padding-top: 0pt;
+            color: #666666;
+            font-size: 15pt;
+            padding-bottom: 16pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        li {
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        p {
+            margin: 0;
+            color: #000000;
+            font-size: 11pt;
+            font-family: "Arial"
+        }
+
+        h1 {
+            padding-top: 20pt;
+            color: #000000;
+            font-size: 20pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h2 {
+            padding-top: 18pt;
+            color: #000000;
+            font-size: 16pt;
+            padding-bottom: 6pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h3 {
+            padding-top: 16pt;
+            color: #434343;
+            font-size: 14pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h4 {
+            padding-top: 14pt;
+            color: #666666;
+            font-size: 12pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h5 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+
+        h6 {
+            padding-top: 12pt;
+            color: #666666;
+            font-size: 11pt;
+            padding-bottom: 4pt;
+            font-family: "Arial";
+            line-height: 1.15;
+            page-break-after: avoid;
+            font-style: italic;
+            orphans: 2;
+            widows: 2;
+            text-align: left
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; width: 100%; padding: 0; box-sizing: border-box; padding-top: 50px;">
+
+    <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; margin-top: 50px; border: 2px solid #000000; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); padding: 25px;  max-width: 80%; ">
+        <a href="javascript:history.back()">Go Back</a>
+
+        <div>
+            <p class="c3 c8"><span class="c5"></span></p>
+        </div>
+        <p class="c14 title" id="h.cp76nyh8h8zq"><span class="c16"
+                style="color: green; text-decoration: underline; font-weight: bold;">A Quick Abstract:</span></p>
+        <h1 class="c11" id="h.qb0jk7xj1qip"><span class="c15" style="font-weight: bold; font-size: 26px;">1.
+                Introduction to Non-Preemptive Priority
+                Scheduling:</span>
+        </h1>
+        <h2 class="c4" id="h.npfz4pfvl0uz"><span class="c6" style="text-decoration: underline;">Definition:</span></h2>
+        <p class="c3"><span class="c12">&nbsp;Non-Preemptive Priority Scheduling is a CPU scheduling algorithm where
+                each
+                process is assigned a priority, and the process with the highest (or lowest, depending on the variant)
+                priority is selected for execution.</span></p>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <h1 class="c11" id="h.teryfcuhrhr7"><span class="c15" style="font-weight: bold; font-size: 26px;">2. Priority
+                Assignment:</span></h1>
+        <h2 class="c4" id="h.xicxqs2b21rl"><span class="c6" style="text-decoration: underline;">Priority Levels:</span>
+        </h2>
+        <p class="c3"><span class="c12">Each process is assigned a priority value, indicating its importance or
+                urgency.</span></p>
+        <h1 class="c11" id="h.xoq9fmk9qwoa"><span class="c15" style="font-weight: bold; font-size: 26px;">3. Execution
+                and Process Selection:</span></h1>
+        <h2 class="c4" id="h.cdppvtsln9uk"><span class="c6" style="text-decoration: underline;">High Priority
+                Variant:</span></h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">The process with the highest priority is selected for execution.</span></p>
+        <p class="c3"><span class="c12">Ties can be resolved using additional criteria like arrival time or process
+                ID.</span></p>
+        <h2 class="c4" id="h.40teohox8q0h"><span class="c6" style="text-decoration: underline;">Low Priority
+                Variant:</span></h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">The process with the lowest priority is selected for execution.</span></p>
+        <h1 class="c11" id="h.m8vm31ydwdmd"><span class="c15" style="font-weight: bold; font-size: 26px;">4. Waiting
+                Time and Turnaround Time:</span></h1>
+        <h2 class="c4" id="h.yq4vma7phe7t"><span class="c6" style="text-decoration: underline;">Waiting Time:</span>
+        </h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">Waiting time is the cumulative time a process spends in the ready queue.</span>
+        </p>
+        <h2 class="c4" id="h.6s028c411uij"><span class="c6" style="text-decoration: underline;">Turnaround Time:</span>
+        </h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">Turnaround time is the overall time taken by a process from submission to
+                completion.</span></p>
+        <h1 class="c11" id="h.7k79fgvhqjqr"><span class="c15" style="font-weight: bold; font-size: 26px;">5. Pros and
+                Cons:</span></h1>
+        <h2 class="c4" id="h.jw4z5o4bvlax"><span class="c6" style="text-decoration: underline;">High Priority
+                Variant:</span></h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">Allows for fair execution of tasks with less urgency.</span></p>
+        <p class="c3"><span class="c12">Might result in delayed execution for lower priority tasks.</span></p>
+        <h2 class="c4" id="h.wn2d7texn1ce"><span class="c6" style="text-decoration: underline;">Low Priority
+                Variant:</span></h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">Allows for fair execution of tasks with less urgency.</span></p>
+        <p class="c3"><span class="c12">Might result in delayed execution for higher priority tasks.</span></p>
+        <h1 class="c11" id="h.o45mlbunt6p5"><span class="c15" style="font-weight: bold; font-size: 26px;">6.
+                Starvation:</span></h1>
+        <h2 class="c4" id="h.3n3s2w1qg59d"><span class="c6" style="text-decoration: underline;">High Priority
+                Variant:</span></h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">There is a risk of lower priority tasks starving for CPU time.</span></p>
+        <h2 class="c4" id="h.m2u47rp8zby5"><span class="c6" style="text-decoration: underline;">Low Priority
+                Variant:</span></h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">There is a risk of higher priority tasks starving for CPU time.</span></p>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <h1 class="c11" id="h.j6rv8ca89afi"><span class="c15" style="font-weight: bold; font-size: 26px;">7. Example
+                Scenario:</span></h1>
+        <p class="c3"><span class="c12">Consider processes A, B, and C with priority levels 3, 1, and 2,
+                respectively.</span></p>
+        <h2 class="c4 c19" id="h.85d2rh8d8nub"><span class="c6" style="text-decoration: underline;"></span></h2>
+        <h2 class="c4" id="h.z9ntioy7sqzf"><span class="c6" style="text-decoration: underline;">High Priority
+                Variant:</span></h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">Process A has the highest priority (3) and is executed first.</span></p>
+        <p class="c3"><span class="c12">Ties can be broken based on additional criteria if needed.</span></p>
+        <h2 class="c4" id="h.jwu4y1pe48o"><span class="c6" style="text-decoration: underline;">Low Priority
+                Variant:</span></h2>
+        <p class="c3 c8"><span class="c12"></span></p>
+        <p class="c3"><span class="c12">Process B has the lowest priority (1) and is executed first.</span></p>
+        <p class="c3"><span class="c12">Again, ties can be resolved using other criteria.</span></p>
+        <p class="c3"><span class="c12">In this scenario, the High Priority Variant selects Process A, which has the
+                highest
+                priority, while the Low Priority Variant chooses Process B, which has the lowest priority. This
+                illustrates
+                the divergence in scheduling decisions between the two variants.</span></p>
+        <h1 class="c11" id="h.vzbbzrdl4x1u"><span class="c15" style="font-weight: bold; font-size: 26px;">8.
+                Conclusion:</span></h1>
+        <p class="c3"><span class="c12">In conclusion, Non-Preemptive Priority Scheduling offers a flexible approach by
+                considering the priority levels of processes. However, it requires careful consideration to prevent
+                starvation for lower priority tasks or delayed execution for higher priority tasks.</span></p>
+        <p class="c14 title" id="h.k9yx1qn2abhs"><span class="c16"
+                style="color: maroon; text-decoration: underline; font-weight: bold; text-align: left;">Notes From The
+                Slides:</span></p>
+        <br>
+        <br>
+        <p class="c20 title" id="h.f81xa5ro94xw"><span class="c13">Priority Scheduling</span></p>
+        <p class="c3 c8"><span class="c5"></span></p>
+        <ul class="c7 lst-kix_b1db0flw69d7-0 start">
+            <li class="c1 li-bullet-0"><span class="c5">A priority number (integer) is associated with each
+                    process</span>
+            </li>
+            <li class="c1 li-bullet-0"><span class="c5">The CPU is allocated to the process with the highest priority
+                    (smallest integer &nbsp;highest priority)</span></li>
+        </ul>
+        <ul class="c7 lst-kix_b1db0flw69d7-1 start">
+            <li class="c3 c10 li-bullet-0"><span class="c5">Preemptive</span></li>
+            <li class="c3 c10 li-bullet-0"><span class="c5">Nonpreemptive</span></li>
+        </ul>
+        <p class="c3 c8"><span class="c5"></span></p>
+        <ul class="c7 lst-kix_k0ig5gg3j0l1-0 start">
+            <li class="c1 li-bullet-0"><span class="c5">SJF is priority scheduling where priority is the inverse of
+                    predicted next CPU burst time</span></li>
+            <li class="c1 li-bullet-0"><span>Problem &nbsp;</span><span class="c18">Starvation </span><span
+                    class="c5">&ndash; low priority processes may never execute</span></li>
+            <li class="c1 li-bullet-0"><span>Solution &nbsp;</span><span class="c18">Aging </span><span
+                    class="c5">&ndash;
+                    as time progresses increase the priority of the process</span></li>
+        </ul>
+        <p class="c3 c8"><span class="c5"></span></p>
+        <p class="c20 title" id="h.r2rpj28tbifv"><span class="c13">Example of Priority Scheduling</span></p>
+        <p class="c3 c8"><span class="c5"></span></p><a id="t.0afb823f9a3dda255665f052a31a889dd9b0dcb3"></a><a
+            id="t.0"></a>
+        <table class="c17">
+            <tr class="c2">
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">Process</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">Burst Time</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">Priority</span></p>
+                </td>
+            </tr>
+            <tr class="c2">
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">P1</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">10</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">3</span></p>
+                </td>
+            </tr>
+            <tr class="c2">
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">P2</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">1</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">1</span></p>
+                </td>
+            </tr>
+            <tr class="c2">
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">P3</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">2</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">4</span></p>
+                </td>
+            </tr>
+            <tr class="c2">
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">P4</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">1</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">5</span></p>
+                </td>
+            </tr>
+            <tr class="c2">
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">P5</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">5</span></p>
+                </td>
+                <td class="c0" colspan="1" rowspan="1">
+                    <p class="c9"><span class="c5">2</span></p>
+                </td>
+            </tr>
+        </table>
+        <p class="c3 c8"><span class="c5"></span></p>
+        <ul class="c7 lst-kix_gnlk62sf4a9q-0 start">
+            <li class="c1 li-bullet-0"><span class="c5">Priority scheduling Gantt Chart</span></li>
+        </ul>
+        <p class="c3"><span
+                style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 72.00px;"><img
+                    alt="" src="images/image1.png"
+                    style="width: 624.00px; height: 72.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);"
+                    title=""></span></p>
+        <p class="c3 c8"><span class="c5"></span></p>
+        <ul class="c7 lst-kix_l7gv1xr8017c-0 start">
+            <li class="c1 li-bullet-0"><span class="c5">Average waiting time = 8.2</span></li>
+        </ul>
+</body>
+
+<footer style="background-color: #f2f2f2; padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+    <p style="color: green;">Most of the content on this page is based on the OS Book 10. It can be found at 
+        <a href="https://www.os-book.com/" target="_blank" style="color: green;">www.os-book.com</a>.
+    </p>
+</footer>
+
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Access Control</title>
+    <meta name="description" content="">  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/p/f21-13/files/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src='iocycle.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-venn.min.js"></script>
+
+</head>
+
+
+<body>
+
+    <?php include '../navbar.php';?>
+
+    <div class="d-flex align-items-center justify-content-center">
+        <h1 id="title">Access Control</h1>
+    </div>
+    
+    <div class="d-flex align-items-center justify-content-center">
+        <form id="animationTopic">
+            <input type="radio" name="animationTopic" id="tableView" value="tableView" /> Table View</input>
+            <input type="radio" name="animationTopic" id="bubbleView" value="bubbleView" /> Bubble View</input>
+        </form>
+    </div>        
+    
+
+
+    <div id="animarea" style="border-style: double; height: 540px; width: 95%; margin-left: 2.5%; margin-top: 1%; position: absolute">
+        <div id="left" style="height: 535px; width: 25%; background-color: #c6eef7; position: absolute">
+          <div id="text" style="height:535px; width:90%; margin-left:5%">          
+          <p style="font-size:17px"><b>Each domain specifies a set of objects and the types of operations on those objects</b>.</p>
+          <h5>Domain 1</h5>
+            <p>Object 1:
+              <input type="checkbox" id="read00" name="read" onchange="updateCellValue('cell00', this.checked, name)"/>
+              <label for="read00">Read</label>
+              <input type="checkbox" id="write00" name="write" onchange="updateCellValue('cell00', this.checked, name)"/>
+              <label for="write00">Write</label>
+              <input type="checkbox" id="execute00" name="execute" onchange="updateCellValue('cell00', this.checked, name)"/>
+              <label for="execute00">Execute</label>
+            <br>
+            Object 2:
+              <input type="checkbox" id="read01" name="read" onchange="updateCellValue('cell01', this.checked, name)"/>
+              <label for="read01">Read</label>
+              <input type="checkbox" id="write01" name="write" onchange="updateCellValue('cell01', this.checked, name)"/>
+              <label for="write01">Write</label>
+              <input type="checkbox" id="execute01" name="execute" onchange="updateCellValue('cell01', this.checked, name)"/>
+              <label for="execute01">Execute</label>            
+            <br>
+            Object 3:
+              <input type="checkbox" id="read02" name="read" onchange="updateCellValue('cell02', this.checked, name)"/>
+              <label for="read02">Read</label>
+              <input type="checkbox" id="write02" name="write" onchange="updateCellValue('cell02', this.checked, name)"/>
+              <label for="write02">Write</label>
+              <input type="checkbox" id="execute02" name="execute" onchange="updateCellValue('cell02', this.checked, name)"/>
+              <label for="execute02">Execute</label>            
+            </p>            
+
+          <h5>Domain 2</h5>
+	    <p>Object 1:
+              <input type="checkbox" id="read10" name="read" onchange="updateCellValue('cell10', this.checked, name)"/>
+              <label for="read10">Read</label>
+              <input type="checkbox" id="write10" name="write" onchange="updateCellValue('cell10', this.checked, name)"/>
+              <label for="write10">Write</label>
+              <input type="checkbox" id="execute10" name="execute" onchange="updateCellValue('cell10', this.checked, name)"/>
+              <label for="execute10">Execute</label>
+            <br>
+            Object 2:
+              <input type="checkbox" id="read11" name="read" onchange="updateCellValue('cell11', this.checked, name)"/>
+              <label for="read11">Read</label>
+              <input type="checkbox" id="write11" name="write" onchange="updateCellValue('cell11', this.checked, name)"/>
+              <label for="write11">Write</label>
+              <input type="checkbox" id="execute11" name="execute" onchange="updateCellValue('cell11', this.checked, name)"/>
+              <label for="execute11">Execute</label>            
+            <br>
+            Object 3:
+              <input type="checkbox" id="read12" name="read" onchange="updateCellValue('cell12', this.checked, name)"/>
+              <label for="read12">Read</label>
+              <input type="checkbox" id="write12" name="write" onchange="updateCellValue('cell12', this.checked, name)"/>
+              <label for="write12">Write</label>
+              <input type="checkbox" id="execute12" name="execute" onchange="updateCellValue('cell12', this.checked, name)"/>
+              <label for="execute12">Execute</label>            
+            </p> 
+
+          <h5>Domain 3</h5>
+	    <p>Object 1:
+              <input type="checkbox" id="read20" name="read" onchange="updateCellValue('cell20', this.checked, name)"/>
+              <label for="read20">Read</label>
+              <input type="checkbox" id="write20" name="write" onchange="updateCellValue('cell20', this.checked, name)"/>
+              <label for="write20">Write</label>
+              <input type="checkbox" id="execute20" name="execute" onchange="updateCellValue('cell20', this.checked, name)"/>
+              <label for="execute20">Execute</label>
+            <br>
+            Object 2:
+              <input type="checkbox" id="read21" name="read" onchange="updateCellValue('cell21', this.checked, name)"/>
+              <label for="read21">Read</label>
+              <input type="checkbox" id="write21" name="write" onchange="updateCellValue('cell21', this.checked, name)"/>
+              <label for="write21">Write</label>
+              <input type="checkbox" id="execute21" name="execute" onchange="updateCellValue('cell21', this.checked, name)"/>
+              <label for="execute21">Execute</label>            
+            <br>
+            Object 3:
+              <input type="checkbox" id="read22" name="read" onchange="updateCellValue('cell22', this.checked, name)"/>
+              <label for="read22">Read</label>
+              <input type="checkbox" id="write22" name="write" onchange="updateCellValue('cell22', this.checked, name)"/>
+              <label for="write22">Write</label>
+              <input type="checkbox" id="execute22" name="execute" onchange="updateCellValue('cell22', this.checked, name)"/>
+              <label for="execute22">Execute</label>            
+            </p> 
+            </div> 
+        </div>     
+ 
+        <div id="right" style="margin-left: 25%; height: 535px; width: 75%; position: absolute">
+            <p id="matrixText" hidden="hidden" style="text-align: center; font-size:17px"><b>Access Matrix: Access(i,j) is the set of operations that a process executing in Domain<sub>i</sub> can invoke on Object<sub>j</sub>.</b></p>
+            <div hidden="hidden" id="matrix" style="height: 70%; width: 80%; margin-left: 10%; margin-top: 5%">
+             <table class="table table-bordered" border="1" style="width:100%">
+              <tr>
+                <th class="table-active">Domain/Object</th>
+                <th class="table-active">O1</th>
+                <th class="table-active">O2</th>
+                <th class="table-active">O3</th>
+              </tr>
+              <tr>
+                <th class="table-active">D1</th>
+                <td id="cell00" class="table-info" class="pl-30"></td>
+                <td id="cell01" class="table-info"></td>
+                <td id="cell02" class="table-info"></td>                                
+              </tr>
+              <tr>
+                <th class="table-active">D2</th>
+                <td id="cell10" class="table-info"></td>
+                <td id="cell11" class="table-info"></td>
+                <td id="cell12" class="table-info"></td>
+              </tr>           
+              <tr>
+                <th class="table-active">D3</th>
+                <td id="cell20" class="table-info"></td>
+                <td id="cell21" class="table-info"></td>
+                <td id="cell22" class="table-info"></td>              
+              </tr>  
+             </table>
+            </div>
+	    <button type="button" id="update" hidden="hidden" style="margin-left:1%; margin-top:1%; position:absolute" class="btn btn-primary" onclick="updateDiagram()">Update</button>
+            <p id="bubbleText" hidden="hidden" style="margin-left:12%; margin-top:2%; font-size:17px"><b>Select desired operations for objects in the domains and click Update to view the diagram.</b></p>
+	    <div hidden="hidden" id="container" style="height:90%; width:100%; position: relative"></div>
+        </div>
+    </div>
+
+    
+ 
+</body>
+
+</html>
+
+<script>
+ 
+  function updateCellValue(cellId, isChecked, name) {
+    var cell = document.getElementById(cellId);
+    if(isChecked) {
+      cell.innerHTML += name+"<br/>";
+    } else {
+      cell.innerHTML = cell.innerHTML.replace(name+"<br>","");
+    }
+  }
+  
+  $('input[type=radio][name=animationTopic]').change(function () {
+    if (this.value == 'tableView') {
+      document.getElementById("matrix").removeAttribute("hidden");    
+      document.getElementById("matrixText").removeAttribute("hidden");    
+      document.getElementById("container").setAttribute("hidden","hidden"); 
+      document.getElementById("update").setAttribute("hidden","hidden"); 
+      document.getElementById("bubbleText").setAttribute("hidden","hidden");      
+    } else if (this.value = 'bubbleView') {
+      document.getElementById("matrix").setAttribute("hidden","hidden");    
+      document.getElementById("matrixText").setAttribute("hidden","hidden");        
+      document.getElementById("container").removeAttribute("hidden"); 
+      document.getElementById("update").removeAttribute("hidden");   
+      document.getElementById("bubbleText").removeAttribute("hidden"); 
+    }
+  });
+  
+   function updateDiagram() {
+    document.getElementById('container').innerHTML = "";
+         
+    var data = [];
+
+//DOMAIN 1
+    var d1o1 = "";
+    var d1o2 = "";
+    var d1o3 = "";
+    //DOMAIN 1 OBJECT 1
+    if(document.getElementById('read00').checked && document.getElementById('write00').checked && document.getElementById('execute00').checked) {  
+      d1o1 = "O1: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read00').checked && document.getElementById('write00').checked) {
+      d1o1 = "O1: {read, write}\n";
+    }
+    else if(document.getElementById('read00').checked && document.getElementById('execute00').checked) {
+      d1o1 = "O1: {read, execute}\n";
+    }
+    else if(document.getElementById('write00').checked && document.getElementById('execute00').checked) {
+      d1o1 = "O1: {write, execute}\n";
+    }
+    else if(document.getElementById('read00').checked) {
+      d1o1 = "O1: {read}\n";
+    }
+    else if(document.getElementById('write00').checked) {
+      d1o1 = "O1: {write}\n";
+    }
+    else if(document.getElementById('execute00').checked) {
+      d1o1 = "O1: {execute}\n";
+    }
+
+    //DOMAIN 1 OBJECT 2
+    if(document.getElementById('read01').checked && document.getElementById('write01').checked && document.getElementById('execute01').checked) {  
+      d1o2 = "O2: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read01').checked && document.getElementById('write01').checked) {
+      d1o2 = "O2: {read, write}\n";
+    }
+    else if(document.getElementById('read01').checked && document.getElementById('execute01').checked) {
+      d1o2 = "O2: {read, execute}\n";
+    }
+    else if(document.getElementById('write01').checked && document.getElementById('execute01').checked) {
+      d1o2 = "O2: {write, execute}\n";
+    }
+    else if(document.getElementById('read01').checked) {
+      d1o2 = "O2: {read}\n";
+    }
+    else if(document.getElementById('write01').checked) {
+      d1o2 = "O2: {write}\n";
+    }
+    else if(document.getElementById('execute01').checked) {
+      d1o2 = "O2: {execute}\n";
+    }
+
+    //DOMAIN 1 OBJECT 3
+    if(document.getElementById('read02').checked && document.getElementById('write02').checked && document.getElementById('execute02').checked) {  
+      d1o3 = "O3: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read02').checked && document.getElementById('write02').checked) {
+      d1o3 = "O3: {read, write}\n";
+    }
+    else if(document.getElementById('read02').checked && document.getElementById('execute02').checked) {
+      d1o3 = "O3: {read, execute}\n";
+    }
+    else if(document.getElementById('write02').checked && document.getElementById('execute02').checked) {
+      d1o3 = "O3: {write, execute}\n";
+    }
+    else if(document.getElementById('read02').checked) {
+      d1o3 = "O3: {read}\n";
+    }
+    else if(document.getElementById('write02').checked) {
+      d1o3 = "O3: {write}\n";
+    }
+    else if(document.getElementById('execute02').checked) {
+      d1o3 = "O3: {execute}\n";
+    }
+
+
+//DOMAIN 2
+    var d2o1 = "";
+    var d2o2 = "";
+    var d2o3 = "";
+    //DOMAIN 2 OBJECT 1
+    if(document.getElementById('read10').checked && document.getElementById('write10').checked && document.getElementById('execute10').checked) {  
+      d2o1 = "O1: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read10').checked && document.getElementById('write10').checked) {
+      d2o1 = "O1: {read, write}\n";
+    }
+    else if(document.getElementById('read10').checked && document.getElementById('execute10').checked) {
+      d2o1 = "O1: {read, execute}\n";
+    }
+    else if(document.getElementById('write10').checked && document.getElementById('execute10').checked) {
+      d2o1 = "O1: {write, execute}\n";
+    }
+    else if(document.getElementById('read10').checked) {
+      d2o1 = "O1: {read}\n";
+    }
+    else if(document.getElementById('write10').checked) {
+      d2o1 = "O1: {write}\n";
+    }
+    else if(document.getElementById('execute10').checked) {
+      d2o1 = "O1: {execute}\n";
+    }
+
+    //DOMAIN 2 OBJECT 2
+    if(document.getElementById('read11').checked && document.getElementById('write11').checked && document.getElementById('execute11').checked) {  
+      d2o2 = "O2: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read11').checked && document.getElementById('write11').checked) {
+      d2o2 = "O2: {read, write}\n";
+    }
+    else if(document.getElementById('read11').checked && document.getElementById('execute11').checked) {
+      d2o2 = "O2: {read, execute}\n";
+    }
+    else if(document.getElementById('write11').checked && document.getElementById('execute11').checked) {
+      d2o2 = "O2: {write, execute}\n";
+    }
+    else if(document.getElementById('read11').checked) {
+      d2o2 = "O2: {read}\n";
+    }
+    else if(document.getElementById('write11').checked) {
+      d2o2 = "O2: {write}\n";
+    }
+    else if(document.getElementById('execute11').checked) {
+      d2o2 = "O2: {execute}\n";
+    }
+
+    //DOMAIN 2 OBJECT 3
+    if(document.getElementById('read12').checked && document.getElementById('write12').checked && document.getElementById('execute12').checked) {  
+      d2o3 = "O3: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read12').checked && document.getElementById('write12').checked) {
+      d2o3 = "O3: {read, write}\n";
+    }
+    else if(document.getElementById('read12').checked && document.getElementById('execute12').checked) {
+      d2o3 = "O3: {read, execute}\n";
+    }
+    else if(document.getElementById('write12').checked && document.getElementById('execute12').checked) {
+      d2o3 = "O3: {write, execute}\n";
+    }
+    else if(document.getElementById('read12').checked) {
+      d2o3 = "O3: {read}\n";
+    }
+    else if(document.getElementById('write12').checked) {
+      d2o3 = "O3: {write}\n";
+    }
+    else if(document.getElementById('execute12').checked) {
+      d2o3 = "O3: {execute}\n";
+    }
+
+
+//DOMAIN 3
+    var d3o1 = "";
+    var d3o2 = "";
+    var d3o3 = "";
+    //DOMAIN 3 OBJECT 1
+    if(document.getElementById('read20').checked && document.getElementById('write20').checked && document.getElementById('execute20').checked) {  
+      d3o1 = "O1: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read20').checked && document.getElementById('write20').checked) {
+      d3o1 = "O1: {read, write}\n";
+    }
+    else if(document.getElementById('read20').checked && document.getElementById('execute20').checked) {
+      d3o1 = "O1: {read, execute}\n";
+    }
+    else if(document.getElementById('write20').checked && document.getElementById('execute20').checked) {
+      d3o1 = "O1: {write, execute}\n";
+    }
+    else if(document.getElementById('read20').checked) {
+      d3o1 = "O1: {read}\n";
+    }
+    else if(document.getElementById('write20').checked) {
+      d3o1 = "O1: {write}\n";
+    }
+    else if(document.getElementById('execute20').checked) {
+      d3o1 = "O1: {execute}\n";
+    }
+
+    //DOMAIN 3 OBJECT 2
+    if(document.getElementById('read21').checked && document.getElementById('write21').checked && document.getElementById('execute21').checked) {  
+      d3o2 = "O2: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read21').checked && document.getElementById('write21').checked) {
+      d3o2 = "O2: {read, write}\n";
+    }
+    else if(document.getElementById('read21').checked && document.getElementById('execute21').checked) {
+      d3o2 = "O2: {read, execute}\n";
+    }
+    else if(document.getElementById('write21').checked && document.getElementById('execute21').checked) {
+      d3o2 = "O2: {write, execute}\n";
+    }
+    else if(document.getElementById('read21').checked) {
+      d3o2 = "O2: {read}\n";
+    }
+    else if(document.getElementById('write21').checked) {
+      d3o2 = "O2: {write}\n";
+    }
+    else if(document.getElementById('execute21').checked) {
+      d3o2 = "O2: {execute}\n";
+    }
+
+    //DOMAIN 3 OBJECT 3
+    if(document.getElementById('read22').checked && document.getElementById('write22').checked && document.getElementById('execute22').checked) {  
+      d3o3 = "O3: {read, write, execute}\n";
+    }
+    else if(document.getElementById('read22').checked && document.getElementById('write22').checked) {
+      d3o3 = "O3: {read, write}\n";
+    }
+    else if(document.getElementById('read22').checked && document.getElementById('execute22').checked) {
+      d3o3 = "O3: {read, execute}\n";
+    }
+    else if(document.getElementById('write22').checked && document.getElementById('execute22').checked) {
+      d3o3 = "O3: {write, execute}\n";
+    }
+    else if(document.getElementById('read22').checked) {
+      d3o3 = "O3: {read}\n";
+    }
+    else if(document.getElementById('write22').checked) {
+      d3o3 = "O3: {write}\n";
+    }
+    else if(document.getElementById('execute22').checked) {
+      d3o3 += "O3: {execute}\n";
+    }
+
+//ORGANIZING DATA
+    var domain1 = "";
+    var domain1_2 = "";
+    var domain1_3 = "";
+    var domain2 = "";
+    var domain2_3 = "";
+    var domain3 = "";
+    var domain1_2_3 = "";
+  //OBJECT 1
+    //none of them are equal
+    if(d1o1!==d2o1 && d2o1!==d3o1 && d1o1!==d3o1) {
+      domain1 += d1o1;
+      domain2 += d2o1;
+      domain3 += d3o1;      
+    }
+    //all o1 are equal
+    else if(d1o1===d2o1 && d1o1===d3o1) {
+      domain1_2_3 += d1o1;
+    }
+    //d1o1 and d3o1 are equal
+    else if(d1o1===d3o1) {
+      domain1_3 += d1o1;
+      domain2 += d2o1;
+    }
+    //d1o1 and d2o1 are equal
+    else if(d1o1===d2o1) {
+      domain1_2 += d1o1;
+      domain3 += d3o1;
+    }
+    //d2o1 and d3o1 are equal
+    else if(d2o1===d3o1) {
+      domain2_3 += d2o1;
+      domain1 += d1o1;
+    }
+  //OBJECT 2
+    //none of them are equal
+    if(d1o2!==d2o2 && d2o2!==d3o2 && d1o2!==d3o2) {
+      domain1 += d1o2;
+      domain2 += d2o2;
+      domain3 += d3o2;      
+    }
+    //all o2 are equal
+    else if(d1o2===d2o2 && d2o2===d3o2) {
+      domain1_2_3 += d1o2;
+    }
+    //d1o2 and d2o2 are equal
+    else if(d1o2===d2o2) {
+      domain1_2 += d1o2;
+      domain3 += d3o2;
+    }
+    //d1o2 and d3o2 are equal
+    else if(d1o2===d3o2) {
+      domain1_3 += d1o2;
+      domain2 += d2o2;
+    }
+    //d2o2 and d3o2 are equal
+    else if(d2o2===d3o2) {
+      domain2_3 += d2o2;
+      domain1 += d1o2;
+    }
+  //OBJECT 3
+    //none of them are equal
+    if(d1o3!==d2o3 && d2o3!==d3o3 && d1o3!==d3o3) {
+      domain1 += d1o3;
+      domain2 += d2o3;
+      domain3 += d3o3;      
+    }
+    //all o3 are equal
+    else if(d1o3===d2o3 && d2o3===d3o3) {
+      domain1_2_3 += d1o3;
+    }
+    //d1o3 and d2o3 are equal
+    else if(d1o3===d2o3) {
+      domain1_2 += d1o3;
+      domain3 += d3o3;
+    }
+    //d1o3 and d3o3 are equal
+    else if(d1o3===d3o3) {
+      domain1_3 += d1o3;
+      domain2 += d2o3;
+    }
+    //d2o3 and d3o3 are equal
+    else if(d2o3===d3o3) {
+      domain2_3 += d2o3;
+      domain1 += d1o3;
+    }
+
+//Determine what domains and domain intersections are necessary for the diagram
+    if(domain1 !== "" || domain1_2 !== "" || domain1_3 !== "" || domain1_2_3 !== "")
+	data.push({x: "A", value: 100, name: "DOMAIN 1: \n"+domain1, normal: {fill:"#c0effa"}});
+    if(domain2 !== "" || domain1_2 !== "" || domain2_3 !== "" || domain1_2_3 !== "")
+	data.push({x: "B", value: 100, name: "DOMAIN 2: \n"+domain2, normal: {fill:"#c0effa"}});
+    if(domain3 !== "" || domain1_3 !== "" || domain2_3 !== "" || domain1_2_3 !== "")
+	data.push({x: "C", value: 100, name: "DOMAIN 3: \n"+domain3, normal: {fill:"#c0effa"}});
+      
+    if(domain1_2_3 !== ""){
+        data.push({x: ["A","B","C"], value: 30, name: domain1_2_3, normal: {fill:"#bfc5c7"}},
+	          {x: ["A","B"], value: 40, name: domain1_2, normal: {fill:"#d0d7d9"}},
+	          {x: ["A","C"], value: 40, name: domain1_3, normal: {fill:"#d0d7d9"}},
+              	  {x: ["B","C"], value: 40, name: domain2_3, normal: {fill:"#d0d7d9"}});
+    } else {
+    	if(domain1_2 !== "") 
+		data.push({x: ["A","B"], value: 40, name: domain1_2, normal: {fill:"#d0d7d9"}});
+    	if(domain1_3 !== "")	
+		data.push({x: ["A","C"], value: 40, name: domain1_3, normal: {fill:"#d0d7d9"}});
+    	if(domain2_3 !== "")
+		data.push({x: ["B","C"], value: 40, name: domain2_3, normal: {fill:"#d0d7d9"}});
+    }
+
+//CREATING THE DIAGRAM	    
+    let chart = anychart.venn(data);
+    chart.labels().format("{%name}");
+  //disable unwanted features
+    chart.legend(false);
+    chart.tooltip().enabled(false);
+    chart.interactivity().hoverMode(null);
+    chart.interactivity().selectionMode(null);
+  //design
+    chart.labels().fontColor('Black'); 
+    chart.labels().fontWeight('500');
+    chart.labels().fontSize('10px');
+    chart.stroke('1 #fff');
+    chart.container("container");
+    chart.draw();        
+  }
+
+  function clearData() {
+    $('input:checkbox').each(function() { this.checked = false; });  
+  }     
+</script>
